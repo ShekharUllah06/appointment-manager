@@ -155,9 +155,9 @@ header {
   background-size: cover;
   -o-background-size: cover;
   background-position: center;
-  background-image: url('../img/header.jpg');
+  background-image: url('');
   text-align: center;
-  color: white;
+  color: black;
 }
 header .header-content {
   position: relative;
@@ -177,13 +177,13 @@ header .header-content .header-content-inner hr {
 }
 header .header-content .header-content-inner p {
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
+  color: black;
   font-size: 16px;
   margin-bottom: 50px;
 }
 header .header-content .header-content-inner a {
   font-weight: bold;
-  color: #ffffff;
+  color: black;
 }
 @media (min-width: 768px) {
   header {
