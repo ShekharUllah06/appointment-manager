@@ -54,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Laravel Admin</a>
+                <a class="navbar-brand" href="index.html">Appointment Manager Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -91,20 +91,26 @@
                         <a href="{{ url('/admin') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="{{ url('/admin/schedule') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
                     </li>
-                    <li>
-                        <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-table"></i> Tables</a>
+                    <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse">
+                        <a href="{{ url('#') }}"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
+                        <ul class="sub-menu collapse" id="submenu-collapse">
+                            <li>
+                                <a href="{{ url('/admin/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/admin/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/admin/settings/work-history') }}"><i class="glyphicon glyphicon-hourglass"></i> Work History</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/admin/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
+                            </li>
+                        </ul>
                     </li>
-                    <li>
-                        <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-edit"></i> Forms</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
-                    </li>
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -122,6 +128,7 @@
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://ajax.googleapis(.)com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
