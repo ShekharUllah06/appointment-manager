@@ -94,7 +94,7 @@
                         <a href="{{ url('/admin/schedule') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
                     </li>
                     <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse">
-                        <a href="{{ url('#') }}"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
+                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
                         <ul class="sub-menu collapse" id="submenu-collapse">
                             <li>
                                 <a href="{{ url('/admin/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
@@ -103,7 +103,7 @@
                                 <a href="{{ url('/admin/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
                             </li>
                             <li>
-                                <a href="{{ url('/admin/settings/work-history') }}"><i class="glyphicon glyphicon-hourglass"></i> Work History</a>
+                                <a href="{{ url('/admin/settings/work-history') }}"><i class="glyphicon glyphicon-list-alt"></i> Work History</a>
                             </li>
                             <li>
                                 <a href="{{ url('/admin/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
