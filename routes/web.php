@@ -11,13 +11,26 @@
 |
 */
 
-Route::get('/',         ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
+//Home Page Route
+Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
 
-
+//Admin Pannel Routes
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth'], function()
 {
+    //home Page Route
     Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'PagesController@getDashboard']);
-	Route::get('/blank', ['as' => 'admin.blank', 'uses' => 'PagesController@getBlank']);
+    //home Page Route
+    Route::get('schedule', ['as' => 'admin.schedule', 'uses' => 'PagesController@getSchedule']);
+    
+//Settings Sub-Menu routes    
+    //chamber Page Route
+    Route::get('settings/chamber', ['as' => 'admin.settings.chamber', 'uses' => 'PagesController@getChamber']);
+    //educating Page Route
+    Route::get('settings/education', ['as' => 'admin.settings.education', 'uses' => 'PagesController@getEducalion']);
+    //personal-info Page Route
+    Route::get('settings/personal-info', ['as' => 'admin.settings.personal-info', 'uses' => 'PagesController@getPersonalInfo']);
+    //work-history Page Route
+    Route::get('settings/work-history', ['as' => 'admin.settings.work-history', 'uses' => 'PagesController@getWorkHistory']);
 });
 
 // auth routes setup
