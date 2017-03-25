@@ -33,8 +33,15 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
-	
-	/**
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $fillable = ['username','first_name','last_name','email','password'];
+
+    /**
      * Overriding the exiting sendPasswordResetNotification so that I can customize it
      *
      * @var array
