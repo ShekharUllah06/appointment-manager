@@ -20,17 +20,25 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
     //home Page Route
     Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'PagesController@getDashboard']);
     //home Page Route
-    Route::get('schedule', ['as' => 'admin.schedule', 'uses' => 'PagesController@getSchedule']);
+    Route::get('schedule', ['as' => 'adminSchedule', 'uses' => 'PagesController@viewSchedule']);
     
 //Settings Sub-Menu routes    
-    //chamber Page Route
-    Route::get('settings/chamber', ['as' => 'admin.settings.chamber', 'uses' => 'PagesController@getChamber']);
-    //educating Page Route
-    Route::get('settings/education', ['as' => 'admin.settings.education', 'uses' => 'PagesController@getEducalion']);
-    //personal-info Page Route
-    Route::get('settings/personal-info', ['as' => 'admin.settings.personal-info', 'uses' => 'PagesController@getPersonalInfo']);
-    //work-history Page Route
-    Route::get('settings/work-history', ['as' => 'admin.settings.work-history', 'uses' => 'PagesController@getWorkHistory']);
+//
+//chamber Page Route
+    Route::get('settings/chamber', ['as' => 'adminChamber', 'uses' => 'PagesController@viewChamber']);
+    
+//educating Page Route
+    Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducalion']);
+    
+//personal-info Page Route
+
+    Route::get('settings/personal-info', ['as' => 'adminPersonalInfo', 'uses' => 'PagesController@viewPersonalInfo']);
+
+//personal-info Save Route    
+    Route::post('settings/personal-info/save', ['as' => 'adminPersonalInfoSave', 'uses' => 'PagesController@savePersonalInfo']);
+    
+//work-history Page Route
+    Route::get('settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'PagesController@viewWorkHistory']);
 });
 
 // auth routes setup
