@@ -21,24 +21,35 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
     Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'PagesController@getDashboard']);
     //home Page Route
     Route::get('schedule', ['as' => 'adminSchedule', 'uses' => 'PagesController@viewSchedule']);
-    
+
+//
+//
 //Settings Sub-Menu routes    
 //
-//chamber Page Route
-    Route::get('settings/chamber', ['as' => 'adminChamber', 'uses' => 'PagesController@viewChamber']);
-    
-//educating Page Route
-    Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducalion']);
-    
-//personal-info Page Route
+//
+        //chamber Page Route
+            Route::get('settings/chamber', ['as' => 'adminChamber', 'uses' => 'PagesController@viewChamberLise']);
 
-    Route::get('settings/personal-info', ['as' => 'adminPersonalInfo', 'uses' => 'PagesController@viewPersonalInfo']);
+        //chamber New Route     
+            Route::get('settings/chamber/new', ['as' => 'adminChamberNew', 'uses' => 'PagesController@newChamberForm']);
 
-//personal-info Save Route    
-    Route::post('settings/personal-info/save', ['as' => 'adminPersonalInfoSave', 'uses' => 'PagesController@savePersonalInfo']);
-    
-//work-history Page Route
-    Route::get('settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'PagesController@viewWorkHistory']);
+        //chamber Edit Route     
+            Route::get('settings/chamber/edit/{cId}', ['as' => 'adminChamberNew', 'uses' => 'PagesController@editChamberForm']);\      
+
+        //chamber Save Route     
+            Route::post('settings/chamber/save', ['as' => 'adminChamberSave', 'uses' => 'PagesController@saveChamber']);
+
+        //educating Page/list view Route
+            Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducalion']);
+
+        //personal-info Page Route
+            Route::get('settings/personal-info', ['as' => 'adminPersonalInfo', 'uses' => 'PagesController@viewPersonalInfo']);
+
+        //personal-info Save Route    
+            Route::post('settings/personal-info/save', ['as' => 'adminPersonalInfoSave', 'uses' => 'PagesController@savePersonalInfo']);
+
+        //work-history Page Route
+            Route::get('settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'PagesController@viewWorkHistory']);
 });
 
 // auth routes setup
