@@ -1,25 +1,23 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Personal Information')
-@section('description', 'This is the Admin Personal Information Page')
+@section('title', 'Personal Information Page')
+@section('description', 'This is the Your Personal Information Page')
 
 @section('content')                 
 <div class="container-fluid">
     <div class="">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">
-                    @if (Auth::guest())
-                    Admin <small>Personal Information Page</small>
-                    @else
-                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}'s <small>Admin Personal Information Page</small>
-                    @endif
-
-                </h1>
+                
+                <ol class="breadcrumb">
+                    <li class="active">
+                        <i class="fa fa-dashboard"></i> Personal Info Page
+                    </li>
+                </ol>
                     @include('notifications.status_message')
                     @include('notifications.errors_message')
-
             </div>
+            
         </div>
 
     <div class="row col-lg-12">   
@@ -41,7 +39,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" value="{{ $personal_info->date_of_birth }}" disabled="disabled"/>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" value="{{ $personal_info->date_of_birth }}" disabled="disabled" maxlength="10"/>
                         </div>
                     </div>
                 </div>
@@ -70,7 +68,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                            <input type="text" class="form-control" name="homeTown" id="homeTown" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." disabled="disabled" />
+                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." disabled="disabled"  maxlength="50"/>
                         </div>
                     </div>
                 </div>
@@ -80,7 +78,7 @@
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                            <select class="form-control selectpicker" id="countryName" name="countryName"  disabled="disabled">
+                            <select class="form-control selectpicker" id="countryName" name="countryName"  disabled="disabled" >
                                 <option value="" label="" selected="selected">Select your Country..</option>
                                 <optgroup id="country-optgroup-Africa" label="Africa">
                                     <option value="DZ" label="Algeria">Algeria</option>
@@ -359,7 +357,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                        <textarea class="form-control" id="address" name="address" rows=""  disabled="disabled" placeholder="Type Your Address Here..">{{ $personal_info->address }}</textarea>
+                        <textarea class="form-control" id="address" name="address" rows=""  disabled="disabled" placeholder="Type Your Address Here.." maxlength="255">{{ $personal_info->address }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -379,7 +377,7 @@
 <div class="col-md-4"></div>
                         
 <!--Edit Button-->
-<button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="showFields()"> <span class="glyphicon glyphicon-edit"> Edit Information</span></button>
+<button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="showFields()"> <span class="glyphicon glyphicon-edit"> Enter or Edit Information</span></button>
             </fieldset>
             {{ csrf_field() }}
         </form>
