@@ -11,11 +11,11 @@ class personal_info extends Model
 {
 	protected $table='personal_info';
 
-	protected $guarded = ['id'];
+	protected $guarded = ['id','updated_at', 'created_at'];
         
-//        public $primarykey = 'id';
+        public $primarykey = 'id';
         
-        protected $hidden = ['updated_at', 'created_at'];
+        protected $hidden = ['id','updated_at', 'created_at'];
 
 	protected $fillable = ['date_of_birth','gender','home_town','country','address'];
 }
