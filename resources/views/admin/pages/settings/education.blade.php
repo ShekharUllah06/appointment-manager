@@ -1,21 +1,24 @@
 @extends('layouts.admin')
-@section('title', 'Admin Education')
-@section('description', 'This is the Admin Education page')
+@section('title', 'Education Section')
+@section('description', 'This is the Education page')
 
 @section('content')
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <ol class="breadcrumb">
-                <li class="active">
-                    <i class="fa fa-dashboard"></i> Education
-                </li>
-            </ol>
-                @include('notifications.status_message')
-                @include('notifications.errors_message')
+            @yield('educationHead')
+        </div>
+    </div>
+
+<div class="container-fluid">  
+    <div class="row">
+        <div class="col-lg-12">
+            @yield('educationBody')
         </div>
     </div>
 </div>
-
+    
+    @yield('jscript')
+    
 @endsection

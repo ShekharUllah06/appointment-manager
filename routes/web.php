@@ -27,28 +27,39 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 //Settings Sub-Menu routes    
 //
 //
-        //chamber Page Route
-            Route::get('settings/chamber', ['as' => 'adminChamber', 'uses' => 'PagesController@viewChamberLise']);
+//chamber Page Route
+            Route::get('settings/chamber', ['as' => 'adminChamber', 'uses' => 'PagesController@viewChamberList']);
 
         //chamber New Route     
             Route::get('settings/chamber/new', ['as' => 'adminChamberNew', 'uses' => 'PagesController@newChamberForm']);
 
         //chamber Edit Route     
-            Route::get('settings/chamber/edit/{cId}', ['as' => 'adminChamberNew', 'uses' => 'PagesController@editChamberForm']);\      
+            Route::get('settings/chamber/edit/{cId}', ['as' => 'adminChamberEdit', 'uses' => 'PagesController@editChamberForm']);\      
 
         //chamber Save Route     
             Route::post('settings/chamber/save', ['as' => 'adminChamberSave', 'uses' => 'PagesController@saveChamber']);
 
-        //educating Page/list view Route
-            Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducalion']);
+            
+//educating Page Route
+            Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducationList']);
+            
+        //educating New Route     
+            Route::get('settings/education/new', ['as' => 'adminEducationNew', 'uses' => 'PagesController@newEducationForm']);
 
-        //personal-info Page Route
+        //educating Edit Route     
+            Route::get('settings/education/edit/{eId}', ['as' => 'adminEducationEdit', 'uses' => 'PagesController@editEducationForm']);\      
+
+        //educating Save Route     
+            Route::post('settings/education/save', ['as' => 'adminEducationSave', 'uses' => 'PagesController@saveEducation']);
+
+            
+//personal-info Page Route
             Route::get('settings/personal-info', ['as' => 'adminPersonalInfo', 'uses' => 'PagesController@viewPersonalInfo']);
 
         //personal-info Save Route    
             Route::post('settings/personal-info/save', ['as' => 'adminPersonalInfoSave', 'uses' => 'PagesController@savePersonalInfo']);
 
-        //work-history Page Route
+//work-history Page Route
             Route::get('settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'PagesController@viewWorkHistory']);
 });
 

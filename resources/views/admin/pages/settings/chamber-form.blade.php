@@ -34,7 +34,7 @@
 
             <!--Disabled Chamber ID Field-->   
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="chamberId" class="col-md-4 control-label">Chamber ID: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -52,7 +52,7 @@
 
             <!--Institute Name-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="institute" class="col-md-4 control-label">Institute Name: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -68,7 +68,7 @@
 
             <!--Chamber Name-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="chamber_name" class="col-md-4 control-label">Chamber Name: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -84,7 +84,7 @@
 
             <!--Telephone Number-1-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="telephone_number1" class="col-md-4 control-label">Telephone Number-1: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -100,7 +100,7 @@
 
             <!--Telephone Number-2-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="telephone_number2" class="col-md-4 control-label">Telephone Number-2: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -116,7 +116,7 @@
 
             <!--Telephone Number-3-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="telephone_number3" class="col-md-4 control-label">Telephone Number-3: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -132,7 +132,7 @@
 
             <!--Mobile Number-1-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="mobile_number1" class="col-md-4 control-label">Mobile/Cell Phone Number-1: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -148,7 +148,7 @@
 
             <!--Mobile Number-2-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="mobile_number2" class="col-md-4 control-label">Mobile/Cell Phone Number-2: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -164,7 +164,7 @@
 
             <!--Mobile Number-3-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="mobile_number3" class="col-md-4 control-label">Mobile/Cell Phone Number-3: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -180,7 +180,7 @@
 
             <!--City Name-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="city" class="col-md-4 control-label">City: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -196,7 +196,7 @@
 
             <!--Post Code-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="post_code" class="col-md-4 control-label">Post/Zip Code: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -213,7 +213,7 @@
 
             <!--Thana Name-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="thana" class="col-md-4 control-label">Thana(Police Station)/Sub-District Name: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -230,7 +230,7 @@
 
             <!--District Name-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="district" class="col-md-4 control-label">District Name: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -247,7 +247,7 @@
 
             <!--Address-->
 
-            <div class="form-group">
+            <div class="form-group row">
                 <label for="address" class="col-md-4 control-label">Address: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
@@ -264,12 +264,12 @@
 
             <!--Submit and Cancel Button-->
 
-            <div class="form-group" id="BTN_saveCancel">
+            <div class="form-group" id="BTN_saveCancel row">
                 <div class="col-md-4 control-label"></div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <a href="/admin/settings/chamber"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
             </div>
@@ -286,7 +286,7 @@
 
  @section('jscript')   
  
-<!--Custom Java Script to check if the form is loaded as New or Edit form by checking the valu of formType hidden field-->    
+<!--Custom Java Script to check if the form is loaded as New or Edit form by checking the value of formType hidden field-->    
 
     <script>    
         var urlNew = window.location.pathname; //Get URL path
