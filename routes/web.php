@@ -47,7 +47,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
             Route::get('settings/education/new', ['as' => 'adminEducationNew', 'uses' => 'PagesController@newEducationForm']);
 
         //educating Edit Route     
-            Route::get('settings/education/edit/{eId}', ['as' => 'adminEducationEdit', 'uses' => 'PagesController@editEducationForm']);\      
+            Route::get('settings/education/edit/{degreeName}', ['as' => 'adminEducationEdit', 'uses' => 'PagesController@editEducationForm']);\      
 
         //educating Save Route     
             Route::post('settings/education/save', ['as' => 'adminEducationSave', 'uses' => 'PagesController@saveEducation']);

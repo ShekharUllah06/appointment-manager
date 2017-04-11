@@ -292,6 +292,7 @@
         var urlNew = window.location.pathname; //Get URL path
             if(urlNew.includes("/edit/")){ //chech value
                 document.getElementById('formType').value="edit"; //set value
+                document.getElementById('chamberId').readOnly = true;
             }
     </script>
 

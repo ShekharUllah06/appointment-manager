@@ -18,10 +18,10 @@ class education extends Model
      *
      * @var array
      */
-    protected $guarded = ['education_id', 'user_id'];
+    protected $guarded = ['degree_name', 'user_id'];
     
     
-    protected $primarykey = array('education_id', 'user_id');
+    protected $primarykey = array('degree_name', 'user_id');
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,7 +35,7 @@ class education extends Model
      *
      * @var array
      */
-    protected $fillable = ['degree_name','pass_year','institute_name'];
+    protected $fillable = ['pass_year','institute_name'];
 
     
     

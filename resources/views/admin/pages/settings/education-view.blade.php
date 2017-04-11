@@ -17,6 +17,8 @@
 @section('educationBody')
 
 <div class="col-md-auto row" style="background-color: #f5f5f5 ">
+    
+    <!--Page Title and Add New button-->
     <header class="row">
         <h2 class="col-sm-5" style="margin-left: 20px; margin-top: 10px;">Education Card</h2>
         <div class="col-sm-1"></div>
@@ -27,6 +29,8 @@
             </span>
         </a>
     </header>
+    
+    <!--main section and/or cards section-->
     <div class="list-section row" style="margin: 0px">
         <div class="col-md-1"></div>  <!--Left Space Holder-->
 
@@ -44,7 +48,7 @@
                         
                          <!--Edit Button-->
                         <div class="description col-sm-1" style="margin: 7px; padding: 7px; float: right;">
-                            <a href="{{ url('admin/settings/education/edit', ['eId' => $education->education_id])}}" style="float: right">
+                            <a href="{{ url('admin/settings/education/edit', ['degreeName' => $education->degree_name])}}" style="float: right">
                                 <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit education" height="35px" width="35px" />
                             </a>
                         </div>
@@ -64,50 +68,7 @@
                                         Year Passed: {{ $education->pass_year }}
                                     </span>
                                 </p>
-                                <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
-                                    <span class="glyphicon glyphicon-user">
-                                        Education ID: {{ $education->education_id }}
-                                    </span>
-                                </p>
                             </div> <!-- End multi-info class-->
-<!--                            <div class="row" style="margin-top: 10px;">
-                                <div class="collapse" id="sec{{ $education->education_id }}" style="margin-right: 10px;">
-                                    <table class="table">
-                                            <tr>
-                                                <td>Institute Name:</td> <td>{{ $education->institute }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Telephone Number-2:</td> <td>{{ $education->telephone_number2 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Telephone Number-3:</td> <td>{{ $education->telephone_number3 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile Number-3:</td> <td>{{ $education->mobile_number3 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Thana(Police Station) Name:</td> <td>{{ $education->thana }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Post Code:</td> <td>{{ $education->post_code }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>City:</td> <td>{{ $education->city }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>District:</td> <td>{{ $education->district }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address:</td> <td>{{ $education->address }}</td>
-                                            </tr>
-                                        </table>
-                                </div>
-                                <button id="see{{ $education->education_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $education->education_id }}" aria-expanded="false" aria-controls="{{ $education->education_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
-                                    See more
-                                </button>
-<span class="glyphicon glyphicon-chevron-down" style="padding:4px; margin-top: 2px;"></span>
-
-                            </div>  End description class-->
                         </div> <!-- End middle class-->
                     </div> <!--End Card class-->
                 </li> <!--End card item-->
@@ -115,31 +76,6 @@
         </ul>
     </div>  
 </div>
-
-@endsection
-.
-@section('jscript')
-
-<!--<script type='text/javascript'> 
-        function changeBtnTxt(){
-            
-            var target= event.target || event.srcElement;
-            var id = target.id;
-            var txtElem = document.getElementById(id);               
-            var text = txtElem.textContent || txtElem.innerText;
-            
-            if (text.includes("See more")) {
-                
-                txtElem.textContent = "See less";
-
-            }else{
-                
-                txtElem.textContent = "See more";
-
-            }
-        }
-
-</script>-->
 
 @endsection
  
