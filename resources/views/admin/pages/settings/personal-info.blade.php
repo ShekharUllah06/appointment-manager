@@ -20,12 +20,12 @@
             
         </div>
 
-    <div class="row col-lg-12">   
+    <div class="row col-md-12"> 
         
 <!--Starting the Form-->
 
         <form action="{{url('admin/settings/personal-info/save')}}" method="post" class="well form-horizontal" role="form">
-            <legend>Personal Information Entry/Edit Form</legend>
+            <legend>Personal Information Edit Form</legend>
         
             <fieldset>
                             
@@ -34,7 +34,7 @@
                 <input type="hidden" id="userId" name="userId" value="{{ $personal_info->id }}">
                 <br />
 <!--Date of Birth-->
-                <div class="form-group">
+                <div class="form-group row">
                     <label for="dateOfBirth" class="col-md-4 control-label">Date of Birth: </label>
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 <!--Gender-->
-                <div class="form-group">
+                <div class="form-group row">
                     <label for="countryName" class="col-md-4 control-label">Gender/Sex: </label>
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
@@ -59,11 +59,11 @@
 <!--JS script to select an item to reflect query data-->
                             
                             <script>document.getElementById('genderName').value = '{{ $personal_info->gender }}';</script>
+                        </div>
                     </div>
                 </div>
-                </div>
 <!--Home Town-->
-                <div class="form-group">
+                <div class="form-group row">
                     <label for="homeTown" class="col-md-4 control-label">Home Town: </label>
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 <!--Country-->
-                <div class="form-group">
+                <div class="form-group row">
                     <label for="countryName" class="col-md-4 control-label">Country: </label>
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
@@ -352,7 +352,7 @@
                 </div>
 
 <!--Address-->
-                <div class="form-group">
+                <div class="form-group row">
                     <label for="address" class="col-md-4 control-label">Address: </label>
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
@@ -365,19 +365,19 @@
                         
 
 <!--Submit Button-->
-                <div class="form-group" id="showBTN_saveCancel" hidden>
-                    <div class="col-md-4 control-label"></div>
-                    <div class="col-md-2">
+                <div class="form-group row" id="showBTN_saveCancel" hidden>
+                    <div class="col-sm-4 control-label"></div>
+                    <div class="col-sm-2" style="margin: 3px; padding: 3px;">
                         <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-sm-2" style="margin: 3px; padding: 3px;">
                         <a href="/admin/settings/personal-info"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                     </div>
                 </div>
 <div class="col-md-4"></div>
                         
 <!--Edit Button-->
-<button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="showFields()"> <span class="glyphicon glyphicon-edit"> Enter or Edit Information</span></button>
+<button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="showFields()"> <span class="glyphicon glyphicon-edit"> Edit </span></button>
             </fieldset>
             {{ csrf_field() }}
         </form>

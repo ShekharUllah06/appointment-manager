@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\personal_info;
 use App\chamber;
+use App\education;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,7 +31,7 @@ class PagesController extends Controller
      * 
      * @return array
      */
-    public function viewChamberLise()
+    public function viewChamberList()
     {
         $auth_user_id = Auth::user()->id;
         
@@ -38,9 +39,11 @@ class PagesController extends Controller
         $chambers = chamber::where('user_id', $auth_user_id)->get(); //
 
         //if no record found create new blank record           
-        if(empty($chambers)){
+        if(empty($chambers[0])){
             
-            Redirect::to('admin.pages.settings.chamber-form'); 
+            return redirect('admin/settings/chamber/new')
+                    ->with('message','No Chamber Data found in database. Please Add a new chamber Record!')
+                    ->with('status', 'danger'); 
         }
              
         return view('admin.pages.settings.chamber-view', ['chambers'=>$chambers]);
@@ -53,7 +56,7 @@ class PagesController extends Controller
      */    
     public function newChamberForm()
     {
-                   return view('admin.pages.settings.chamber-form');
+            return view('admin.pages.settings.chamber-form');
     }
 
     /**
@@ -122,9 +125,10 @@ class PagesController extends Controller
             
             //create new record            
             $chamber = new chamber;
-            
-            $chamber->user_id = $auth_user_id;
-            $chamber->chamber_id = $request->input('chamberId');
+ 
+                $chamber->user_id = $auth_user_id;
+                $chamber->chamber_id = $request->input('chamberId');
+
         }      
             
         
@@ -143,8 +147,19 @@ class PagesController extends Controller
             $chamber->district = $request->input('district');
             $chamber->address = $request->input('address');
             
-            //save assigned data to the personal_info table            
-            $chamber->save();
+            try{
+            
+                //save assigned data to the personal_info table            
+                $chamber->save();
+            
+            }catch(\Illuminate\Database\QueryException $ex){
+                
+                return redirect()
+                ->back()
+                ->with('message','Warning!! Please check that the chamber Id that you have provided is unique, "Chambr ID" and "Chamber Name" fields are reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
+            }
             
             return redirect()
                     ->route('adminChamber')
@@ -152,25 +167,127 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
-    public function viewEducalion()
+    /**
+     * This function queries db for data and returns chamber records to chamber-view page.
+     * 
+     * @return array
+     */
+    public function viewEducationList()
     {
-        return view('admin.pages.settings.education');
+        $auth_user_id = Auth::user()->id;
+        
+        //query with education table for record with Auth::user()->id        
+        $educations = education::where('user_id', $auth_user_id)->get(); //
+
+        //if no record found create new blank record           
+        if(empty($educations[0])){
+            
+            return redirect('admin/settings/education/new')
+                    ->with('message','No Education Data found in database. Please Add a new Education Record!')
+                    ->with('status', 'danger'); 
+        }
+             
+        return view('admin.pages.settings.education-view', ['educations'=>$educations]);
+    }
+
+    /**
+     * This function just returns education-form view
+     * 
+     * @return view
+     */    
+    public function newEducationForm()
+    {
+            return view('admin.pages.settings.education-form');
     }
     
-    
-    
     /**
-    *1. This function queries the database table personal_info with id taken from Auth::user()->id database table.
-    *   If record found then it queries the database table personal_info with id taken from Auth::user()->id database table again
-    *   returns the newly created blank record to the personal-info page form.
-    * 
-    *2.If data record is not found it creates a new blank record with id only in database table personal_info.
-    *   Then it queries the database table personal_info with id taken from Auth::user()->id database table again
-    *   returns the newly created blank record to the personal-info page form.
+     * This function just returns chamber-form view with data to edit on taking 
+     * Chamber ID from get request from chamber-view Form.
      * 
-     * @return type array
-    *
-    */
+     * @return array
+     */      
+    public function editEducationForm($eId)
+{       $auth_user_id = Auth::user()->id;
+        $education_id = $eId;
+        $educationFormType = "edit";
+        $education = education::where('user_id', $auth_user_id)->where('education_id', $education_id)->first();
+
+        return view('admin.pages.settings.education-form', ['education'=>$education])->with('educationFormType', $educationFormType);
+    }
+    
+       /**
+     * 1. This function takes the post data from chamber-form validates them.
+     * 2. Then saves them to db. Or create a new record first if post data is new data 
+     *    and then saves them to db. And redirects to chamber-view page.
+     * 3. If validation fails, its redirects back to previous Form with data and error message.
+     * 
+     * @return redirest to chamber-form with error message if any.
+     */  
+    public function saveEducation(Request $request){       
+        $auth_user_id = Auth::user()->id;
+        $education = null;
+        
+        //Validating personal-info form input data and show error massege if not valid        
+        $validator = Validator::make($request->all(),[
+            'educationId' => 'string|required|max:4',
+            'instituteName' => 'string|nullable|max:50',
+            'degreeName' => 'string|nullable|max:50',
+            'passYear' => 'string|nullable|max:10',
+            ]);
+        
+        //Validate
+        if($validator->fails()){            
+            return redirect()
+                ->back()
+                ->with('message','Please input the Informations Correctly!')
+                ->with('status', 'danger')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
+        //cheak if data submited as Edit form or New form
+        if($request->input('formType') === "edit"){
+            
+          //getting input chamberId from the form        
+            $educationId = $request->input('educationId');
+            $education = education::where('user_id', $auth_user_id)->where('education_id', $educationId)->first();
+            
+        }else{
+            
+            //create new record            
+            $education = new education;
+ 
+            $education->user_id = $auth_user_id;
+            $education->education_id = $request->input('educationId');
+
+        }      
+            
+        
+            //assign form datas to model fields
+            $education->institute_name = $request->input('instituteName');
+            $education->degree_name = $request->input('degreeName');
+            $education->pass_year = $request->input('passYear');
+
+            
+            try{
+            
+                //save assigned data to the personal_info table            
+                $education->save();
+            
+            }catch(\Illuminate\Database\QueryException $ex){
+                
+                return redirect()
+                ->back()
+                ->with('message','Warning!! Please check that the Education Id that you have provided is unique, "Education ID" field is reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
+            }
+            
+            return redirect()
+                    ->route('adminEducation')
+                    ->with('message','Education Information Saved!')
+                    ->with('status', 'success');
+    }
     
     public function viewPersonalInfo()                        
     {
