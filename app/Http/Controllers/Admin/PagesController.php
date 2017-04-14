@@ -167,6 +167,30 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
+    
+    /**
+     * This function deletes chamber record from database table chamber with primary key passed from chamber-form. 
+     * 
+     * 
+     * @return redirect
+     */    
+    public function removeChamber($cId)
+    {           $auth_user_id = Auth::user()->id;
+                $chamber_id = $cId;
+                $chamberFormType = "edit";
+                
+                $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
+                
+                $chamber->delete();
+                
+                    return redirect()
+                    ->route('adminChamber')
+                    ->with('message','Chamber Information Removed Seccessfully!')
+                    ->with('status', 'success');
+    }
+
+    
+    
     /**
      * This function queries db for data and returns education records to education-view page.
      * 
@@ -287,6 +311,26 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
+ 
+    /**
+     * This function deletes education record from database table education with primary key passed from education-form. 
+     * 
+     * 
+     * @return redirect
+     */      
+    public function removeEducation($degreeName)
+{       $auth_user_id = Auth::user()->id;
+        $degree_name = $degreeName;
+        $educationFormType = "edit";
+        
+        $education = education::where('user_id', $auth_user_id)->where('degree_name', $degree_name)->first();
+        
+        $education->delete();
+                    return redirect()
+                    ->route('adminEducation')
+                    ->with('message','Education Information Removed Seccessfully!')
+                    ->with('status', 'success');
+    }
     
     
     /**

@@ -34,11 +34,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
             Route::get('settings/chamber/new', ['as' => 'adminChamberNew', 'uses' => 'PagesController@newChamberForm']);
 
         //chamber Edit Route     
-            Route::get('settings/chamber/edit/{cId}', ['as' => 'adminChamberEdit', 'uses' => 'PagesController@editChamberForm']);\      
+            Route::get('settings/chamber/edit/{cId}', ['as' => 'adminChamberEdit', 'uses' => 'PagesController@editChamberForm']);    
 
         //chamber Save Route     
             Route::post('settings/chamber/save', ['as' => 'adminChamberSave', 'uses' => 'PagesController@saveChamber']);
 
+        //chamber Remove Route     
+            Route::get('settings/chamber/remove/{cId}', ['as' => 'adminChamberRemove', 'uses' => 'PagesController@removeChamber']);\ 
             
 //educating Page Route
             Route::get('settings/education', ['as' => 'adminEducation', 'uses' => 'PagesController@viewEducationList']);
@@ -51,6 +53,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
 
         //educating Save Route     
             Route::post('settings/education/save', ['as' => 'adminEducationSave', 'uses' => 'PagesController@saveEducation']);
+
+        //educating Remove Route     
+            Route::get('/settings/education/remove/{degreeName}', ['as' => 'adminEducationRemove', 'uses' => 'PagesController@removeEducation']);            
 
             
 //personal-info Page Route

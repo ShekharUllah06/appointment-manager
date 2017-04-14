@@ -92,8 +92,13 @@
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/settings/education"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/admin/settings/education"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
+                <?php if(isset($education->institute_name)){ ?>
+                <div class="col-md-2" style="margin: 3px; padding: 3px; float: right;">
+                    <a href="{{ url('admin/settings/education/remove', ['degreeName' => $education->degree_name])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete Record</button></a>
+                </div>
+                <?php } ?>
             </div>
 
         </fieldset>

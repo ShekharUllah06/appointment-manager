@@ -16,40 +16,34 @@
 
 @section('chamberBody')
 
-<div class="col-md-auto row" style="background-color: #f5f5f5 ">
-    <header class="row">
-        <h2 class="col-sm-5" style="margin-left: 20px; margin-top: 10px;">Chamber Card</h2>
+<div class="row" style="background-color: #f5f5f5 ">
+    
+    <!--Page Title and Add New button-->
+    <header class="row"  style=" margin: 0px;">
+        <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Chamber Card</h2>
         <div class="col-sm-1"></div>
-            <span style="margin-right: 15px; padding-right: 15px; float: right;">
-                <a href="{{url('admin/settings/chamber/new')}}" style="float: right;">
-                    <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px;" />
-                </a>
-            </span>
+            <a href="{{url('admin/settings/chamber/new')}}" style="float: right;">
+                <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
+            </a>
         </a>
     </header>
-    <div class="list-section row" style="margin: 0px">
-        <div class="col-md-1"></div>  <!--Left Space Holder-->
-
-        <ul class="list-unstyled col-md-10" style="background-color: white">
+    
+    <!--main section and/or cards section-->
+    <div class="list-section row" style="margin: 0px">        
+        <ul class="list-unstyled col-md-10 col-md-offset-1" style="background-color: white;">
         <!--Loop through chamber data array-->
             @foreach($chambers as $chamber)
                 <li>
-                    <div class="card row" style="border-right: 2px solid black; border-bottom: 2px solid black; padding-bottom: 1px;">   <!--Right Side edit button-->
-                        <div class="left-image-column col-lg-2">
-                           <div>   <!--Left Side Card Image-->
-                               <br>
-                               <img src="{{url('assets/img/chamberLogo.png')}}" alt="chabmer logo" height="100" width="100">
-                            </div>                            
-                        </div> <!--End left-image-column class--> 
+                    <div class="card row" style="border-bottom: 1px solid black;">   
+                        <!--Left side Logo-->
+                        <img src="{{url('assets/img/chamberLogo.png')}}" class="left-image-column col-sm-2" alt="chabmer logo" height="100" width="100" style="margin-top:10px;">
                         
-                         <!--Edit Button-->
-                        <div class="description col-sm-1" style="margin: 7px; padding: 7px; float: right;">
-                            <a href="{{ url('admin/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right">
-                                <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" width="35px" />
-                            </a>
-                        </div>
-                        <div class="middle-info-coloumn col-md-8" style="margin-left: 5px; padding-right:5px;">
-                            <div class="title-info row">
+                        <!--Right Side Edit Button-->
+                        <a href="{{ url('admin/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                            <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" width="35px" style="float: right;" />
+                        </a>
+                        <div class="middle-info-coloumn col-sm-7" style="margin-left: 5px; padding-right:5px;">
+                            <div class="title-info row" style="margin:0px;">
                             <!--Card Visible Portion. At Right side of Card Image-->
                                 <h3> <!--Card Title-->
                                     {{$chamber->chamber_name }}
@@ -60,7 +54,7 @@
                                     </span>
                                 </h4>
                             </div> <!--End title-info class--> 
-                            <div class="multi-info row">   <!--Under Secondary title--> 
+                            <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-phone">
                                         {{ $chamber->telephone_number1 }}
@@ -76,7 +70,7 @@
                                         {{ $chamber->mobile_number2 }}
                                     </span>
                                 </p>
-                            </div> <!-- End multi-info class-->
+                            </div> <!--End Other Informations--> 
                             <div class="row" style="margin-top: 10px;">
                                 <div class="collapse" id="sec{{ $chamber->chamber_id }}" style="margin-right: 10px;">
                                     <table class="table">
@@ -124,7 +118,7 @@
 </div>
 
 @endsection
-.
+
 @section('jscript')
 
 <script type='text/javascript'> 
