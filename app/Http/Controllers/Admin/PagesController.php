@@ -35,7 +35,7 @@ class PagesController extends Controller
     {
         $auth_user_id = Auth::user()->id;
         
-        //query with personal_info table for record with Auth::user()->id        
+        //query with chamber table for record with Auth::user()->id        
         $chambers = chamber::where('user_id', $auth_user_id)->get(); //
 
         //if no record found create new blank record           
@@ -86,7 +86,7 @@ class PagesController extends Controller
         $auth_user_id = Auth::user()->id;
         $chamber = null;
         
-        //Validating personal-info form input data and show error massege if not valid        
+        //Validating chamberfform input data and show error massege if not valid        
         $validator = Validator::make($request->all(),[
             'chamberId' => 'string|required|max:4',
             'institute' => 'string|nullable|max:50',
@@ -149,7 +149,7 @@ class PagesController extends Controller
             
             try{
             
-                //save assigned data to the personal_info table            
+                //save assigned data to the chamber table            
                 $chamber->save();
             
             }catch(\Illuminate\Database\QueryException $ex){
@@ -167,8 +167,32 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
+    
     /**
-     * This function queries db for data and returns chamber records to chamber-view page.
+     * This function deletes chamber record from database table chamber with primary key passed from chamber-form. 
+     * 
+     * 
+     * @return redirect
+     */    
+    public function removeChamber($cId)
+    {           $auth_user_id = Auth::user()->id;
+                $chamber_id = $cId;
+                $chamberFormType = "edit";
+                
+                $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
+                
+                $chamber->delete();
+                
+                    return redirect()
+                    ->route('adminChamber')
+                    ->with('message','Chamber Information Removed Seccessfully!')
+                    ->with('status', 'success');
+    }
+
+    
+    
+    /**
+     * This function queries db for data and returns education records to education-view page.
      * 
      * @return array
      */
@@ -201,35 +225,34 @@ class PagesController extends Controller
     }
     
     /**
-     * This function just returns chamber-form view with data to edit on taking 
-     * Chamber ID from get request from chamber-view Form.
+     * This function just returns education-form view with data to edit on taking 
+     * 'Degree Name' from get request from education-view Form.
      * 
      * @return array
      */      
-    public function editEducationForm($eId)
+    public function editEducationForm($degreeName)
 {       $auth_user_id = Auth::user()->id;
-        $education_id = $eId;
+        $degree_name = $degreeName;
         $educationFormType = "edit";
-        $education = education::where('user_id', $auth_user_id)->where('education_id', $education_id)->first();
+        $education = education::where('user_id', $auth_user_id)->where('degree_name', $degree_name)->first();
 
         return view('admin.pages.settings.education-form', ['education'=>$education])->with('educationFormType', $educationFormType);
     }
     
        /**
-     * 1. This function takes the post data from chamber-form validates them.
+     * 1. This function takes the post data from education-form validates them.
      * 2. Then saves them to db. Or create a new record first if post data is new data 
-     *    and then saves them to db. And redirects to chamber-view page.
+     *    and then saves them to db. And redirects to education-view page.
      * 3. If validation fails, its redirects back to previous Form with data and error message.
      * 
-     * @return redirest to chamber-form with error message if any.
+     * @return redirest to education-form with error message if any.
      */  
     public function saveEducation(Request $request){       
         $auth_user_id = Auth::user()->id;
         $education = null;
         
-        //Validating personal-info form input data and show error massege if not valid        
+        //Validating education form input data and show error massege if not valid        
         $validator = Validator::make($request->all(),[
-            'educationId' => 'string|required|max:4',
             'instituteName' => 'string|nullable|max:50',
             'degreeName' => 'string|nullable|max:50',
             'passYear' => 'string|nullable|max:10',
@@ -248,9 +271,9 @@ class PagesController extends Controller
         //cheak if data submited as Edit form or New form
         if($request->input('formType') === "edit"){
             
-          //getting input chamberId from the form        
-            $educationId = $request->input('educationId');
-            $education = education::where('user_id', $auth_user_id)->where('education_id', $educationId)->first();
+          //getting input degreeName from the form        
+            $degreeName = $request->input('degreeName');
+            $education = education::where('user_id', $auth_user_id)->where('degree_name', $degreeName)->first();
             
         }else{
             
@@ -258,14 +281,13 @@ class PagesController extends Controller
             $education = new education;
  
             $education->user_id = $auth_user_id;
-            $education->education_id = $request->input('educationId');
+            $education->degree_name = $request->input('degreeName');
 
         }      
             
         
             //assign form datas to model fields
             $education->institute_name = $request->input('instituteName');
-            $education->degree_name = $request->input('degreeName');
             $education->pass_year = $request->input('passYear');
 
             
@@ -278,7 +300,7 @@ class PagesController extends Controller
                 
                 return redirect()
                 ->back()
-                ->with('message','Warning!! Please check that the Education Id that you have provided is unique, "Education ID" field is reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('message','Warning!! Please check that the degree_name that you have provided is unique, "Degree Name" field is reqired.  And all other data(optional) are of desired type. Then try again!')
                 ->with('status', 'danger')
                 ->withInput();
             }
@@ -289,6 +311,34 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
+ 
+    /**
+     * This function deletes education record from database table education with primary key passed from education-form. 
+     * 
+     * 
+     * @return redirect
+     */      
+    public function removeEducation($degreeName)
+{       $auth_user_id = Auth::user()->id;
+        $degree_name = $degreeName;
+        $educationFormType = "edit";
+        
+        $education = education::where('user_id', $auth_user_id)->where('degree_name', $degree_name)->first();
+        
+        $education->delete();
+                    return redirect()
+                    ->route('adminEducation')
+                    ->with('message','Education Information Removed Seccessfully!')
+                    ->with('status', 'success');
+    }
+    
+    
+    /**
+    *This function queries personal-info table with user_id taken from Auth::user()->id.
+    *and returns the personal-info with the query data.
+    *
+     *  @return type array
+    */
     public function viewPersonalInfo()                        
     {
         $auth_user_id = Auth::user()->id;

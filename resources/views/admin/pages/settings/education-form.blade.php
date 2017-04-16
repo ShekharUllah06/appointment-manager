@@ -31,24 +31,22 @@
                                                                                 echo $educationFormType; }
                                                                              elseif(Request::old('formType')){ // or if data exist from privious request
                                                                                 echo Request::old('formType');} ?>" /> 
-
-            <!--Disabled Education ID Field-->   
+            
+            <!--Degree Name-->
 
             <div class="form-group row">
-                <label for="educationId" class="col-md-4 control-label">Education Record ID: </label>
+                <label for="degreeName" class="col-md-4 control-label">Degree Name: </label>
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input type="text" class="form-control" id="educationId" name="educationId" maxlength="4" required value="<?php if(isset($education->education_id)){ //check if education data set or blank 
-                                                                                                                                    echo ($education->education_id);}
-                                                                                                                                elseif(Request::old('educationId')){ // or if data exist from privious request
-                                                                                                                                    echo Request::old('educationId');} ?>" 
-                                                                                                                                accept=""placeholder="Type Education ID here" required="required" maxlength="4"/>
-
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
+                        <input type="text" class="form-control" name="degreeName" id="degreeName" required maxlength="50" value="<?php if(isset($education->degree_name)){  //check if education data set or blank
+                                                                                                                                                echo ($education->degree_name);} 
+                                                                                                                                            elseif(Request::old('degreeName')){ // or if data exist from privious request
+                                                                                                                                                echo Request::old('degreeName');} ?>" 
+                                                                                                                                    placeholder="Type Education Name Here.." />
                     </div>
                 </div>
             </div>
-
 
             <!--Institute Name-->
 
@@ -59,28 +57,13 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-briefcase"></i></span>
                         <input type="text" class="form-control" name="instituteName" id="instituteName" maxlength="50" value="<?php if(isset($education->institute_name)){  //check if education data set or blank
                                                                                                                                 echo ($education->institute_name);}
-                                                                                                                            elseif(Request::old('institute_name')){ // or if data exist from privious request
-                                                                                                                                echo Request::old('institute_name');} ?>" 
-                                                                                                                        placeholder="Type Institute Name Here.." maxlength="50"/>
+                                                                                                                            elseif(Request::old('instituteName')){ // or if data exist from privious request
+                                                                                                                                echo Request::old('instituteName');} ?>" 
+                                                                                                                        placeholder="Type Institute Name Here.." />
                     </div>
                 </div>
             </div>
 
-            <!--Education Name-->
-
-            <div class="form-group row">
-                <label for="degreeName" class="col-md-4 control-label">Degree Name: </label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-certificate"></i></span>
-                        <input type="text" class="form-control" name="degreeName" id="degreeName" maxlength="50" value="<?php if(isset($education->degree_name)){  //check if education data set or blank
-                                                                                                                                                echo ($education->degree_name);} 
-                                                                                                                                            elseif(Request::old('degree_name')){ // or if data exist from privious request
-                                                                                                                                                echo Request::old('degree_name');} ?>" 
-                                                                                                                                    placeholder="Type Education Name Here.." required="required" maxlength="50" minlength="3"/>
-                    </div>
-                </div>
-            </div>
 
             <!--Pass Year-->
 
@@ -91,9 +74,9 @@
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                         <input type="number" class="form-control" name="passYear" id="passYear" maxlength="4" value="<?php if(isset($education->pass_year)){  //check if education data set or blank
                                                                                                                                                 echo ($education->pass_year);} 
-                                                                                                                                            elseif(Request::old('pass_year')){ // or if data exist from privious request
-                                                                                                                                                echo Request::old('pass_year');} ?>" 
-                                                                                                                                    placeholder="Type Year of Passing Here.." required="required" maxlength="50" minlength="3"/>
+                                                                                                                                            elseif(Request::old('passYear')){ // or if data exist from privious request
+                                                                                                                                                echo Request::old('passYear');} ?>" 
+                                                                                                                                    placeholder="Type Year of Passing Here.." />
                     </div>
                 </div>
             </div>
@@ -109,8 +92,13 @@
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/settings/education"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/admin/settings/education"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
+                <?php if(isset($education->institute_name)){ ?>
+                <div class="col-md-2" style="margin: 3px; padding: 3px; float: right;">
+                    <a href="{{ url('admin/settings/education/remove', ['degreeName' => $education->degree_name])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete Record</button></a>
+                </div>
+                <?php } ?>
             </div>
 
         </fieldset>
@@ -131,6 +119,7 @@
         var urlNew = window.location.pathname; //Get URL path
             if(urlNew.includes("/edit/")){ //chech value
                 document.getElementById('formType').value="edit"; //set value
+                document.getElementById('degreeName').readOnly = true;
             }
     </script>
 

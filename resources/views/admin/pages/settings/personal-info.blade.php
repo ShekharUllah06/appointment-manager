@@ -39,7 +39,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" value="{{ $personal_info->date_of_birth }}" disabled="disabled" maxlength="10"/>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" value="{{ $personal_info->date_of_birth }}" readonly maxlength="10"/>
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                            <select class="form-control selectpicker" id="genderName" name="genderName"  disabled="disabled">
+                            <select class="form-control selectpicker" id="genderName" name="genderName" disabled>
                                 <option value="" label="" selected="selected">Select Your Gender</option>
                                 <option value="0" label="" selected="selected">Male</option>
                                 <option value="1" label="" selected="selected">Female</option>
@@ -68,7 +68,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." disabled="disabled"  maxlength="50"/>
+                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." readonly maxlength="50"/>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     <div class="col-md-4 selectContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
-                            <select class="form-control selectpicker" id="countryName" name="countryName"  disabled="disabled" >
+                            <select class="form-control selectpicker" id="countryName" name="countryName" disabled>
                                 <option value="" label="" selected="selected">Select your Country..</option>
                                 <optgroup id="country-optgroup-Africa" label="Africa">
                                     <option value="DZ" label="Algeria">Algeria</option>
@@ -357,7 +357,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                        <textarea class="form-control" id="address" name="address" rows=""  disabled="disabled" placeholder="Type Your Address Here.." maxlength="255">{{ $personal_info->address }}</textarea>
+                            <textarea class="form-control" id="address" name="address" readonly placeholder="Type Your Address Here.." maxlength="255">{{ $personal_info->address }}</textarea>
                         </div>
                     </div>
                 </div>
@@ -394,9 +394,9 @@
         document.getElementById("btnEdit").style.display = "none";
         
 //Change Disabled Fileds to enabled
-        document.getElementById("dateOfBirth").disabled = false;   
-        document.getElementById("homeTown").disabled = false;
-        document.getElementById("address").disabled = false;
+        document.getElementById("dateOfBirth").readOnly = false;   
+        document.getElementById("homeTown").readOnly = false;
+        document.getElementById("address").readOnly = false;
         document.getElementById("countryName").disabled = false;
         document.getElementById("genderName").disabled = false;
     }
