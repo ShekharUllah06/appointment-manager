@@ -50,11 +50,11 @@
                                     {{$education->degree_name }}
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
-                                        {{ $education->institute_name }}
+                                    {{ $education->institute_name }}
                                 </h4>
                             </div> <!--End title-info class--> 
                             <div class="multi-info row"  style="margin:0px;">   <!--Under Secondary title--> 
-                                <p class="col-sm-6" style="padding-left: 0px">   <!--first part, at left--> 
+                                <p class="col-sm-12" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-calendar">
                                         Year Passed: {{ $education->pass_year }}
                                     </span>

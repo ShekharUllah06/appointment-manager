@@ -262,23 +262,22 @@
                     <br />
 
 
-            <!--Submit and Cancel Button-->
+            <!--Submit, Delete and Cancel Button-->
 
-            <div class="form-group" id="BTN_saveCancel row">
-                <div class="col-md-4 control-label"></div>
+            <div class="form-group" id="BTN_saveCancel row">                                
+                <div class="col-md-2"></div>
+                <div class="col-md-2" style="margin: 3px; padding: 3px;">
+                    <?php if(isset($chamber->chamber_id)){ ?>
+                            <a href="{{ url('admin/settings/chamber/remove', ['cId' => $chamber->chamber_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                    <?php } ?>  
+                </div>                
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <a href="/admin/settings/chamber"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
-                
-                <?php if(isset($chamber->chamber_id)){ ?>
-                    <div class="col-md-2" style="margin: 3px; padding: 3px; float: right;">
-                        <a href="{{ url('admin/settings/chamber/remove', ['cId' => $chamber->chamber_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete Record</button></a>
-                    </div>
-                <?php } ?>
-                
+                               
             </div>
 
         </fieldset>
