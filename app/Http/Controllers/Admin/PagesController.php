@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\personal_info;
 use App\chamber;
 use App\education;
+use App\work_history;
 use Validator;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,11 +22,17 @@ class PagesController extends Controller
         return view('admin.pages.dashboard');
     }
     
+    
+    
+    
     public function viewSchedule()
     {
         return view('admin.pages.schedule');
     }
 
+    
+    
+    
     /**
      * This function queries db for data and returns chamber records to chamber-view page.
      * 
@@ -38,7 +45,7 @@ class PagesController extends Controller
         //query with chamber table for record with Auth::user()->id        
         $chambers = chamber::where('user_id', $auth_user_id)->get(); //
 
-        //if no record found create new blank record           
+        //if no record found return to privious page with error message           
         if(empty($chambers[0])){
             
             return redirect('admin/settings/chamber/new')
@@ -49,6 +56,7 @@ class PagesController extends Controller
         return view('admin.pages.settings.chamber-view', ['chambers'=>$chambers]);
     }
 
+    
     /**
      * This function just returns chamber-form view
      * 
@@ -59,6 +67,7 @@ class PagesController extends Controller
             return view('admin.pages.settings.chamber-form');
     }
 
+    
     /**
      * This function just returns chamber-form view with data to edit on taking 
      * Chamber ID from get request from chamber-view Form.
@@ -73,6 +82,7 @@ class PagesController extends Controller
                 
                 return view('admin.pages.settings.chamber-form', ['chamber'=>$chamber])->with('chamberFormType', $chamberFormType);
     }
+    
     
     /**
      * 1. This function takes the post data from chamber-form validates them.
@@ -177,7 +187,6 @@ class PagesController extends Controller
     public function removeChamber($cId)
     {           $auth_user_id = Auth::user()->id;
                 $chamber_id = $cId;
-                $chamberFormType = "edit";
                 
                 $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
                 
@@ -190,6 +199,7 @@ class PagesController extends Controller
     }
 
     
+  
     
     /**
      * This function queries db for data and returns education records to education-view page.
@@ -203,7 +213,7 @@ class PagesController extends Controller
         //query with education table for record with Auth::user()->id        
         $educations = education::where('user_id', $auth_user_id)->get(); //
 
-        //if no record found create new blank record           
+        //if no record found return to privious page with error message           
         if(empty($educations[0])){
             
             return redirect('admin/settings/education/new')
@@ -223,6 +233,7 @@ class PagesController extends Controller
     {
             return view('admin.pages.settings.education-form');
     }
+
     
     /**
      * This function just returns education-form view with data to edit on taking 
@@ -238,8 +249,9 @@ class PagesController extends Controller
 
         return view('admin.pages.settings.education-form', ['education'=>$education])->with('educationFormType', $educationFormType);
     }
+
     
-       /**
+     /**
      * 1. This function takes the post data from education-form validates them.
      * 2. Then saves them to db. Or create a new record first if post data is new data 
      *    and then saves them to db. And redirects to education-view page.
@@ -282,14 +294,12 @@ class PagesController extends Controller
  
             $education->user_id = $auth_user_id;
             $education->degree_name = $request->input('degreeName');
-
         }      
             
         
             //assign form datas to model fields
             $education->institute_name = $request->input('instituteName');
             $education->pass_year = $request->input('passYear');
-
             
             try{
             
@@ -321,7 +331,6 @@ class PagesController extends Controller
     public function removeEducation($degreeName)
 {       $auth_user_id = Auth::user()->id;
         $degree_name = $degreeName;
-        $educationFormType = "edit";
         
         $education = education::where('user_id', $auth_user_id)->where('degree_name', $degree_name)->first();
         
@@ -331,6 +340,8 @@ class PagesController extends Controller
                     ->with('message','Education Information Removed Seccessfully!')
                     ->with('status', 'success');
     }
+ 
+    
     
     
     /**
@@ -362,8 +373,7 @@ class PagesController extends Controller
         //return view to personal info page with personal_info query object.        
         return view('admin.pages.settings.personal-info', ['personal_info'=>$personal_info]);
     }
-   
-    
+     
     
     /**
     *This function updates the input data from presonal-info page form too database table personal_info.
@@ -415,9 +425,159 @@ class PagesController extends Controller
                     ->with('status', 'success');
     }
     
+    
+    
+    
+    /**
+     * This function queries db for data and returns work-history records to chamber-view page.
+     * 
+     * @return array
+     */
     public function viewWorkHistory()
-    {
-        return view('admin.pages.settings.work-history');
+    {        
+        $auth_user_id = Auth::user()->id;
+        
+        //query with work-history table for record with Auth::user()->id        
+        $work_history = work_history::where('user_id', $auth_user_id)->get(); //
+
+        //if no record found redirect to "work_history/new" page with error message           
+        if(empty($work_history[0])){
+            
+            return redirect('admin/settings/work-history/new')
+                    ->with('message','No Work History Data found in database. Please Add a new Work History Record!')
+                    ->with('status', 'danger'); 
+        }
+             
+        return view('admin.pages.settings.work-history-view', ['work_history'=>$work_history]);
+
     }
+    
+    
+    /**
+     * This function just returns work-history-form view
+     * 
+     * @return view
+     */    
+    public function newWorkHistoryForm()
+    {
+            return view('admin.pages.settings.work-history-form');
+    }
+
+    
+    /**
+     * This function just returns work-history-form view with data to edit on taking 
+     * work-history ID from get request from work-history-view Form.
+     * 
+     * @return array
+     */      
+    public function editWorkHistoryForm($workHistoryId)
+    {           $auth_user_id = Auth::user()->id;
+                $work_history_id = $workHistoryId;
+                $work_history_form_type = "edit";
+                $work_history = work_history::where('user_id', $auth_user_id)->where('work_history_id', $work_history_id)->first();
+                
+                return view('admin.pages.settings.work-history-form', ['work_history'=>$work_history])->with('work_history_form_type', $work_history_form_type);
+    }
+    
+    
+    /**
+     * 1. This function takes the post data from work-history-form validates them.
+     * 2. Then saves them to db. Or create a new record first if post data is new data 
+     *    and then saves them to db. And redirects to work-history-view page.
+     * 3. If validation fails, its redirects back to previous Form with data and error message.
+     * 
+     * @return redirest to work-history-form with error message if any.
+     */  
+    public function saveWorkHistory(Request $request){            
+        $auth_user_id = Auth::user()->id;
+        $work_history = null;
+        
+        //Validating work-history form input data and show error massege if not valid        
+        $validator = Validator::make($request->all(),[
+            'workHistoryId' => 'string|required|max:4',
+            'position' => 'string|nullable|max:50',
+            'organization' => 'string|nullable|max:50',
+            'startDate' => 'date|required|max:10',
+            'endDate' => 'date|nullable|max:50',
+            'description' => 'string|nullable|max:100',
+            ]);
+        
+        //Validate
+        if($validator->fails()){            
+            return redirect()
+                ->back()
+                ->with('message','Please input the Informations Correctly!')
+                ->with('status', 'danger')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
+        //cheak if data submited as Edit form or New form
+        if($request->input('formType') === "edit"){
+            
+          //getting input workHistoryId from the form        
+            $workHistoryId = $request->input('workHistoryId');
+            $work_history = work_history::where('user_id', $auth_user_id)->where('work_history_id', $workHistoryId)->first();
+            
+        }else{
+            
+            //create new record            
+            $work_history = new work_history;
+ 
+            $work_history->user_id = $auth_user_id;
+            $work_history->work_history_id = $request->input('workHistoryId');
+
+        }      
+            
+        
+            //assign form datas to model fields
+            $work_history->position = $request->input('position');
+            $work_history->organization = $request->input('organization');
+            $work_history->start_date = $request->input('startDate');
+            $work_history->end_date = $request->input('endDate');
+            $work_history->description = $request->input('description');
+
+            
+            try{
+            
+                //save assigned data to the personal_info table            
+                $work_history->save();
+            
+            }catch(\Illuminate\Database\QueryException $ex){
+                
+                return redirect()
+                ->back()
+                ->with('message','Warning!! Please check that the work_history_id that you have provided is unique, "Work History Id" field is reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
+            }
+            
+            return redirect()
+                    ->route('adminWorkHistory')
+                    ->with('message','Work History Information Saved!')
+                    ->with('status', 'success');
+    }
+    
+    
+    /**
+     * This function deletes work-history record from database table work history with primary key passed from work-history-form. 
+     * 
+     * 
+     * @return redirect
+     */    
+    public function removeWorkHistory($workHistoryId)
+    {           $auth_user_id = Auth::user()->id;
+                $work_history_id = $workHistoryId;
+                
+                $work_history = work_history::where('user_id', $auth_user_id)->where('work_history_id', $work_history_id)->first();
+                
+                $work_history->delete();
+                
+                    return redirect()
+                    ->route('adminWorkHistory')
+                    ->with('message','Work History Information Removed Seccessfully!')
+                    ->with('status', 'success');
+    }
+
     
 }

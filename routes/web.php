@@ -64,8 +64,21 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'auth
         //personal-info Save Route    
             Route::post('settings/personal-info/save', ['as' => 'adminPersonalInfoSave', 'uses' => 'PagesController@savePersonalInfo']);
 
+            
 //work-history Page Route
             Route::get('settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'PagesController@viewWorkHistory']);
+                        
+        //work-history  New Route     
+            Route::get('settings/work-history/new', ['as' => 'adminWorkHistoryNew', 'uses' => 'PagesController@newWorkHistoryForm']);
+
+        //work-history  Edit Route     
+            Route::get('settings/work-history/edit/{workHistoryId}', ['as' => 'adminWorkHistoryEdit', 'uses' => 'PagesController@editWorkHistoryForm']);\      
+
+        //work-history  Save Route     
+            Route::post('settings/work-history/save', ['as' => 'adminWorkHistorySave', 'uses' => 'PagesController@saveWorkHistory']);
+
+        //work-history  Remove Route     
+            Route::get('/settings/work-history/remove/{workHistoryId}', ['as' => 'adminWorkHistoryRemove', 'uses' => 'PagesController@removeWorkHistory']);  
 });
 
 // auth routes setup

@@ -42,19 +42,17 @@
                         <a href="{{ url('admin/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
                             <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" width="35px" style="float: right;" />
                         </a>
-                        <div class="middle-info-coloumn col-sm-7" style="margin-left: 5px; padding-right:5px;">
+                        <div class="middle-info-coloumn col-sm-8" style="margin-left: 5px; padding-right:5px;">
                             <div class="title-info row" style="margin:0px;">
                             <!--Card Visible Portion. At Right side of Card Image-->
                                 <h3> <!--Card Title-->
                                     {{$chamber->chamber_name }}
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
-                                    <span>
-                                        ID - {{ $chamber->chamber_id }}
-                                    </span>
+                                    ID - {{ $chamber->chamber_id }}
                                 </h4>
                             </div> <!--End title-info class--> 
-                            <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
+                            <div class="multi-info row" style="margin:0px; border">   <!--Other Informations--> 
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-phone">
                                         {{ $chamber->telephone_number1 }}
@@ -71,7 +69,7 @@
                                     </span>
                                 </p>
                             </div> <!--End Other Informations--> 
-                            <div class="row" style="margin-top: 10px;">
+                            <div class="row" style="margin-top: 10px;"> <!--hidden section-->
                                 <div class="collapse" id="sec{{ $chamber->chamber_id }}" style="margin-right: 10px;">
                                     <table class="table">
                                             <tr>
