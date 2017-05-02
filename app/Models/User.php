@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use App\Notifications\PasswordResetNotification;
 
+
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract
 {
     use Authenticatable, CanResetPassword, Notifiable;
@@ -41,14 +42,30 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $fillable = ['username','first_name','last_name','email','password'];
 
+    
+    /**
+     *Relationship functions to chamber and schedule models
+     *
+     *
+     */
+
+    
+    public function schedules(){
+           return $this->hasMany('App\Models\schedule', 'user_id');
+    }
+
+        
+        
+ 
+    
     /**
      * Overriding the exiting sendPasswordResetNotification so that I can customize it
      *
      * @var array
      */
-	public function sendPasswordResetNotification($token)
-	{
-		$this->notify(new PasswordResetNotification($token));
-	}
+//	public function sendPasswordResetNotification($token)
+//	{
+//		$this->notify(new PasswordResetNotification($token));
+//	}
 
 }

@@ -1,27 +1,27 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class chamber extends Model
+class education extends Model
 {
-    /**
+   /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'chamber';
+    protected $table = 'education';
 
     /**
      * The attributes that are not mass assignable.
      *
      * @var array
      */
-    protected $guarded = ['chamber_id', 'user_id'];
+    protected $guarded = ['degree_name', 'user_id'];
     
     
-    protected $primarykey = array('chamber_id', 'user_id');
+    protected $primarykey = array('degree_name', 'user_id');
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -35,9 +35,7 @@ class chamber extends Model
      *
      * @var array
      */
-    protected $fillable = ['institute','address','telephone_number1','chamber_name',
-        'mobile_number1','telephone_number2','telephone_number3','mobile_number2',
-        'mobile_number3','city','post_code','district','thana'];
+    protected $fillable = ['pass_year','institute_name'];
 
     
     

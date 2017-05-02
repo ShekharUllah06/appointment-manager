@@ -1,4 +1,4 @@
-@extends('admin.pages.settings.education')
+@extends('doctor.pages.settings.education')
 @section('title', 'Education List View')
 @section('description', 'This is the Education page')
 
