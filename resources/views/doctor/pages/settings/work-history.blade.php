@@ -1,23 +1,23 @@
-@extends('layouts.admin')
-@section('title', 'Camber Section')
-@section('description', 'This is the Chamber page')
+@extends('layouts.doctor')
+@section('title', 'Work History')
+@section('description', 'This is the Work History page')
 
 @section('content')
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-auto">
-            @yield('chamberHead')
+            @yield('workHistoryHead')
         </div>
     </div>
 </div>
 <div  class="container-fluid">  
     <div class="row">
         <div class="col-lg-12">
-            @yield('chamberBody')
+            @yield('workHistoryBody')
         </div>
     </div>
 </div>
     @yield('jscript')
-    
+
 @endsection

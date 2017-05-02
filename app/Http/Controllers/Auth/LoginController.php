@@ -50,17 +50,17 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $username      = $request->get('username');
+        $username   = $request->get('username');
         $password   = $request->get('password');
         $remember   = $request->get('remember');
 
         if ($this->auth->attempt([
-            'username'     => $username,
+            'username'  => $username,
             'password'  => $password,
 			'activated'  => 1,
         ], $remember == 1 ? true : false)) {
 
-            return redirect()->route('admin.dashboard');
+            return redirect()->route('doctor.dashboard');
 
         }
         else {

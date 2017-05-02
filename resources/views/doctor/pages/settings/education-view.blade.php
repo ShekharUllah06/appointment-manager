@@ -1,4 +1,4 @@
-@extends('admin.pages.settings.education')
+@extends('doctor.pages.settings.education')
 @section('title', 'Education List View')
 @section('description', 'This is the Education page')
 
@@ -22,7 +22,7 @@
     <header class="row" style=" margin: 0px;">
         <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Education Card</h2>
         <div class="col-sm-1"></div>
-            <a href="{{url('admin/settings/education/new')}}" style="float: right;">
+            <a href="{{url('doctor/settings/education/new')}}" style="float: right;">
                 <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
             </a>
         </a>
@@ -39,7 +39,7 @@
                         <img src="{{url('assets/img/educationLogo.png')}}" class="left-image-column col-sm-2" alt="education logo" height="100" width="100" style="margin-top:4px;"> 
                         
                          <!--Right Side Edit Button-->
-                        <a href="{{ url('admin/settings/education/edit', ['degreeName' => $education->degree_name])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                        <a href="{{ url('doctor/settings/education/edit', ['degreeName' => $education->degree_name])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
                             <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit education" height="35px" width="35px" style="float: right;"/>
                         </a>
                          

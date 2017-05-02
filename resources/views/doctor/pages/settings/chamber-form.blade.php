@@ -1,4 +1,4 @@
-@extends('admin.pages.settings.chamber')
+@extends('doctor.pages.settings.chamber')
 @section('title', 'Chamber Entry/Edit Form')
 @section('description', 'This is the Chamber page')
 
@@ -20,7 +20,7 @@
         
     <!--Starting the Form-->
 
-    <form action="{{url('admin/settings/chamber/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
+    <form action="{{url('doctor/settings/chamber/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
         <legend>Chamber Information Form</legend>
 
         <fieldset>
@@ -268,14 +268,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <?php if(isset($chamber->chamber_id)){ ?>
-                            <a href="{{ url('admin/settings/chamber/remove', ['cId' => $chamber->chamber_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                            <a href="{{ url('doctor/settings/chamber/remove', ['cId' => $chamber->chamber_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
                     <?php } ?>  
                 </div>                
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/settings/chamber"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/doctor/settings/chamber"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
                                
             </div>

@@ -1,4 +1,4 @@
-@extends('admin.pages.settings.work-history')
+@extends('doctor.pages.settings.work-history')
 @section('title', 'Work-history Entry/Edit Form')
 @section('description', 'This is the Work-History page')
 
@@ -20,7 +20,7 @@
         
     <!--Starting the Form-->
 
-    <form action="{{url('admin/settings/work-history/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
+    <form action="{{url('doctor/settings/work-history/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
         <legend>Work History Information Form</legend>
 
         <fieldset>
@@ -137,14 +137,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <?php if(isset($work_history->work_history_id)){ ?>
-                            <a href="{{ url('admin/settings/work-history/remove', ['workHistoryId' => $work_history->work_history_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                            <a href="{{ url('doctor/settings/work-history/remove', ['workHistoryId' => $work_history->work_history_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
                     <?php } ?>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/settings/work-history"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/doctor/settings/work-history"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
             </div>
 
@@ -166,7 +166,7 @@
         var urlNew = window.location.pathname; //Get URL path
             if(urlNew.includes("/edit/")){ //chech value
                 document.getElementById('formType').value="edit"; //set value
-                document.getElementById('chamberId').readOnly = true;
+                document.getElementById('workHistoryId').readOnly = true;
             }
     </script>
 

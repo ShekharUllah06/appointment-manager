@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\doctor;
 
 use App\Http\Controllers\Controller;
 
@@ -12,7 +12,7 @@ class PagesController extends Controller
 
     public function getDashboard()
     {
-        return view('admin.pages.dashboard');
+        return view('doctor.pages.dashboard');
     }
   
 }

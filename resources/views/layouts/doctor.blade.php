@@ -17,7 +17,7 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
     <!-- Custom CSS -->
-    <link href="{!! asset('assets/css/doctor.css') !!}" rel="stylesheet">
+    <link href="{!! asset('assets/css/admin.css') !!}" rel="stylesheet">
 	
 	<!-- Morris Charts CSS -->
     <link href="{!! asset('assets/css/plugins/morris.css') !!}" rel="stylesheet">
@@ -54,7 +54,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Appointment Manager Doctor</a>
+                <a class="navbar-brand" href="index.html">Appointment Manager</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -97,16 +97,19 @@
                         <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
                         <ul class="sub-menu collapse" id="submenu-collapse">
                             <li>
-                                <a href="{{ url('/doctor/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
+                                <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
                             </li>
                             <li>
                                 <a href="{{ url('/doctor/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
                             </li>
                             <li>
-                                <a href="{{ url('/doctor/settings/work-history') }}"><i class="glyphicon glyphicon-list-alt"></i> Work History</a>
+                                <a href="{{ url('/doctor/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
                             </li>
                             <li>
-                                <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
+                                <a href="{{ url('/doctor/settings/specialties') }}"><i class="glyphicon glyphicon-list-alt"></i> Specialties</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/doctor/settings/work-history') }}"><i class="glyphicon glyphicon-list-alt"></i> Work History</a>
                             </li>
                         </ul>
                     </li>
