@@ -106,6 +106,9 @@
                                 <a href="{{ url('/admin/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
                             </li>
                             <li>
+                                <a href="{{ url('/admin/settings/specialties') }}"><i class="glyphicon glyphicon-list-alt"></i> Specialties</a>
+                            </li>
+                            <li>
                                 <a href="{{ url('/admin/settings/work-history') }}"><i class="glyphicon glyphicon-list-alt"></i> Work History</a>
                             </li>
                         </ul>

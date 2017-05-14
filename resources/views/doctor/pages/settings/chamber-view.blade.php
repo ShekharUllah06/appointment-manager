@@ -1,4 +1,4 @@
-@extends('admin.pages.settings.chamber')
+@extends('doctor.pages.settings.chamber')
 @section('title', 'Chamber List View')
 @section('description', 'This is the Chamber page')
 
