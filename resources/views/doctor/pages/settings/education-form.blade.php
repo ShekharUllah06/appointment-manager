@@ -20,7 +20,7 @@
         
     <!--Starting the Form-->
 
-    <form action="{{url('admin/settings/education/save')}}" method="post" class="well form-horizontal" id="educationForm" role="form">
+    <form action="{{url('doctor/settings/education/save')}}" method="post" class="well form-horizontal" id="educationForm" role="form">
         <legend>Education Information Form</legend>
 
         <fieldset>
@@ -90,14 +90,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">                
                     <?php if(isset($education->institute_name)){ ?>
-                        <a href="{{ url('admin/settings/education/remove', ['degreeName' => $education->degree_name])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                        <a href="{{ url('doctor/settings/education/remove', ['degreeName' => $education->degree_name])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
                     <?php } ?>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/settings/education"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/doctor/settings/education"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
             </div>
 

@@ -26,7 +26,7 @@ class EducationController extends Controller
         if(empty($educations[0])){
             
             return redirect()
-                    ->route('adminEducationNew')
+                    ->route('doctorEducationNew')
                     ->with('message','No Education Data found in database. Please Add a new Education Record!')
                     ->with('status', 'danger'); 
         }
@@ -126,7 +126,7 @@ class EducationController extends Controller
             }
             
             return redirect()
-                    ->route('adminEducation')
+                    ->route('doctorEducation')
                     ->with('message','Education Information Saved!')
                     ->with('status', 'success');
     }
@@ -146,7 +146,7 @@ class EducationController extends Controller
         
         $education->delete();
                     return redirect()
-                    ->route('adminEducation')
+                    ->route('doctorEducation')
                     ->with('message','Education Information Removed Seccessfully!')
                     ->with('status', 'success');
     }

@@ -83,12 +83,20 @@ class PersonalInfoController extends Controller
             $personal_info->country = $request->input('countryName');
             $personal_info->address = $request->input('address');
             
-            //save assigned data to the personal_info table            
-            $personal_info->save();
-            
+            try{  
+                //save assigned data to the personal_info table            
+                $personal_info->save();
+            }catch(\Illuminate\Database\QueryException $ex){
+                
+                return redirect()
+                ->back()
+                ->with('message','Warning!! All fields are reqired.  And all data are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
+            }            
             //return view to personal info page with personal_info query object.            
             return redirect()
-                    ->route('adminPersonalInfo', ['personal_info'=>$personal_info])
+                    ->route('doctorPersonalInfo', ['personal_info'=>$personal_info])
                     ->with('message','Personal Information Saved!')
                     ->with('status', 'success');
     }
