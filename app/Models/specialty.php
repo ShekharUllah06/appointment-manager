@@ -20,8 +20,8 @@ class specialty extends Model
      */
     protected $guarded = ['user_id'];
     
-    
-    protected $primarykey = array('specialty', 'user_id');
+  
+    protected $primarykey = array('specialty');
 
     /**
      * The attributes excluded from the model's JSON form.

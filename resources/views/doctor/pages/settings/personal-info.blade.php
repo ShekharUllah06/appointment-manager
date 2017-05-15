@@ -39,7 +39,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" value="{{ $personal_info->date_of_birth }}" readonly maxlength="10"/>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" readonly value="{{ $personal_info->date_of_birth }}" />
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." readonly maxlength="50"/>
+                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" readonly value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." />
                         </div>
                     </div>
                 </div>
