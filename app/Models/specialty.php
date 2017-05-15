@@ -18,10 +18,10 @@ class specialty extends Model
      *
      * @var array
      */
-    protected $guarded = ['chamber_id', 'user_id'];
+    protected $guarded = ['user_id'];
     
     
-    protected $primarykey = array('schedule_id', 'user_id');
+    protected $primarykey = array('specialty');
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -30,7 +30,8 @@ class specialty extends Model
      */
     protected $hidden = ['created_at', 'updated_at'];
 
-    
+    protected $fillable = ['specialty'];
+        
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){

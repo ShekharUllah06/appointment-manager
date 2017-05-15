@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.doctor')
 
 @section('title', 'Personal Information Page')
 @section('description', 'This is the Your Personal Information Page')
@@ -24,7 +24,7 @@
         
 <!--Starting the Form-->
 
-        <form action="{{url('admin/settings/personal-info/save')}}" method="post" class="well form-horizontal" role="form">
+        <form action="{{url('doctor/settings/personal-info/save')}}" method="post" class="well form-horizontal" role="form">
             <legend>Personal Information Edit Form</legend>
         
             <fieldset>
@@ -39,7 +39,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" value="{{ $personal_info->date_of_birth }}" readonly maxlength="10"/>
+                            <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth" maxlength="10" readonly value="{{ $personal_info->date_of_birth }}" />
                         </div>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." readonly maxlength="50"/>
+                            <input type="text" class="form-control" name="homeTown" id="homeTown" maxlength="50" readonly value="{{ $personal_info->home_town }}" placeholder="Type Your Home Towm Name Here.." />
                         </div>
                     </div>
                 </div>
@@ -371,7 +371,7 @@
                         <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                     </div>
                     <div class="col-sm-2" style="margin: 3px; padding: 3px;">
-                        <a href="/admin/settings/personal-info"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                        <a href="/doctor/settings/personal-info"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                     </div>
                 </div>
 <div class="col-md-4"></div>

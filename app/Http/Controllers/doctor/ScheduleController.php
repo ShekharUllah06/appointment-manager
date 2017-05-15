@@ -142,7 +142,7 @@ class ScheduleController extends Controller
             }
             
             return redirect()
-                    ->route('adminSchedule')
+                    ->route('doctorSchedule')
                     ->with('message','Schedule Information Saved!')
                     ->with('status', 'success');
     }
@@ -163,7 +163,7 @@ class ScheduleController extends Controller
                 $schedule->delete();
                 
                     return redirect()
-                    ->route('adminSchedule')
+                    ->route('doctorSchedule')
                     ->with('message','Schedule Information Removed Seccessfully!')
                     ->with('status', 'success');
     }

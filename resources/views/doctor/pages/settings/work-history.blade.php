@@ -1,23 +1,23 @@
 @extends('layouts.doctor')
-@section('title', 'Schedule Section')
-@section('description', 'This is the Schedule page')
+@section('title', 'Work History')
+@section('description', 'This is the Work History page')
 
 @section('content')
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-auto">
-            @yield('scheduleHead')
+            @yield('workHistoryHead')
         </div>
     </div>
 </div>
 <div  class="container-fluid">  
     <div class="row">
         <div class="col-lg-12">
-            @yield('scheduleBody')
+            @yield('workHistoryBody')
         </div>
     </div>
 </div>
     @yield('jscript')
-    
+
 @endsection

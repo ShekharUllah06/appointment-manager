@@ -137,7 +137,7 @@ class workHistoryController extends Controller
             }
             
             return redirect()
-                    ->route('adminWorkHistory')
+                    ->route('doctorWorkHistory')
                     ->with('message','Work History Information Saved!')
                     ->with('status', 'success');
     }
@@ -158,7 +158,7 @@ class workHistoryController extends Controller
                 $work_history->delete();
                 
                     return redirect()
-                    ->route('adminWorkHistory')
+                    ->route('doctorWorkHistory')
                     ->with('message','Work History Information Removed Seccessfully!')
                     ->with('status', 'success');
     }

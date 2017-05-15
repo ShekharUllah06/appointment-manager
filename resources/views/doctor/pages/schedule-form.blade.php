@@ -20,7 +20,7 @@
         
     <!--Starting the Form-->
 
-    <form action="{{url('admin/schedule/save')}}" method="post" class="well form-horizontal" id="scheduleForm" role="form">
+    <form action="{{url('doctor/schedule/save')}}" method="post" class="well form-horizontal" id="scheduleForm" role="form">
         <legend>Schedule Information Form</legend>
 
         <fieldset>
@@ -126,14 +126,14 @@
                 <div class="col-md-2"></div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <?php if(isset($schedule->schedule_id)){ ?>
-                            <a href="{{ url('admin/schedule/remove', ['ScheduleId' => $schedule->schedule_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                            <a href="{{ url('doctor/schedule/remove', ['ScheduleId' => $schedule->schedule_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
                     <?php } ?>  
                 </div>                
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
                     <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                 </div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <a href="/admin/schedule"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                    <a href="/doctor/schedule"><button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                 </div>
                                
             </div>

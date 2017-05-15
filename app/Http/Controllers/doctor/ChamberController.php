@@ -26,7 +26,7 @@ class ChamberController extends Controller
         if(empty($chambers[0])){
             
             return redirect()
-                    ->route('adminChamberNew')
+                    ->route('doctorChamberNew')
                     ->with('message','No Chamber Data found in database. Please Add a new chamber Record!')
                     ->with('status', 'danger'); 
         }
@@ -135,23 +135,21 @@ class ChamberController extends Controller
             $chamber->district = $request->input('district');
             $chamber->address = $request->input('address');
             
-//            try{
-            
+            try{            
                 //save assigned data to the chamber table            
                 $chamber->save();
             
-//            }catch(\Illuminate\Database\QueryException $ex){
-//                
-//                return redirect()
-//                ->back()
-//                ->with($ex)
-////                ->with('message','Warning!! Please check that the chamber Id that you have provided is unique, "Chambr ID" and "Chamber Name" fields are reqired.  And all other data(optional) are of desired type. Then try again!')
-//                ->with('status', 'danger')
-//                ->withInput();
-//            }
+            }catch(\Illuminate\Database\QueryException $ex){
+                
+                return redirect()
+                ->back()
+                ->with('message','Warning!! Please check that the chamber Id that you have provided is unique, "Chambr ID" and "Chamber Name" fields are reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
+            }
             
             return redirect()
-                    ->route('adminChamber')
+                    ->route('doctorChamber')
                     ->with('message','Chamber Information Saved!')
                     ->with('status', 'success');
     }
@@ -172,7 +170,7 @@ class ChamberController extends Controller
                 $chamber->delete();
                 
                     return redirect()
-                    ->route('adminChamber')
+                    ->route('doctorChamber')
                     ->with('message','Chamber Information Removed Seccessfully!')
                     ->with('status', 'success');
     }

@@ -22,7 +22,7 @@
     <header class="row"  style=" margin: 0px;">
         <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Chamber Card</h2>
         <div class="col-sm-1"></div>
-            <a href="{{url('admin/settings/chamber/new')}}" style="float: right;">
+            <a href="{{url('doctor/settings/chamber/new')}}" style="float: right;">
                 <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
             </a>
         </a>
@@ -39,7 +39,7 @@
                         <img src="{{url('assets/img/chamberLogo.png')}}" class="left-image-column col-sm-2" alt="chabmer logo" height="100" width="100" style="margin-top:10px;">
                         
                         <!--Right Side Edit Button-->
-                        <a href="{{ url('admin/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                        <a href="{{ url('doctor/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
                             <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" width="35px" style="float: right;" />
                         </a>
                         <div class="middle-info-coloumn col-sm-8" style="margin-left: 5px; padding-right:5px;">
