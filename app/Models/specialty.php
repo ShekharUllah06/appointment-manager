@@ -20,7 +20,7 @@ class specialty extends Model
      */
     protected $guarded = ['user_id'];
     
-    
+  
     protected $primarykey = array('specialty');
 
     /**
