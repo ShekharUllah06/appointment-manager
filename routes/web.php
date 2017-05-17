@@ -11,6 +11,7 @@
 |
 */
 
+
 //Home Page Route
 Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
 

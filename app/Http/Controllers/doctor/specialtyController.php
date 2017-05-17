@@ -11,7 +11,7 @@ use Validator;
 class specialtyController extends Controller
 {
     /**
-    *This function queries specialty table with user_id taken from Auth::user()->id.
+    *This function queries specialty table with user_id taken from Auth::user().
     *and returns the specialty with the query data.
     *
      *  @return type array

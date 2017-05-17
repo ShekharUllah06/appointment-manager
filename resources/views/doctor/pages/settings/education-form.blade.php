@@ -18,7 +18,7 @@
 
 @section('educationBody')     
         
-    <!--Starting the Form-->
+    <!--Starting the Form--->
 
     <form action="{{url('doctor/settings/education/save')}}" method="post" class="well form-horizontal" id="educationForm" role="form">
         <legend>Education Information Form</legend>
