@@ -8,7 +8,7 @@ class PasswordReset extends Model {
 	/**
      * The database table used by the model.
      *
-     * @var string
+     * @var string.
      */
     protected $table = 'password_resets';
 

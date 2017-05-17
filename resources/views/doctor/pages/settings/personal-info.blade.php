@@ -22,7 +22,7 @@
 
     <div class="row col-md-12"> 
         
-<!--Starting the Form-->
+<!--Starting the Form--->
 
         <form action="{{url('doctor/settings/personal-info/save')}}" method="post" class="well form-horizontal" role="form">
             <legend>Personal Information Edit Form</legend>

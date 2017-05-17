@@ -9,7 +9,7 @@ class ActivationKey extends Model
 	/**
      * The database table used by the model.
      *
-     * @var string
+     * @var string.
      */
     protected $table = 'activation_keys';
 	

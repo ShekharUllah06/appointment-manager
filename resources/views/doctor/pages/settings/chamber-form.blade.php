@@ -18,7 +18,7 @@
 
 @section('chamberBody')     
         
-    <!--Starting the Form-->
+    <!--Starting the Form--->
 
     <form action="{{url('doctor/settings/chamber/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
         <legend>Chamber Information Form</legend>

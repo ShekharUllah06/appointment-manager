@@ -18,7 +18,7 @@
 
 @section('workHistoryBody')     
         
-    <!--Starting the Form-->
+    <!--Starting the Form--->
 
     <form action="{{url('doctor/settings/work-history/save')}}" method="post" class="well form-horizontal" id="chamberForm" role="form">
         <legend>Work History Information Form</legend>

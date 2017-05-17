@@ -20,7 +20,11 @@ class chamber extends Model
      */
     protected $guarded = ['chamber_id', 'user_id'];
     
-    
+    /**
+     * The attributes that are Primary Key.
+     *
+     * @var array
+     */    
     protected $primarykey = array('chamber_id', 'user_id');
 
     /**

@@ -15,7 +15,7 @@ class PersonalInfoController extends Controller
     *This function queries personal-info table with user_id taken from Auth::user()->id.
     *and returns the personal-info with the query data.
     *
-     *  @return type array
+     *  @return type array.
     */
     public function viewPersonalInfo()                        
     {

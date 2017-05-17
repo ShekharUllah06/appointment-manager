@@ -17,7 +17,7 @@
 
     <div class="row" style="border:0px"> 
         
-<!--Starting the Specialty Add Form-->
+<!--Starting the Specialty Add Form--->
         <form action="{{url('doctor/settings/specialties/save')}}" method="post" class="form-horizontal " role="form">
             <fieldset>
 <!--Specialty-->
