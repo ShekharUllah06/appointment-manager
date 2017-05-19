@@ -33,6 +33,20 @@
 
                 <input type="hidden" id="userId" name="userId" value="{{ $personal_info->id }}">
                 <br />
+<!--Picture-->
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <img class="col-md-4" src="" alt="Profile Picture" height="300" width="200" style=""/>
+                </div>
+                <div class="form-group row">
+                    <label for="profilePicture" class="col-md-4 control-label">Photo: </label>
+                    <div class="col-md-4 inputGroupContainer">
+                        <div class="input-group" id="profilePicture">                        
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                            <input type="file" class="form-control" id="profilePicture" name="profilePicture" accept="image/gif, image/jpeg, image/png" maxlength="10" readonly value="{{ $personal_info->date_of_birth }}" />
+                        </div>
+                    </div>
+                </div>
 <!--Date of Birth-->
                 <div class="form-group row">
                     <label for="dateOfBirth" class="col-md-4 control-label">Date of Birth: </label>

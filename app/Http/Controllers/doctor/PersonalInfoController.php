@@ -76,7 +76,18 @@ class PersonalInfoController extends Controller
             //query with personal_info table for record with input id        
             $personal_info = personal_info::find($user_id);
             
-            //assign form datas to model fields            
+            //assign form datas to model fields   
+            
+            if(Request::hasFile('profilePicture')){
+                $file = Request::file('profilePicture');
+            }
+//            $profilePicture = \Illuminate\Support\Facades\Input::file('profilePicture');
+//            $filename = time() . '.' . $profilePicture->getClientOriginalExtension();
+//            $path = public_path('profilepics/' . $filename);
+//            Image::make($profilePicture->getRealPath())->resize(200,200)->save($path);
+//            $user->$profilePicture = $filename;
+            
+            $personal_info->imageUrl = $request->input('');
             $personal_info->date_of_birth = $request->input('dateOfBirth');
             $personal_info->gender = $request->input('genderName');
             $personal_info->home_town = $request->input('homeTown');

@@ -15,7 +15,10 @@ class personal_info extends Model
         
         public $primarykey = 'id';
         
-        protected $hidden = ['id','updated_at', 'created_at'];
-
-	protected $fillable = ['date_of_birth','gender','home_town','country','address'];
+     /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+	protected $fillable = ['date_of_birth','gender','home_town','country','address','imageUrl'];
 }
