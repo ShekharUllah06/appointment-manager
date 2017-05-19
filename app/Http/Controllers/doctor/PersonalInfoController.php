@@ -15,7 +15,7 @@ class PersonalInfoController extends Controller
     *This function queries personal-info table with user_id taken from Auth::user()->id.
     *and returns the personal-info with the query data.
     *
-     *  @return type array
+     *  @return type array.
     */
     public function viewPersonalInfo()                        
     {
@@ -54,10 +54,10 @@ class PersonalInfoController extends Controller
         
         //Validating personal-info form input data and show error massege if not valid       
         $validator = Validator::make($request->all(),[
-            'dateOfBirth' => 'date|nullable|required',
-            'genderName' => 'numeric|nullable|required|max:1',
-            'homeTown' => 'string|nullable|required|max:50',
-            'countryName' => 'string|nullable|required|max:50',
+            'dateOfBirth' => 'date|required',
+            'genderName' => 'numeric|required|max:1',
+            'homeTown' => 'string|required|max:50',
+            'countryName' => 'string|required|max:50',
             'address' => 'string|nullable|max:100',]);
         
         if($validator->fails()){   

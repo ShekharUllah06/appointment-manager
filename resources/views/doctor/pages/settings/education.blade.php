@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.doctor')
 @section('title', 'Education Section')
 @section('description', 'This is the Education page')
 

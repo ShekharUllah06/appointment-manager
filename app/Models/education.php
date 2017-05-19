@@ -20,7 +20,11 @@ class education extends Model
      */
     protected $guarded = ['degree_name', 'user_id'];
     
-    
+    /**
+     * The attributes that are Primary Key.
+     *
+     * @var array
+     */
     protected $primarykey = array('degree_name', 'user_id');
 
     /**

@@ -28,7 +28,7 @@
         </a>
     </header>
     
-    <!--main section and/or cards section-->
+    <!--main section and/or cards section--->
     <div class="list-section row" style="margin: 0px;">
         <ul class="list-unstyled col-md-10 col-md-offset-1" style="background-color: white;">
         <!--Loop through education data array-->

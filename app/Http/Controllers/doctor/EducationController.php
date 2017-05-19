@@ -19,7 +19,7 @@ class EducationController extends Controller
     {
         $auth_user_id = Auth::user()->id;
         
-        //query with education table for record with Auth::user()->id        
+        //query with education table for record with Auth::user()       
         $educations = education::where('user_id', $auth_user_id)->get(); //
 
         //if no record found return to privious page with error message           

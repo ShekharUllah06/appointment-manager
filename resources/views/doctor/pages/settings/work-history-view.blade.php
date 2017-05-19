@@ -18,7 +18,7 @@
 
 <div class="row" style="background-color: #f5f5f5 ">
     
-    <!--Page Title and Add New button-->
+    <!--Page Title and Add New button--->
     <header class="row"  style=" margin: 0px;">
         <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Work History Card</h2>
         <div class="col-sm-1"></div>

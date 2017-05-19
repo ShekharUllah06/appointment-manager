@@ -11,6 +11,7 @@
 |
 */
 
+
 //Home Page Route
 Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
 
@@ -118,6 +119,19 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
             //work-history  Remove Route     
                 Route::get('/remove/{workHistoryId}', ['as' => 'doctorWorkHistoryRemove', 'uses' => 'workHistoryController@removeWorkHistory']);  
     }); 
+    
+    
+    //Specialty Routes
+    Route::group(['namespace' => 'doctor', 'prefix' => 'settings/specialties'], function(){
+
+                Route::get('/', ['as' => 'doctorSpecialty', 'uses' => 'specialtyController@viewSpecialty']);
+
+            //work-history  Save Route     
+                Route::post('/save', ['as' => 'doctorSpecialtySave', 'uses' => 'specialtyController@saveSpecialty']);
+
+            //work-history  Remove Route     
+                Route::get('/remove/{specialtyName}', ['as' => 'doctorSpecialtyRemove', 'uses' => 'specialtyController@removeSpecialty']);  
+    });
 
 });
 

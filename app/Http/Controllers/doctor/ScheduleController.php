@@ -17,7 +17,7 @@ class ScheduleController extends Controller
      /**
      * This function queries db for data and returns schedule records to schedule-view page.
      * 
-     * @return array
+     * @return array.
      */
     public function viewScheduleList()
     {

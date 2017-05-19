@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class specialty extends Model
 {
    /**
+    * 
      * The database table used by the model.
      *
      * @var string
@@ -20,8 +21,8 @@ class specialty extends Model
      */
     protected $guarded = ['user_id'];
     
-    
-    protected $primarykey = array('specialty', 'user_id');
+  
+    protected $primarykey = array('specialty');
 
     /**
      * The attributes excluded from the model's JSON form.

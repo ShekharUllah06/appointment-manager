@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class schedule extends Model
 {
    /**
+    * 
      * The database table used by the model.
      *
      * @var string
@@ -20,7 +21,11 @@ class schedule extends Model
      */
     protected $guarded = ['schedule_id', 'user_id', 'chamber_id'];
     
-    
+    /**
+     * The attributes that are Primary Key.
+     *
+     * @var array
+     */
     protected $primarykey = array('schedule_id', 'user_id');
 
     /**
