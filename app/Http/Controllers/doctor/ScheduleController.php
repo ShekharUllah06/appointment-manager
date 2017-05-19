@@ -33,7 +33,7 @@ class ScheduleController extends Controller
         if(empty($schedules[0])){
             
             return redirect()
-                    ->route('adminScheduleNew')
+                    ->route('doctorScheduleNew')
                     ->with('message','No Schedule Data found in database. Please Add a new schedule Record!')
                     ->with('status', 'danger'); 
         }

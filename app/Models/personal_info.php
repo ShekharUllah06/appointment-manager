@@ -30,7 +30,7 @@ class personal_info extends Model
      * @var array
      */
         public $primarykey = 'id';
-    
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -43,5 +43,5 @@ class personal_info extends Model
      *
      * @var array
      */
-	protected $fillable = ['date_of_birth','gender','home_town','country','address'];
+	protected $fillable = ['date_of_birth','gender','home_town','country','address','imageUrl'];
 }
