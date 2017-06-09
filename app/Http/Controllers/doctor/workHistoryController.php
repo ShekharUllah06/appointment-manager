@@ -27,7 +27,7 @@ class workHistoryController extends Controller
         if(empty($work_histories[0])){
             
             return redirect()
-                    ->redirect('doctorWorkHistoryNew')
+                    ->route('doctorWorkHistoryNew')
                     ->with('message','No Work History Data found in database. Please Add a new Work History Record!')
                     ->with('status', 'danger'); 
         }

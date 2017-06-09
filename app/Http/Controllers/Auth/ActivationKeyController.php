@@ -59,7 +59,7 @@ class ActivationKeyController extends Controller
 		if (Auth::check()) {
 			if (auth()->user()->activated) {
 
-				return redirect()->route('admin.dashboard')
+				return redirect()->route('doctor.dashboard')
 					->with('message', 'Your email is already activated.')
 					->with('status', 'success');
 			}
@@ -83,7 +83,7 @@ class ActivationKeyController extends Controller
 		
 		// redirect to the login page after a successful activation
         return redirect()->route('login')
-            ->with('message', 'You successfully activated your email! You can now login')
+                        ->with('message', 'You successfully activated your email! You can now login')
 			->with('status', 'success');
             
 

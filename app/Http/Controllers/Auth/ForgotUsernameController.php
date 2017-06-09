@@ -68,8 +68,8 @@ class ForgotUsernameController extends Controller
 		
 		if (empty($user)) {
 			return redirect()->route('username_reminder')
-				->with('message', 'We could not find this email in our system')
-				->with('status', 'warning');
+                                        ->with('message', 'We could not find this email in our system')
+                                        ->with('status', 'warning');
 		}
 		
 		
@@ -79,7 +79,7 @@ class ForgotUsernameController extends Controller
 
         return redirect()->route('front.home')
 			->with('message', 'Your username has been sent to your email address')
-            ->with('status', 'success');
+                        ->with('status', 'success');
             
 
     }
