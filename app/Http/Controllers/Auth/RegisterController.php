@@ -52,16 +52,16 @@ class RegisterController extends Controller
     {
         $validator = Validator::make($data,
             [
-                'username'           	 => 'required|unique:users|min:4',
-				'first_name'            => 'required',
+                'username'           	=> 'required|unique:users|min:4',
+		'first_name'            => 'required',
                 'last_name'             => 'required',
                 'email'                 => 'required|email|unique:users',
                 'password'              => 'required|min:6|max:20',
                 'password_confirmation' => 'required|same:password',
             ],
             [
-				'username.required'     => 'Username is required',
-                'username.min'           => 'Username needs to have at least 6 characters',
+		'username.required'     => 'Username is required',
+                'username.min'          => 'Username needs to have at least 6 characters',
                 'first_name.required'   => 'First Name is required',
                 'last_name.required'    => 'Last Name is required',
                 'email.required'        => 'Email is required',

@@ -57,7 +57,7 @@ class LoginController extends Controller
         if ($this->auth->attempt([
             'username'  => $username,
             'password'  => $password,
-			'activated'  => 1,
+            'activated' => 1,
         ], $remember == 1 ? true : false)) {
 
             return redirect()->route('doctor.dashboard');
