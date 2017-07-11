@@ -34,8 +34,9 @@
     <!--main section and/or cards section--->   
     <div class="list-section row" style="margin: 0px">        
         <ul class="list-unstyled col-md-10 col-md-offset-1" style="background-color: white;">
-        <!--Loop through schedule data array-->
-            @foreach($schedules as $schedule)
+            <!--Loop through schedule data array-->
+            
+             @foreach($schedules as $schedule)
                 <li>
                     <div class="card row" style="border-bottom: 1px solid black;">   
                         
@@ -47,38 +48,38 @@
                             <div class="title-info row" style="margin:0px;">
                             <!--Card Visible Portion. At Right side of Card Image-->
                                 <h3> <!--Card Title-->
-                                    {{ $schedule->schedule_date }}
+                                    Date: <b>{{ $schedule->schedule_date }}</b>
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
-                                    Chamber Name: {{ $schedule->chamber_name }}
+                                    Chamber Name: <b>{{ $schedule->chamber_name }}</b>
                                 </h4>
                             </div> <!--End title-info class--> 
                             <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-phone">
-                                     Chamber ID: {{ $schedule->chamber_id }}
+                                     Chamber ID: <b>{{ $schedule->chamber_id }}</b>
                                     </span>
                                 </p>
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
                                     <span class="glyphicon glyphicon-time">
-                                        Start: {{ $schedule->start_time }}
+                                        Start: <b>{{ $schedule->start_time }}</b>
                                     </span>
                                 </p>
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
                                     <span class="glyphicon glyphicon-time">
-                                         End: {{ $schedule->end_time }}
+                                         End: <b>{{ $schedule->end_time }}</b>
                                     </span>
                                 </p>
                             </div> <!--End Other Informations--> 
                             <div class="row"> <!--hidden section-->
                                 <div class="col-sm-5">
                                     <span class="glyphicon glyphicon-map-marker">
-                                        District: {{ $schedule->district }}
+                                        District: <b>{{ $schedule->district }}</b>
                                     </span>                            
                                 </div>
                                 <div class="col-sm-5" id="">
                                     <span class="glyphicon glyphicon-map-marker">
-                                        Thana/Sub-Distric: {{ $schedule->thana }}
+                                        Thana/Sub-Distric: <b>{{ $schedule->thana }}</b>
                                     </span>
 
 <!--<span class="glyphicon glyphicon-chevron-down" style="padding:4px; margin-top: 2px;"></span>-->
@@ -87,6 +88,7 @@
                     </div> <!--End Card class-->
                 </li> <!--End card item-->
             @endforeach <!--End schedule data array Loop -->
+
         </ul>
     </div>  
 </div>

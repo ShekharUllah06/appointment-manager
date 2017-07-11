@@ -58,7 +58,7 @@ class ChamberController extends Controller
                 $chamberFormType = "edit";
                 $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
                 
-                return view('doctor.pages.settings.chamber-form', ['chamber'=>$chamber])->with('chamberFormType', $chamberFormType);
+                return view('doctor.pages.settings.chamber-form', ['chamber'=>$chamber,'chamberFormType', $chamberFormType]);
     }
     
     
