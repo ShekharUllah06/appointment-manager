@@ -22,6 +22,7 @@ class PersonalInfo extends Migration
 		$table->string('country');
 		$table->string('home_town');
 		$table->string('address');
+                $table->string('imageUrl')->default('default.png');
 	});
     }
 
