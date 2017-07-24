@@ -27,27 +27,19 @@
 
             <!-- Form type holder, hidden-->       
 
-            <input type="hidden" id="formType" name="formType" valeu="<?php if(isset($scheduleFormType)){ //check if schedule data set or blank 
+            <input type="hidden" id="formType" name="formType" value="<?php if(isset($scheduleFormType)){ //check if schedule data set or blank 
                                                                                 echo $scheduleFormType; }
                                                                              elseif(Request::old('formType')){ // or if data exist from privious request
                                                                                 echo Request::old('formType');} ?>" /> 
 
-            <!-- Schedule ID Field-->   
+            <!-- Schedule ID holder, hidden-->   
 
-            <div class="form-group row">
-                <label for="scheduleId" class="col-md-4 control-label">Schedule ID: </label>
-                <div class="col-md-4 inputGroupContainer">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-barcode"></i></span>
-                        <input type="text" class="form-control" id="scheduleId" name="scheduleId" readonly value="<?php if(isset($schedule->schedule_id)){ //check if schedule data set or blank 
-                                                                                                                                echo ($schedule->schedule_id);}
-                                                                                                                            elseif(Request::old('scheduleId')){ // or if data exist from privious request
-                                                                                                                                echo Request::old('scheduleId');} ?>" 
-                                                                                                                    placeholder="This Will be Auto Generated.."/>
 
-                    </div>
-                </div>
-            </div>
+            <input type="hidden" class="form-control" id="scheduleId" name="scheduleId" value="<?php if(isset($schedule->schedule_id)){ //check if schedule data set or blank 
+                                                                                                                    echo ($schedule->schedule_id);}
+                                                                                                                elseif(Request::old('scheduleId')){ // or if data exist from privious request
+                                                                                                                    echo Request::old('scheduleId');} ?>" />
+
    
             
             <!--Chamber Name-->

@@ -27,7 +27,7 @@
 
              <!--Form type holder, hidden-->       
 
-            <input type="hidden" id="formType" name="formType" valeu="<?php if(isset($educationFormType)){ //check if education data set or blank 
+            <input type="hidden" id="formType" name="formType" value="<?php if(isset($educationFormType)){ //check if education data set or blank 
                                                                                 echo $educationFormType; }
                                                                              elseif(Request::old('formType')){ // or if data exist from privious request
                                                                                 echo Request::old('formType');} ?>" /> 

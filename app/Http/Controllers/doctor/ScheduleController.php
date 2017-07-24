@@ -10,6 +10,7 @@ use App\Models\chamber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Carbon;
 
 class ScheduleController extends Controller
 {
@@ -22,26 +23,65 @@ class ScheduleController extends Controller
     public function viewScheduleList()
     {
         $auth_user_id = Auth::user()->id;
-        
+        $schedules = [];
         //query with schedule table for record with Auth::user()->id        
-        $schedules = schedule::join('users', 'schedule.user_id', '=', 'users.id')       //SQL Join needs to be converted to Laravel Relations!!!
+        $schedulesQuery = schedule::join('users', 'schedule.user_id', '=', 'users.id')       //SQL Join needs to be converted to Laravel Relations!!!
                 ->join('chamber', 'schedule.chamber_id', '=', 'chamber.chamber_id')
                 ->where('schedule.user_id', $auth_user_id)
                 ->get();//
 
         //if no record found return to privious page with error message           
-        if(empty($schedules[0])){
+        if(empty($schedulesQuery[0])){
             
             return redirect()
                     ->route('doctorScheduleNew')
                     ->with('message','No Schedule Data found in database. Please Add a new schedule Record!')
                     ->with('status', 'danger'); 
         }
-             
+        
+        $carbon_dateTime = Carbon::now(); // Get System Date with  Carbon
+        
+        $dateToday = $carbon_dateTime->toDateString();
+        
+        //Get single Record out of DB Result Set
+        foreach ($schedulesQuery as $scheduleRecord){             
+            //Convert and join schedule date and time
+            $scheduleDate           = $scheduleRecord['schedule_date'];
+            $scheduleDateConverted  = strtotime($scheduleDate);
+            $scheduleDateFormated   = date('d-M-Y',$scheduleDateConverted);
+            $scheduleTime           = $scheduleRecord['start_time'];
+            $scheduleTimeStamp      = date('Y-m-d H:i:s', strtotime("$scheduleDate $scheduleTime"));
+            
+            //Compare Schedule date with current date then assamble schedules array
+            if($scheduleDate >= $dateToday){               
+                $scheduleRecord['schedule_date'] = $scheduleDateFormated;    
+                $scheduleRecord['timeStamp'] = $scheduleTimeStamp;
+                $schedules[] = $scheduleRecord;                                       
+            }            
+        }
+       
+        //sort array records by dateTime
+        usort($schedules, array("App\Http\Controllers\doctor\ScheduleController","compareDateTime"));
+        
         return view('doctor.pages.schedule-view', ['schedules'=>$schedules]);
     }
 
     
+    /**
+     * This is helper function for usort() at viewScheduleList() function.
+     * It outputs +1 or -1 comparing two entries from $schedules['timeStamp'] array.
+     *
+     * @return int
+     */    
+    private static function compareDateTime($a, $b){                                        
+        if($a['timeStamp'] == $b['timeStamp']){
+            return 0;
+        }
+        return ($a["timeStamp"] > $b["timeStamp"]) ? +1 : -1;                 
+    }
+                    
+                    
+                    
     /**
      * This function just returns schedule-form view
      * 
@@ -91,9 +131,9 @@ class ScheduleController extends Controller
         //Validating schedulefform input data and show error massege if not valid        
         $validator = Validator::make($request->all(),[
             'getChamberId' => 'string|required|max:4',
-            'scheduleDate' => 'date|required|max:10',
-            'startTime' => 'date_format:H:i:s|nullable|max:8',
-            'endTime' => 'date_format:H:i:s|nullable|max:8',
+            'scheduleDate' => 'date|required|max:10|after:yesterday',
+            'startTime' => 'date_format:H:i:s|nullable|max:8|before:endTime',
+            'endTime' => 'date_format:H:i:s|nullable|max:8|after:startTime',
             ]);
         
         //Validate
