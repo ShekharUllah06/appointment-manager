@@ -97,10 +97,10 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
             //view route
                 Route::get('/', ['as' => 'doctorPersonalInfo', 'uses' => 'PersonalInfoController@viewPersonalInfo']);
 
-            //personal-info Save Route    
+            //personal-info information Save Route    
                 Route::post('/save', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@savePersonalInfo']);
                 
-            //avatar Save Route    
+            //personal-info avatar/image Save Route    
                 Route::post('/save_avatar', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@saveAvatar']);
     });  
 

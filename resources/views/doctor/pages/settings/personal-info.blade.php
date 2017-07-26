@@ -23,9 +23,6 @@
     <div class="row col-md-12"> 
         <div class="well">   
         <legend>Personal Information Edit Form</legend>  
-            <div>
-                <?php if(isset($tempVar)){var_dump($tempVar);}else{echo "no data";} ?>
-            </div>
     <!--Starting the Avatar-Form--->
 
         <form action="{{url('doctor/settings/personal-info/save_avatar')}}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">      
@@ -37,7 +34,7 @@
         <!--Picture-->
                         <div class="row">
                             <div class="col-md-4"></div>
-                            <img class="col-md-4" src="{{url('uploads/avatars/'.$personal_info->imageUrl)}}" alt="Profile Picture" style="width:200px; height:200px; border-radius:25%; margin:5px; padding-bottom: 2px;"/>
+                            <img class="col-md-4" src="{{url('uploads/avatars/'.$personal_info->imageUrl)}}" alt="Profile Picture" style="width:200px; height:200px; border-radius:15%; margin:5px; padding-bottom: 2px;"/>
                         </div>
                         <div class="form-group row">
                             <label for="profilePicture" class="col-md-4 control-label">Avatar: </label>

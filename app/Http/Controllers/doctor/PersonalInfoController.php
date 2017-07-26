@@ -30,22 +30,23 @@ class PersonalInfoController extends Controller
         if(empty($personal_info)){
             $personal_info = new personal_info;
             $personal_info->id = $auth_user_id;
-            
             //save assigned data to the personal_info table             
-            $personal_info->save();
-        
-
+            $personal_info->save();        
             
             $personal_info = personal_info::find($auth_user_id);;
         }
-        $fileName = 1231123;   ////delete it
+        //if no avatar present; save default avatar to DB
+        if(empty($personal_info->imageUrl)){
+            $personal_info->imageUrl = "default.png";
+            $personal_info->save();  
+        }
         //return view to personal info page with personal_info query object.        
-        return view('doctor.pages.settings.personal-info', ['personal_info'=>$personal_info, 'tempVar' => $fileName]);
+        return view('doctor.pages.settings.personal-info', ['personal_info'=>$personal_info]);
     }
      
     
     /**
-    *This function updates the input data from presonal-info page form too database table personal_info.
+    *This function updates the input data from personal-info page form too database table personal_info.
     *It validates the data before updating,
     *
      *  @return type array
@@ -106,7 +107,8 @@ class PersonalInfoController extends Controller
      
     
     /**
-    *This function updates the input data from presonal-info page form too database table personal_info.
+    *This function updates the input file/avatar assigned name from personal-info page form too
+    *database table personal_info and upload the file to public/uploads/avatars/. folder.
     *It validates the data before updating,
     *
      *  @return type array
@@ -114,52 +116,60 @@ class PersonalInfoController extends Controller
     
     public function saveAvatar(Request $request)
     {
-        
-        if($request->file('profilePicture')->isValid()){
+        //
+        if($request->hasFile('profilePicture') && $request->file('profilePicture')->isValid()){
             $user_id = $request->input('userId');
             $avatar = $request->file('profilePicture');
-            $carbonTimeStamp = Carbon::now();
-            $dateToday = $carbonTimeStamp->toDateString();
-            $fileName = $user_id . "-" . $dateToday . "." . $avatar->getClientOriginalExtension();
+            
+            //Build input the for validation
+            $fileArray = array('image' => $avatar);
+            
+            //Tell the Validator that this file should be an image with type and size
+            $rulesArray = array('image' => 'mimes:jpeg,jpg,png,gif|max:3000');
+            
+            //Now pass the input and rules in to the validator
+            $validator = Validator::make($fileArray, $rulesArray);
+            
+            if($validator->fails()){
+              return redirect()
+                    ->back()
+                    ->with('message','Warning!! Make sure that the Image is a vilid image file type and of any of the jpeg, jpg, gif, png type/extension and it is of no larger then 3 Mega Bytes. Then try again!')
+                    ->with('status', 'danger')
+                    ->withInput();  
+            }else{
+                $fileName = $user_id . $avatar->getClientOriginalExtension();
+                //Resize and upload image ith image intervention
+                Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $fileName)); 
 
-            Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $fileName)); 
-              
-//            
-//        //query with personal_info table for record with input id        
-            $personal_info = personal_info::find($user_id);
-//            $personal_info->imageUrl = $fileName;
-//            
-//            try{  
-//                //save assigned data to the personal_info table            
-//                $personal_info->save();
-//            }catch(\Illuminate\Database\QueryException $ex){
-//
-//            return redirect()
-//            ->back()
-//            ->with('message','Warning!! Please select an Image by clicking Brows button and make sure that the image is of any of the jpg or gif or png type. Then try again!')
-//            ->with('status', 'danger')
-//            ->withInput();
-//        }  
-//                
-                return view('doctor.pages.settings.personal-info', ['personal_info'=>$personal_info, 'tempVar' => $fileName])
-                ->with('message','Avatar Saved!')
-                ->with('status', 'success');    
-//                  
-//                            
-//                                                
-//        return redirect()
-//                ->route('doctorPersonalInfo', ['personal_info'=>$personal_info])
-//                ->with('message','Avatar Saved!')
-//                ->with('status', 'success');       
-        }
-//        }else{
-//            return redirect()
-//                ->back()
-//                ->with('message','Please select the Image of jpg or gif or png type and within the size of ---! and that the file exists.')
-//                ->with('status', 'danger')
-//                ->withInput()
-//                ->withErrors($validator);
-//        }                
+
+                //query with personal_info table for record with input id        
+                $personal_info = personal_info::find($user_id);
+                $personal_info->imageUrl = $fileName;
+
+                try{  
+                    //save assigned image name to the DB personal_info table            
+                    $personal_info->save();
+                }catch(\Illuminate\Database\QueryException $ex){
+
+                    return redirect()
+                    ->back()
+                    ->with('message','Warning!! There were some problem saving image/avatar to the Database. Please try again! If the problem persist Please contact your site Administrator.')
+                    ->with('status', 'danger')
+                    ->withInput();
+                }  
+            }
+            
+            return redirect()->route('doctorPersonalInfo')
+            ->with('message','Avatar Saved!')
+            ->with('status', 'success');          
+            
+        }else{
+            return redirect()
+                ->back()
+                ->with('message','Stop! Please select an Image by clicking Browse button and make sure that the file exists and is a valid image file.')
+                ->with('status', 'danger')
+                ->withInput();
+        }                
  
     }
     
