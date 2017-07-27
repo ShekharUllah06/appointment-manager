@@ -20,7 +20,7 @@
     
     <!--Page Title and Add New button--->
     <header class="row"  style=" margin: 0px;">
-        <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Work History Card</h2>
+        <h2 class="col-sm-5" style="margin-left: 0px; margin-top: 10px;">Work Experience</h2>
         <div class="col-sm-1"></div>
             <a href="{{url('doctor/settings/work-history/new')}}" style="float: right;">
                 <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />

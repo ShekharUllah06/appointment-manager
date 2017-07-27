@@ -100,7 +100,7 @@ class PersonalInfoController extends Controller
             }            
             //return view to personal info page with personal_info query object.            
             return redirect()
-                    ->route('doctorPersonalInfo', ['personal_info'=>$personal_info])
+                    ->route('doctorPersonalInfo')
                     ->with('message','Personal Information Saved!')
                     ->with('status', 'success');
     }
@@ -159,7 +159,8 @@ class PersonalInfoController extends Controller
                 }  
             }
             
-            return redirect()->route('doctorPersonalInfo')
+            return redirect()
+             ->route('doctorPersonalInfo')
             ->with('message','Avatar Saved!')
             ->with('status', 'success');          
             
