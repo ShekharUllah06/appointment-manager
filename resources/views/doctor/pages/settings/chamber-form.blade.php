@@ -43,7 +43,7 @@
                                                                                                                                     echo ($chamber->chamber_id);}
                                                                                                                                 elseif(Request::old('chamberId')){ // or if data exist from privious request
                                                                                                                                     echo Request::old('chamberId');} ?>" 
-                                                                                                                                accept=""placeholder="Type Chamber ID here" required="required" maxlength="4"/>
+                                                                                                                                accept=""placeholder="Type Chamber ID here" />
 
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                                                                                                                                 echo ($chamber->institute);}
                                                                                                                             elseif(Request::old('institute')){ // or if data exist from privious request
                                                                                                                                 echo Request::old('institute');} ?>" 
-                                                                                                                        placeholder="Type Institute Name Here.." maxlength="50"/>
+                                                                                                                        placeholder="Type Institute Name Here.." />
                     </div>
                 </div>
             </div>
@@ -73,11 +73,27 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-home"></i></span>
-                        <input type="text" class="form-control" name="chamber_name" id="chamber_name" maxlength="50" required value="<?php if(isset($chamber->chamber_name)){  //check if chamber data set or blank
+                        <input type="text" class="form-control" name="chamber_name" id="chamber_name" maxlength="50" minlength="3" required value="<?php if(isset($chamber->chamber_name)){  //check if chamber data set or blank
                                                                                                                                                 echo ($chamber->chamber_name);} 
                                                                                                                                             elseif(Request::old('chamber_name')){ // or if data exist from privious request
                                                                                                                                                 echo Request::old('chamber_name');} ?>" 
-                                                                                                                                    placeholder="Type Chamber Name Here.." required="required" maxlength="50" minlength="3"/>
+                                                                                                                                    placeholder="Type Chamber Name Here.." />
+                    </div>
+                </div>
+            </div>
+
+            <!--consultancy Fee Rate-->
+
+            <div class="form-group row">
+                <label for="consultFee" class="col-md-4 control-label">Consultancy Fee (Tk.): </label>
+                <div class="col-md-4 inputGroupContainer">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
+                        <input type="number" class="form-control" name="consultFee" id="consultFee" required="required" maxlength="7" minlength="1" value="<?php if(isset($chamber->consult_fee)){  //check if chamber data set or blank
+                                                                                                                                                echo ($chamber->consult_fee);} 
+                                                                                                                                            elseif(Request::old('consultFee')){ // or if data exist from privious request
+                                                                                                                                                echo Request::old('consultFee');} ?>" 
+                                                                                                                                            placeholder="Your Consultancy Fee.." />
                     </div>
                 </div>
             </div>
@@ -141,7 +157,7 @@
                                                                                                                                             echo ($chamber->mobile_number1);} 
                                                                                                                                         elseif(Request::old('mobile_number1')){ // or if data exist from privious request
                                                                                                                                             echo Request::old('mobile_number1');} ?>" 
-                                                                                                                                    placeholder="Type Your 1'st Mobile/Cell Number Here.."  maxlength="12"/>
+                                                                                                                                    placeholder="Type Your 1'st Mobile/Cell Number Here.." />
                     </div>
                 </div>
             </div>
@@ -157,7 +173,7 @@
                                                                                                                                             echo ($chamber->mobile_number2);} 
                                                                                                                                         elseif(Request::old('mobile_number2')){ // or if data exist from privious request
                                                                                                                                             echo Request::old('mobile_number2');} ?>" 
-                                                                                                                                    placeholder="Type 2'nd Mobile/Cell Phone Number Here.."  maxlength="12"/>
+                                                                                                                                    placeholder="Type 2'nd Mobile/Cell Phone Number Here.." />
                     </div>
                 </div>
             </div>
@@ -173,7 +189,7 @@
                                                                                                                                             echo ($chamber->mobile_number3);} 
                                                                                                                                         elseif(Request::old('mobile_number3')){ // or if data exist from privious request
                                                                                                                                             echo Request::old('mobile_number3');} ?>"  
-                                                                                                                                    placeholder="Type 3'rd Mobile/Cell Phone Number Here.." maxlength="12"/>
+                                                                                                                                    placeholder="Type 3'rd Mobile/Cell Phone Number Here.." />
                     </div>
                 </div>
             </div>
@@ -205,7 +221,7 @@
                                                                                                                                 echo ($chamber->post_code);} 
                                                                                                                             elseif(Request::old('post_code')){ // or if data exist from privious request
                                                                                                                                 echo Request::old('post_code');} ?>"  
-                                                                                                                        placeholder="Type Post/Zip Code Here.." maxlength="10"/>
+                                                                                                                        placeholder="Type Post/Zip Code Here.." />
                     </div>
                 </div>
             </div>
@@ -222,7 +238,7 @@
                                                                                                                         echo ($chamber->thana);} 
                                                                                                                     elseif(Request::old('thana')){ // or if data exist from privious request
                                                                                                                         echo Request::old('thana');} ?>" 
-                                                                                                                placeholder="Type Thana(Police Station) Here.." maxlength="50"/>
+                                                                                                                placeholder="Type Thana(Police Station) Here.." />
                     </div>
                 </div>
             </div>
@@ -239,7 +255,7 @@
                                                                                                                         echo ($chamber->district);} 
                                                                                                                     elseif(Request::old('district')){ // or if data exist from privious request
                                                                                                                         echo Request::old('district');} ?>"
-                                                                                                                        placeholder="District Name Here.." maxlength="50"/>
+                                                                                                                        placeholder="District Name Here.." />
                     </div>
                 </div>
             </div>

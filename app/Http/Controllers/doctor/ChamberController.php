@@ -76,20 +76,21 @@ class ChamberController extends Controller
         
         //Validating chamberfform input data and show error massege if not valid        
         $validator = Validator::make($request->all(),[
-            'chamberId' => 'string|required|max:4',
-            'institute' => 'string|nullable|max:50',
-            'chamber_name' => 'string|required|max:50',
+            'chamberId'         => 'string|required|max:4',
+            'institute'         => 'string|nullable|max:50',
+            'chamber_name'      => 'string|required|max:50',
+            'consultFee'        => 'integer|required',
             'telephone_number1' => 'string|nullable|max:12',
             'telephone_number2' => 'string|nullable|max:12',
             'telephone_number3' => 'string|nullable|max:12',
-            'mobile_number1' => 'string|nullable|max:12',
-            'mobile_number2' => 'string|nullable|max:12',
-            'mobile_number3' => 'string|nullable|max:12',
-            'city' => 'string|max:50',
-            'post_code' => 'string|max:10',
-            'thana' => 'string|max:50',
-            'district' => 'string|max:50',
-            'address' => 'string|max:100',
+            'mobile_number1'    => 'string|nullable|max:12',
+            'mobile_number2'    => 'string|nullable|max:12',
+            'mobile_number3'    => 'string|nullable|max:12',
+            'city'              => 'string|nullable|max:50',
+            'post_code'         => 'string|nullable|max:10',
+            'thana'             => 'string|nullable|max:50',
+            'district'          => 'string|nullable|max:50',
+            'address'           => 'string|nullable|max:100',
             ]);
         
         //Validate
@@ -121,19 +122,20 @@ class ChamberController extends Controller
             
         
             //assign form datas to model fields
-            $chamber->institute = $request->input('institute');
-            $chamber->chamber_name = $request->input('chamber_name');
+            $chamber->chamber_name      = $request->input('chamber_name');
+            $chamber->institute         = $request->input('institute');
+            $chamber->consult_fee       = $request->input('consultFee');
             $chamber->telephone_number1 = $request->input('telephone_number1');
             $chamber->telephone_number2 = $request->input('telephone_number2');
             $chamber->telephone_number3 = $request->input('telephone_number3');
-            $chamber->mobile_number1 = $request->input('mobile_number1');
-            $chamber->mobile_number2 = $request->input('mobile_number2');
-            $chamber->mobile_number3 = $request->input('mobile_number3');
-            $chamber->city = $request->input('city');
-            $chamber->post_code = $request->input('post_code');
-            $chamber->thana = $request->input('thana');
-            $chamber->district = $request->input('district');
-            $chamber->address = $request->input('address');
+            $chamber->mobile_number1    = $request->input('mobile_number1');
+            $chamber->mobile_number2    = $request->input('mobile_number2');
+            $chamber->mobile_number3    = $request->input('mobile_number3');
+            $chamber->city              = $request->input('city');
+            $chamber->post_code         = $request->input('post_code');
+            $chamber->thana             = $request->input('thana');
+            $chamber->district          = $request->input('district');
+            $chamber->address           = $request->input('address');
             
             try{            
                 //save assigned data to the chamber table            

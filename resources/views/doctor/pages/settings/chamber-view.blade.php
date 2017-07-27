@@ -76,6 +76,9 @@
                                                 <td>Institute Name:</td> <td>{{ $chamber->institute }}</td>
                                             </tr>
                                             <tr>
+                                                <td>Consultancy Fee (Tk.):</td> <td>{{ $chamber->consult_fee }}</td>
+                                            </tr>                                            
+                                            <tr>
                                                 <td>Telephone Number-2:</td> <td>{{ $chamber->telephone_number2 }}</td>
                                             </tr>
                                             <tr>
