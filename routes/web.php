@@ -94,12 +94,15 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
 
     //personal-info Page Route
     Route::group(['namespace' => 'doctor', 'prefix' => 'settings/personal-info'], function(){
-        
+            //view route
                 Route::get('/', ['as' => 'doctorPersonalInfo', 'uses' => 'PersonalInfoController@viewPersonalInfo']);
 
-            //personal-info Save Route    
+            //personal-info information Save Route    
                 Route::post('/save', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@savePersonalInfo']);
-    });        
+                
+            //personal-info avatar/image Save Route    
+                Route::post('/save_avatar', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@saveAvatar']);
+    });  
 
 
     //work history Routes

@@ -51,7 +51,7 @@
                                     Date: <b>{{ $schedule->schedule_date }}</b>
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
-                                    Chamber Name: <b>{{ $schedule->chamber_name }}</b>
+                                    Chamber: <b>{{ $schedule->chamber_name }}</b>
                                 </h4>
                             </div> <!--End title-info class--> 
                             <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
