@@ -16,6 +16,7 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 ## Features
 
 ### On Doctor's portion
+- Simple and Easy registration,
 - Setup Schedules, 
 - Personal Information, 
 - Education Information, 
@@ -24,7 +25,12 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 - Work History, 
 - Profile Picture.
 
-#On Patient Portion
+### On Patient Portion
+- Simple, Easy and Free registration,
+- Setup Personal Info,
+- Search/Brows/View Doctors Profile,
+- View Schedules in calender view,
+- Book an Appointment on schedule dates,
 
 
 ## Requirements
