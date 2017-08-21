@@ -7,13 +7,23 @@ chamber/office it will enable doctors to eliminate the necessity of an extra ass
 have been planned but will not be available in the v1.0 release. Those are left for future release to enable us for quick release 
 version.
 
-Appointment-Manager is now in it's development phase for it's Alpha Release version.
+
+## Release Information
+
+Appointment-Manager is now in it's development phase for it's Future Release. It contains the code and related files for the project.
 
 
 ## Features
 
-Appointment-Manager is a [PHP-5.6](http://php.net), [Laravel-5.4](http://laravel.com), [Twitter Bootstrap](https://getbootstrap.com) and [MySQL](https://www.mysql.com) project with custom JavaScript and CSS as well. 
-It also uses [Carbon](http://carbon.nesbot.com) time API, [Intervention Image](http://image.intervention.io) library.
+
+## Requirements
+
+[PHP-5.6](http://php.net) as development platform,
+[Laravel-5.4](http://laravel.com) as main development framework along with some custom PHP coding,
+[Twitter Bootstrap](https://getbootstrap.com) for styling purpose along with custom CSS,
+[MySQL](https://www.mysql.com) for Database,
+[Carbon](http://carbon.nesbot.com) time API in some places to avoid extra complexity,
+[Intervention Image](http://image.intervention.io) library to manage Image Uploads.
 
 ## Contributions
 
