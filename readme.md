@@ -18,12 +18,12 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 
 ## Requirements
 
--  `[PHP-5.6](http://php.net) as development platform,
--  `[Laravel-5.4](http://laravel.com) as main development framework along with some custom PHP coding,
--  `[Twitter Bootstrap](https://getbootstrap.com) for styling purpose along with custom CSS,
--  `[MySQL](https://www.mysql.com) for Database,
--  `[Carbon](http://carbon.nesbot.com) time API in some places to avoid extra complexity,
--  `[Intervention Image](http://image.intervention.io) library to manage Image Uploads.
+-  [PHP-5.6](http://php.net) for development platform,
+-  [Laravel-5.4](http://laravel.com) for main development framework,
+-  [Twitter Bootstrap](https://getbootstrap.com) for styling purpose,
+-  [MySQL](https://www.mysql.com) for Database,
+-  [Carbon](http://carbon.nesbot.com) time API,
+-  [Intervention Image](http://image.intervention.io) library.
 
 ## Contributions
 
