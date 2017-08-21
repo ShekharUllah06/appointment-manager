@@ -1,5 +1,5 @@
-
-## About Appointment-Manager for Doctors
+# Appointment-Manager for Doctors
+## About
 
 "Appointment-Manager" or "Appointment-Manager for Doctors" is an web-based application for Doctors to enable them to publish their
 Schedules in advance and allow their patients to book an appointment without the need to visit personally or call the doctors 
