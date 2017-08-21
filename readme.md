@@ -15,10 +15,10 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 
 ## Features
 
-#On Doctor's portion
+# On Doctor's portion
 - Setup Schedules, 
-- Personal Information, 
-- Education Information, 
+-- Personal Information, 
+--- Education Information, 
 - Specialties, 
 - Multiple Chamber Information, 
 - Work History, 
