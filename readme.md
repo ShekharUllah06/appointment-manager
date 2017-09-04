@@ -43,5 +43,4 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 -  [Intervention Image](http://image.intervention.io) library.
 
 ## Contributions
-
 Until now this project is Co-Developed by [Shekhar Abdullah](https://github.com/ShekharUllah06/) and [Zaki Hashem Chowdhury](https://github.com/zaki-hashem-chow/).
