@@ -1,40 +1,47 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Appointment-Manager for Doctors
+## About
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+"Appointment-Manager" or "Appointment-Manager for Doctors" is an web-based application for Doctors to enable them to publish their
+Schedules in advance and allow their patients to book an appointment without the need to visit personally or call the doctors 
+chamber/office it will enable doctors to eliminate the necessity of an extra assistant to manage the appointments. Many features
+have been planned but will not be available in the v1.0 release. Those are left for future release to enable us for quick release 
+version.
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+## Release Information
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Appointment-Manager is now in it's development phase for it's Future Release. It contains the code and related files for the project.
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
 
-## Learning Laravel
+## Features
 
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
+### On Doctor's portion
+- Simple and Easy registration,
+- Setup Schedules, 
+- Personal Information, 
+- Education Information, 
+- Specialties, 
+- Multiple Chamber Information, 
+- Work History, 
+- Profile Picture.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+### On Patient Portion
+- Simple, Easy and Free registration,
+- Setup Personal Info,
+- Search/Brows/View Doctors Profile,
+- View Schedules in calender view,
+- Book an Appointment on schedule dates,
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Requirements
 
-## Security Vulnerabilities
+-  [PHP-5.6](http://php.net) for development platform,
+-  [Laravel-5.4](http://laravel.com) for main development framework,
+-  [Twitter Bootstrap](https://getbootstrap.com) for styling purpose,
+-  [MySQL](https://www.mysql.com) for Database,
+-  [Carbon](http://carbon.nesbot.com) time API,
+-  [Intervention Image](http://image.intervention.io) library.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+## Contributions
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+Until now this project is Co-Developed by [Shekhar Abdullah](https://github.com/ShekharUllah06/) and [Zaki Hashem Chowdhury](https://github.com/zaki-hashem-chow/).

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\doctor;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 use App\Models\schedule;
-use App\Models\User;
 use App\Models\chamber;
+use App\Traits\zakiPrivateLibTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -14,33 +13,20 @@ use Carbon;
 
 class ScheduleController extends Controller
 {
-
+    use zakiPrivateLibTrait;
      /**
      * This function queries db for data and returns schedule records to schedule-view page.
      * 
-     * @return array.
+     * @return array.c
      */
     public function viewScheduleList()
     {
         $auth_user_id = Auth::user()->id;
-        $schedules = [];
-        //query with schedule table for record with Auth::user()->id        
-        $schedulesQuery = schedule::join('users', 'schedule.user_id', '=', 'users.id')       //SQL Join needs to be converted to Laravel Relations!!!
-                ->join('chamber', 'schedule.chamber_id', '=', 'chamber.chamber_id')
-                ->where('schedule.user_id', $auth_user_id)
-                ->get();//
+        $schedules = [];        
+        
+        $schedulesQuery = $this->scheduleJointQuery($auth_user_id, null, null);//
 
-        //if no record found return to privious page with error message           
-        if(empty($schedulesQuery[0])){
-            
-            return redirect()
-                    ->route('doctorScheduleNew')
-                    ->with('message','No Schedule Data found in database. Please Add a new schedule Record!')
-                    ->with('status', 'danger'); 
-        }
-        
         $carbon_dateTime = Carbon::now(); // Get System Date with  Carbon
-        
         $dateToday = $carbon_dateTime->toDateString();
         
         //Get single Record out of DB Result Set
@@ -59,27 +45,13 @@ class ScheduleController extends Controller
                 $schedules[] = $scheduleRecord;                                       
             }            
         }
-       
         //sort array records by dateTime
-        usort($schedules, array("App\Http\Controllers\doctor\ScheduleController","compareDateTime"));
+        usort($schedules, array("App\Http\Controllers\doctor\ScheduleController", "compareDateTime"));
         
         return view('doctor.pages.schedule-view', ['schedules'=>$schedules]);
     }
 
-    
-    /**
-     * This is helper function for usort() at viewScheduleList() function.
-     * It outputs +1 or -1 comparing two entries from $schedules['timeStamp'] array.
-     *
-     * @return int
-     */    
-    private static function compareDateTime($a, $b){                                        
-        if($a['timeStamp'] == $b['timeStamp']){
-            return 0;
-        }
-        return ($a["timeStamp"] > $b["timeStamp"]) ? +1 : -1;                 
-    }
-                    
+          
                     
                     
     /**

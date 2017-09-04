@@ -65,8 +65,11 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{{ url('/doctor/blank') }}"><i class="fa fa-fw fa-user"></i> Profile</a>
+                            <a href="{{ url('/doctor/blank') }}"><i class="fa fa-fw fa-user"></i>Edit Profile</a>
                         </li>
+                        <li>                    
+                            <a href="{{ url('/doctor_profile', ["doctorID" => Auth::user()->id, "calanderMonth" => ' ']) }}"><i class="fa fa-fw fa-user"></i>View Profile as Visitor</a>
+                        </li> 
                         <li class="divider"></li>
                         <li>
 							<a href="{{ url('/logout') }}"

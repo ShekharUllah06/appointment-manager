@@ -137,7 +137,7 @@ class PersonalInfoController extends Controller
                     ->with('status', 'danger')
                     ->withInput();  
             }else{
-                $fileName = $user_id . $avatar->getClientOriginalExtension();
+                $fileName = $user_id .".". $avatar->getClientOriginalExtension();
                 //Resize and upload image ith image intervention
                 Image::make($avatar)->resize(300, 300)->save(public_path('/uploads/avatars/' . $fileName)); 
 
