@@ -68,7 +68,12 @@
                             <a href="{{ url('/admin/blank') }}"><i class="fa fa-fw fa-user"></i> Profile</a>
                         </li>
                         <li class="divider"></li>
+                        <li>                    
+                            <a href="{{ url('/doctor_profile') }}"><i class="fa fa-fw fa-user">Others</i></a>
+                        </li>  
+                        <li class="divider"></li>
                         <li>
+                            
 							<a href="{{ url('/logout') }}"
 								onclick="event.preventDefault();
 										 document.getElementById('logout-form').submit();">
@@ -113,6 +118,9 @@
                             </li>
                         </ul>
                     </li>
+                    <li>                    
+                        <a href="{{ url('/doctor_profile') }}"><i class="fa fa-fw fa-user">Others</i></a>
+                    </li> 
 
                 </ul>
             </div>
