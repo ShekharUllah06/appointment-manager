@@ -41,45 +41,45 @@
                     <div class="card row" style="border-bottom: 1px solid black;">   
                         
                         <!--Right Side Edit Button-->
-                        <a href="{{ url('doctor/schedule/edit', ['scheduleId' => $schedule->schedule_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                        <a href="{{ url('doctor/schedule/edit', ['scheduleId' => $schedule['schedule_id']])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
                             <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit schedule" height="35px" width="35px" style="float: right;" />
                         </a>
                         <div class="middle-info-coloumn col-sm-10" style="margin-left: 5px; margin-bottom: 8px; padding-right:5px;">
                             <div class="title-info row" style="margin:0px;">
                             <!--Card Visible Portion. At Right side of Card Image-->
                                 <h3> <!--Card Title-->
-                                    Date: <b>{{ $schedule->schedule_date }}</b>
+                                    Date: <b>{{ $schedule['schedule_date'] }}</b>
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
-                                    Chamber: <b>{{ $schedule->chamber_name }}</b>
+                                    Chamber: <b>{{ $schedule['chamber_name'] }}</b>
                                 </h4>
                             </div> <!--End title-info class--> 
                             <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-phone">
-                                     Chamber ID: <b>{{ $schedule->chamber_id }}</b>
+                                     Chamber ID: <b>{{ $schedule['chamber_id'] }}</b>
                                     </span>
                                 </p>
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
                                     <span class="glyphicon glyphicon-time">
-                                        Start: <b>{{ $schedule->start_time }}</b>
+                                        Start: <b>{{ $schedule['start_time'] }}</b>
                                     </span>
                                 </p>
                                 <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
                                     <span class="glyphicon glyphicon-time">
-                                         End: <b>{{ $schedule->end_time }}</b>
+                                         End: <b>{{ $schedule['end_time'] }}</b>
                                     </span>
                                 </p>
                             </div> <!--End Other Informations--> 
                             <div class="row"> <!--hidden section-->
                                 <div class="col-sm-5">
                                     <span class="glyphicon glyphicon-map-marker">
-                                        District: <b>{{ $schedule->district }}</b>
+                                        District: <b>{{ $schedule['district'] }}</b>
                                     </span>                            
                                 </div>
                                 <div class="col-sm-5" id="">
                                     <span class="glyphicon glyphicon-map-marker">
-                                        Thana/Sub-Distric: <b>{{ $schedule->thana }}</b>
+                                        Thana/Sub-Distric: <b>{{ $schedule['thana'] }}</b>
                                     </span>
 
 <!--<span class="glyphicon glyphicon-chevron-down" style="padding:4px; margin-top: 2px;"></span>-->

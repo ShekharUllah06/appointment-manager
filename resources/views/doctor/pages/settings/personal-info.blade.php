@@ -415,19 +415,22 @@
         <div class="col-md-4"></div>
 
         <!--Edit Button-->
-            <button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="showFields()"> <span class="glyphicon glyphicon-edit"> Edit </span></button>
+            <button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="enableFields()"> <span class="glyphicon glyphicon-edit"> Edit </span></button>
                     </fieldset>
                     {{ csrf_field() }}
         </form>
         </div>
     </div>
-        
+</div>
+@endsection
+
+@section('jscript')
 <!--Custom Java Script-->        
 <script> 
     
 //this JS function enables the form fields for editing
 
-    function showFields(){
+    function enableFields(){
         document.getElementById("showBTN_saveCancel").style.display = "block";
         document.getElementById("btnEdit").style.display = "none";
         
@@ -437,12 +440,9 @@
         document.getElementById("address").readOnly = false;
         document.getElementById("countryName").disabled = false;
         document.getElementById("genderName").disabled = false;
-//        document.getElementById("profilePicture").disabled = false;
         
     }
     
 
 </script>
-
-</div>
 @endsection

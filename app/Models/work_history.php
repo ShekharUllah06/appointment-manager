@@ -36,7 +36,7 @@ class work_history extends Model
      *
      * @var array
      */
-    protected $fillable = ['organization','position','description','start_date','end_date'];
+    protected $fillable = ['organization','position','description','start_date','end_date','current_position'];
 
     
     

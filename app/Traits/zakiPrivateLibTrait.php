@@ -179,10 +179,11 @@ trait zakiPrivateLibTrait{
                             'date' => $schedules[$k]['scheduleDateOnly'],
                             'chamberName' => $schedules[$k]['chamberName'],
                             'startTime' => $formadetStarTime,
-                            'endTime' => $formadetEndTime
+                            'endTime' => $formadetEndTime,
+                            'consultFee' => $schedules[$k]['consultFee']
                             ];
                     }else{
-                        $tempCalender[$i] = ['date' => $schedules[$k]['scheduleDateOnly']];
+                        $tempCalender[$i] = ['date' => $schedules[$k]['consultFee']];
 
                     }
                 return $tempCalender;
@@ -216,7 +217,8 @@ trait zakiPrivateLibTrait{
             $futureScheduleRecord['scheduleYear'] = $year;
             $futureScheduleRecord['chamberName'] = $scheduleRecord['chamber_name'];
             $futureScheduleRecord['startTime'] = $scheduleRecord['start_time'];
-            $futureScheduleRecord['endTime'] = $scheduleRecord['end_time']; 
+            $futureScheduleRecord['endTime'] = $scheduleRecord['end_time'];
+            $futureScheduleRecord['consultFee'] = $scheduleRecord['consult_fee'];            
             $futureScheduleRecord['timeStamp'] = $scheduleTimeStamp;
         }else{
             $futureScheduleRecord = null;

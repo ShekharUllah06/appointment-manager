@@ -35,8 +35,8 @@
             <!-- Schedule ID holder, hidden-->   
 
 
-            <input type="hidden" class="form-control" id="scheduleId" name="scheduleId" value="<?php if(isset($schedule->schedule_id)){ //check if schedule data set or blank 
-                                                                                                                    echo ($schedule->schedule_id);}
+            <input type="hidden" class="form-control" id="scheduleId" name="scheduleId" value="<?php if(isset($schedule['schedule_id'])){ //check if schedule data set or blank 
+                                                                                                                    echo ($schedule['schedule_id']);}
                                                                                                                 elseif(Request::old('scheduleId')){ // or if data exist from privious request
                                                                                                                     echo Request::old('scheduleId');} ?>" />
 
@@ -53,9 +53,9 @@
                                 <option selected="selected">Select Your Chamber.. </option>
 
                             @foreach($chambers as $chamber)
-                                <option value="<?php if(isset($chamber->chamber_id)){  //check if schedule data set or blank
-                                                        echo ($chamber->chamber_id);} ?>"> <?php if(isset($chamber->chamber_name)){  //check if schedule data set or blank
-                                                                                                            echo ($chamber->chamber_name);} ?> </option>
+                                <option value="<?php if(isset($chamber['chamber_id'])){  //check if schedule data set or blank
+                                                        echo ($chamber['chamber_id']);} ?>"><?php if(isset($chamber['chamber_name'])){  //check if schedule data set or blank
+                                                                                                            echo ($chamber['chamber_name']);} ?> </option>
                             @endforeach 
                         </select>
                     </div>
@@ -71,8 +71,8 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                        <input type="date" class="form-control" name="scheduleDate" id="scheduleDate" required maxlength="10" minlength="8" value="<?php if(isset($schedule->schedule_date)){  //check if schedule data set or blank
-                                                                                                                                                            echo ($schedule->schedule_date);} 
+                        <input type="date" class="form-control" name="scheduleDate" id="scheduleDate" required maxlength="10" minlength="8" value="<?php if(isset($schedule['schedule_date'])){  //check if schedule data set or blank
+                                                                                                                                                            echo ($schedule['schedule_date']);} 
                                                                                                                                                         elseif(Request::old('scheduleDate')){ // or if data exist from privious request
                                                                                                                                                             echo Request::old('scheduleDate');} ?>" />
                     </div>
@@ -86,8 +86,8 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                        <input type="time" class="form-control" name="startTime" id="startTime" maxlength="8" value="<?php if(isset($schedule->start_time)){  //check if schedule data set or blank
-                                                                                                                                echo ($schedule->start_time);} 
+                        <input type="time" class="form-control" name="startTime" id="startTime" maxlength="8" value="<?php if(isset($schedule['start_time'])){  //check if schedule data set or blank
+                                                                                                                                echo ($schedule['start_time']);} 
                                                                                                                             elseif(Request::old('startTime')){ // or if data exist from privious request
                                                                                                                                 echo Request::old('startTime');} ?>" />
                     </div>
@@ -101,8 +101,8 @@
                 <div class="col-md-4 inputGroupContainer">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                        <input type="time" class="form-control" name="endTime" id="endTime" maxlength="8" value="<?php if(isset($schedule->end_time)){ //check if schedule data set or blank
-                                                                                                                            echo ($schedule->end_time);} 
+                        <input type="time" class="form-control" name="endTime" id="endTime" maxlength="8" value="<?php if(isset($schedule['end_time'])){ //check if schedule data set or blank
+                                                                                                                            echo ($schedule['end_time']);} 
                                                                                                                         elseif(Request::old('endTime')){ // or if data exist from privious request
                                                                                                                             echo Request::old('endTime');} ?>"  />
                     </div>
@@ -117,8 +117,8 @@
             <div class="form-group" id="BTN_saveCancel row">                                
                 <div class="col-md-2"></div>
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
-                    <?php if(isset($schedule->schedule_id)){ ?>
-                            <a href="{{ url('doctor/schedule/remove', ['ScheduleId' => $schedule->schedule_id])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
+                    <?php if(isset($schedule['schedule_id'])){ ?>
+                            <a href="{{ url('doctor/schedule/remove', ['ScheduleId' => $schedule['schedule_id']])}}"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove"></span> Delete </button></a>
                     <?php } ?>  
                 </div>                
                 <div class="col-md-2" style="margin: 3px; padding: 3px;">
@@ -142,28 +142,56 @@
 
  @section('jscript')   
  
-<!--Custom Java Script to check if the form is loaded as New or Edit form by checking the value of formType hidden field-->    
+<!--Custom Java Script to check if the form is loaded as New or Edit form by checking the value of formType 
+    hidden field and modifi end and or start time if modified and has no seconds with it.-->    
 
     <script>    
         var urlNew = window.location.pathname; //Get URL path
             if(urlNew.includes("/edit/")){ //chech value
                 document.getElementById('formType').value="edit"; //set value
-                document.getElementById('getChamberId').value = '<?php if(isset($schedule->chamber_id)){ echo($schedule->chamber_id);} ?>';
-            }else{         
-                //This portion gets the submitted form data if it is new data form and modifies the startTime and endTime field data by 
-                //adding ':00' (seconds) after existing data and then submits the form.
-                var scheduleForm = document.getElementById('scheduleForm');
+                document.getElementById('getChamberId').value = '<?php if(isset($schedule['chamber_id'])){ echo($schedule['chamber_id']);} ?>';
                 
-                scheduleForm.onsubmit = function(){
-                    var startTimeVar = document.getElementById('startTime');                   
-                    var endTimeVar = document.getElementById('endTime');
-                    
-                    startTimeVar.value = startTimeVar.value + ':00';
-                    endTimeVar.value = endTimeVar.value + ':00';
-                    
-                    document.getElementById('scheduleForm').submit();
+                var scheduleForm = document.getElementById('scheduleForm');
+                scheduleForm.onsubmit = function(){                 
+                 
+                if(document.getElementById('startTime').value.length < 8){                    
+                    var startTime = document.getElementById('startTime');;
+                    startTime.value = startTime.value + ':00';
+                                    alert("start: " + document.getElementById('startTime').value.length);
                 }
+                
+                if(document.getElementById('endTime').value.length < 8){                   
+                    var endTime = document.getElementById('endTime');
+                    endTime.value = endTime.value + ':00';
+                                    alert("end: " + document.getElementById('endTime').value.length);
+                }
+                                
+                document.getElementById('scheduleForm').submit();
+            };
+            }else{                 
+                modifyAllTimeFormat();
             }
+
+
+
+//  Function to modify both start and end time to add seconds at same time.
+//    
+//    
+    function modifyAllTimeFormat(){
+        //This portion gets the submitted form data if it is new data form and modifies the startTime and endTime field data by 
+        //adding ':00' (seconds) after existing data and then submits the form.
+        var scheduleForm = document.getElementById('scheduleForm');
+
+        scheduleForm.onsubmit = function(){
+                var startTimeVar = document.getElementById('startTime');                   
+                var endTimeVar = document.getElementById('endTime');
+
+                startTimeVar.value = startTimeVar.value + ':00';
+                endTimeVar.value = endTimeVar.value + ':00';
+
+                document.getElementById('scheduleForm').submit();
+        };
+    }
     </script>
 
 @endsection
