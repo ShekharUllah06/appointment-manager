@@ -55,12 +55,12 @@
                             <div class="multi-info row" style="margin:0px;">   <!--Other Informations--> 
                                 <p class="col-sm-6" style="padding-left: 0px">   <!--first part, at left--> 
                                     <span class="glyphicon glyphicon-calendar">
-                                        Start Date - {{ $work_history->start_date }}
+                                        Start Date: {{ $work_history->start_date }}
                                     </span>
                                 </p>
                                 <p class="col-sm-6" style="padding-left: 0px">   <!--second part, at right side of first part--> 
                                     <span class="glyphicon glyphicon-calendar">
-                                        End Date - {{ $work_history->end_date }}
+                                        <?php if($work_history->current_position){echo ("<b>  Current Position</b>");}else{echo ("End Date: ".$work_history->end_date);} ?> 
                                     </span>
                                 </p>
                             </div> <!--End Other Informations--> 

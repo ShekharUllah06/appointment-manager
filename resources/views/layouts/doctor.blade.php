@@ -37,8 +37,7 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
-    
-    @yield('jscript')
+
 
 </head>
 
@@ -132,7 +131,9 @@
         <!-- /#page-wrapper -->
 
     </div>
-    <!-- /#wrapper -->
+
+        <!-- in page scripts -->
+        @yield('jscript')
 
     <!-- jQuery -->
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

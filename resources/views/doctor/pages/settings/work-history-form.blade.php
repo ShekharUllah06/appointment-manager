@@ -1,4 +1,5 @@
 @extends('doctor.pages.settings.work-history')
+
 @section('title', 'Work-history Entry/Edit Form')
 @section('description', 'This is the Work-History page')
 
@@ -18,15 +19,10 @@
 
 @section('workHistoryBody') 
 
-    <script language="JavaScript">  
-        function currentPosition(){
-            var chkBox = document.getElementById('currentPosition');
-            alert("aa");
-                document.getElementById('endDate').style.display = chkBox.checked ? 'block' : 'none';
-        } </script>
+
         <!--Starting the Form--->
 
-        <form action="{{url('doctor/settings/work-history/save')}}" method="post" class="well form-horizontal" id="workHistoryForm" role="form" name="workHistoryForm">
+        <form action="{{url('doctor/settings/work-history/save')}}" method="post" class="well form-horizontal" id="workHistoryForm" role="form" name="workHistoryForm" onload="formLoad()">
             <legend>Work History Information Form</legend>
 
             <fieldset>
@@ -107,24 +103,31 @@
                 <!--End Date-->
 
                 <div class="form-group row">
-                    <label for="endDate" class="col-md-4 control-label">End Date: </label>
-                    <div class="col-md-4 inputGroupContainer">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
-                            <input type="date" class="form-control" name="endDate" id="endDate" maxlength="50" value="<?php if(isset($work_history->end_date)){ //check if work-history data set or blank
+
+                        <label for="endDate" class="col-md-4 control-label">End Date: </label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+                                <input type="date" class="form-control" name="endDate" id="endDate" maxlength="50" value="<?php if(isset($work_history->end_date)){ //check if work-history data set or blank
                                                                                                                             echo ($work_history->end_date);} 
                                                                                                                         elseif(Request::old('endDate')){ // or if data exist from privious request
                                                                                                                             echo Request::old('endDate');} ?>" 
                                                                                                                     placeholder="Type End Date Here.." 
                                                                                                                    />
+                            </div>
+                            <div class="row">
+                                <label for="currentPosition" class="col-md-8 control-label">Current Job Position?</label>
+                                <div class="col-md-2 checkbox">
+                                    <!--Need to change this process to JS. If current_position is on then print checkBox checked, else not checked-->
+                                    <?php if($work_history->current_position){                      
+                                        echo('<input type="checkbox" class="checkbox" name="currentPosition" id="currentPosition" onclick="currentPosition()" checked/>');                                
+                                    }else{
+                                        echo('<input type="checkbox" class="checkbox" name="currentPosition" id="currentPosition" onclick="currentPosition()"/>');
+                                    } ?>
+
+                                </div>
+                            </div>  
                         </div>
-                        <div class="checkbox">
-                            <label for="currentPosition" class="col-md-11">Is this Your Current Job Position?</label>
-                            <input type="checkbox" class="col-md-1" name="currentPosition" id="currentPosition" value="1" onclick="currentPosition();" />
-                            
-                                <script>function currentPosition(){alert("aa");}</script>
-                        </div>
-                    </div>
                 </div>
 
 
@@ -135,15 +138,15 @@
                     <div class="col-md-4 inputGroupContainer">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"></i></span>
-                            <textarea class="form-control" id="description" name="description" rows="" maxlength="100" placeholder="Type Your description Here.." maxlength="100"> <?php if(isset($work_history->description)){ //check if work-history data set or blank
+                            <textarea class="form-control" id="description" name="description" rows="" maxlength="100" placeholder="Type Your description Here.." maxlength="100"><?php if(isset($work_history->description)){ //check if work-history data set or blank
                                                                                                                                                                                 echo ($work_history->description);} 
                                                                                                                                                                              elseif(Request::old('description')){ // or if data exist from privious request
                                                                                                                                                                                 echo Request::old('description');} ?></textarea>
                         </div>
                     </div>
                 </div>
-                        <br />
-
+                
+                <br />
 
                 <!--Submit, Delete and Cancel Button-->
 
@@ -172,25 +175,34 @@
  
  
 
- @section('jscript')   
+@section('jscript')   
  
 <!--Custom Java Script to check if the form is loaded as New or Edit form by checking the value of formType hidden field-->    
 
-    
-    <script>  
-//        function currentPosition(){
-//            var chkBox = document.getElementById('currentPosition');
-//            alert("aa");
-//                document.getElementById('endDate').style.display = chkBox.checked ? 'block' : 'none';
-//        } 
-
-      // currentPosition();
+    <script>   
         var urlNew = window.location.pathname; //Get URL path
             if(urlNew.includes("/edit/")){ //chech value
                 document.getElementById('formType').value="edit"; //set value
                 document.getElementById('workHistoryId').readOnly = true;
+                
+//                this portion suppos to check or uncheck currentPosition fiend 
+//                based on work_history->current_position data
+                
+                var chkBox = document.getElementsByName('currentPosition');
+                if(<?php echo($work_history->current_position) ?>){
+                    chkBox.checked = 'true';
+                }
             }
-            
+
+
+//This function suposse to disable or enable the endDate field on currentPosition value change
+        function currentPosition(){
+                        alert("aa");
+            var chkBox = document.getElementsByName('currentPosition');
+
+            document.getElementById('endDate').style.display = chkBox.checked ? 'block' : 'none';
+        }
+
     </script>
 
 @endsection
