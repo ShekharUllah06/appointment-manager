@@ -18,7 +18,6 @@
         </div>
     </div>
 </div>
-<!--JavaScript Section-->
-    @yield('jscript')
+
 
 @endsection

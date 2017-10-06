@@ -104,7 +104,7 @@ class ScheduleController extends Controller
         $validator = Validator::make($request->all(),[
             'getChamberId' => 'string|required|max:4',
             'scheduleDate' => 'date|required|max:10|after:yesterday',
-            'startTime' => 'date_format:H:i:s|nullable|max:8|before:endTime',
+            'startTime' => 'date_format:H:i:s|nullable|max:8',
             'endTime' => 'date_format:H:i:s|nullable|max:8|after:startTime',
             ]);
         

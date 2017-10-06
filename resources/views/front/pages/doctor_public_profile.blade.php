@@ -23,7 +23,7 @@
                     </thead>                    
                     <tr>
                         <td colspan="7" style="font-size: smaller">
-                            <span style="color: red">***</span> Schedule Dates are marked with "<span style="color: blue">Chamber name</span>", "<span style="color: blue">Start Time</span>" and "<span style="color: blue">End Time</span>", and with <span style="background-color: yellowgreen">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> color in background below the Date. If you don't see any such texts, then there is no schedule in this month.
+                            <span style="color: red">***</span> Schedule Dates are marked with "<span style="color: blue">Chamber name</span>", "<span style="color: blue">Start Time</span>", "<span style="color: blue">End Time</span>" and "<span style="color: blue">End Time</span>", and with <span style="background-color: yellowgreen">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> color in background below the Date. If you don't see any such texts, then there is no schedule in this month.
                         </td>
                     </tr>
                         <tr>
@@ -49,10 +49,11 @@
                                             </span>
                                             <div style="font-size: smaller; background-color: yellowgreen;"> 
                                                 <span style="color: blue;">
-                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName']);} ?>
+                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
                                                 </span>
                                                 <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?>
-                                                    <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime']);} ?>
+                                                <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
+                                                <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
                                             </div>    
                                         @else
                                             <span style="color: red">
@@ -66,10 +67,11 @@
                                             {{ $calender['calender'][$i][$j]['date'] }}
                                             <div style="font-size: smaller; background-color: yellowgreen;"> 
                                                 <span style="color: blue;">
-                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName']);} ?>
+                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
                                                 </span>
                                                 <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?> 
-                                                    <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime']);} ?>
+                                                <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
+                                                <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
                                             </div>    
                                         @else
                                             {{ $calender['calender'][$i][$j] }}

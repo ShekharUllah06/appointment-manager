@@ -84,6 +84,7 @@ class workHistoryController extends Controller
             'startDate' => 'date|required|max:10',
             'endDate' => 'date|nullable|max:50',
             'description' => 'string|nullable|max:100',
+            'currentPosition' => 'numaric|nullable|max:1',
             ]);
         
         //Validate
@@ -120,6 +121,7 @@ class workHistoryController extends Controller
             $work_history->start_date = $request->input('startDate');
             $work_history->end_date = $request->input('endDate');
             $work_history->description = $request->input('description');
+            $work_history->current_position = $request->input('currentPosition');
 
             
             try{

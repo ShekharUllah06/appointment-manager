@@ -32,11 +32,13 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 	
-	<script>
+    <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    
+    @yield('jscript')
 
 </head>
 
@@ -123,7 +125,7 @@
         </nav>
 
         <div id="page-wrapper">
-		
+                        <!--// All the Contents goes here-->
 			@yield('content')
 
         </div>
