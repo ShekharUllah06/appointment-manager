@@ -83,8 +83,9 @@ class workHistoryController extends Controller
             'organization' => 'string|nullable|max:50',
             'startDate' => 'date|required|max:10',
             'endDate' => 'date|nullable|max:50',
+            'currentPosition' => 'string|nullable|max:3',
             'description' => 'string|nullable|max:100',
-            'currentPosition' => 'numaric|nullable|max:1',
+
             ]);
         
         //Validate
@@ -119,10 +120,15 @@ class workHistoryController extends Controller
             $work_history->position = $request->input('position');
             $work_history->organization = $request->input('organization');
             $work_history->start_date = $request->input('startDate');
-            $work_history->end_date = $request->input('endDate');
             $work_history->description = $request->input('description');
-            $work_history->current_position = $request->input('currentPosition');
-
+            
+            if($request->input('currentPosition')){
+                $work_history->current_position = $request->input('currentPosition');
+                $work_history->end_date = null;
+            }else{
+                $work_history->end_date = $request->input('endDate');
+                $work_history->current_position = null;
+            }
             
             try{
             
@@ -133,8 +139,9 @@ class workHistoryController extends Controller
                 
                 return redirect()
                 ->back()
-                ->with('message','Warning!! Please check that the work_history_id that you have provided is unique, "Work History Id" field is reqired.  And all other data(optional) are of desired type. Then try again!')
+//                ->with('message','Warning!! Please check that the work_history_id that you have provided is unique, "Work History Id" field is reqired.  And all other data(optional) are of desired type. Then try again!')
                 ->with('status', 'danger')
+                        ->with('message', $ex->getMessage())
                 ->withInput();
             }
             

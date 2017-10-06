@@ -154,20 +154,20 @@
                 var scheduleForm = document.getElementById('scheduleForm');
                 scheduleForm.onsubmit = function(){                 
                  
-                if(document.getElementById('startTime').value.length < 8){                    
-                    var startTime = document.getElementById('startTime');;
-                    startTime.value = startTime.value + ':00';
-                                    alert("start: " + document.getElementById('startTime').value.length);
-                }
-                
-                if(document.getElementById('endTime').value.length < 8){                   
-                    var endTime = document.getElementById('endTime');
-                    endTime.value = endTime.value + ':00';
-                                    alert("end: " + document.getElementById('endTime').value.length);
-                }
-                                
-                document.getElementById('scheduleForm').submit();
-            };
+                    if(document.getElementById('startTime').value.length < 8){                    
+                        var startTime = document.getElementById('startTime');;
+                        startTime.value = startTime.value + ':00';
+                                        alert("start: " + document.getElementById('startTime').value.length);
+                    }
+
+                    if(document.getElementById('endTime').value.length < 8){                   
+                        var endTime = document.getElementById('endTime');
+                        endTime.value = endTime.value + ':00';
+                                        alert("end: " + document.getElementById('endTime').value.length);
+                    }
+
+                    document.getElementById('scheduleForm').submit();
+                };
             }else{                 
                 modifyAllTimeFormat();
             }
