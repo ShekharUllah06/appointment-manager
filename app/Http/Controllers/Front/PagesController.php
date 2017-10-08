@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Traits\zakiPrivateLibTrait;
+use App\Models\User;
+use App\Models\personal_info;
+use App\Models\education;
+use App\Models\work_history;
+use App\Models\specialty;
 use Carbon;
-use Schedule;
 
 class PagesController extends Controller
 {
@@ -36,7 +40,15 @@ class PagesController extends Controller
 
         $daysinMonth = cal_days_in_month(CAL_GREGORIAN, $returnCalenderMonth['carbonMonth'], $returnCalenderMonth['carbonYear']) -1;
         
-        //query with schedule table for record with Auth::user()->id         
+        
+        //Query the Tables
+        $user = User::select('id', 'first_name', 'last_name')->where('id', $doctorID)->first();
+        $personal_info = personal_info::select('imageUrl')->where('id', $doctorID)->first();
+        $educations = education::select('degree_name', 'pass_year', 'institute_name')->where('user_id', $doctorID)->get();
+        $work_histories = work_history::where('user_id', $doctorID)->get();
+        $specialties = specialty::where('user_id', $doctorID)->get();
+               
+        //query with schedule table for record with $doctorID         
         $schedulesQuery = $this->scheduleJointQuery($doctorID, $returnCalenderMonth['requestedCalenderMonth'], $daysinMonth);
 
         //Get single Record out of DB Result Set
@@ -65,7 +77,7 @@ class PagesController extends Controller
 
         if(empty($schedules)){
             $schedules['monthName'] = jdmonthname(gregoriantojd((int)$returnCalenderMonth['carbonMonth'], 
-                    (int)$returnCalenderMonth['carbonDay'] , (int)$returnCalenderMonth['carbonYear']), 1);
+                        (int)$returnCalenderMonth['carbonDay'] , (int)$returnCalenderMonth['carbonYear']), 1);
             $schedules['scheduleDate'] = $returnCalenderMonth['requestedCalenderMonth'];
             $schedules['scheduleDateOnly'] = $returnCalenderMonth['carbonDay'];
             $schedules['scheduleMonth'] = $returnCalenderMonth['carbonMonth'];
@@ -75,7 +87,7 @@ class PagesController extends Controller
         //make calender array from schedules array
         $calender = $this->makeScheduleCalender($schedules, $returnCalenderMonth['requestedCalenderMonth']);
 
-        return view('front.pages.doctor_public_profile', ['calender' => $calender]);
+        return view('front.pages.doctor_public_profile', ['calender' => $calender, 'user' => $user, 'educations' => $educations, 'work_histories' => $work_histories, 'specialties' => $specialties, 'personal_info' => $personal_info]);
 
     }
 }
