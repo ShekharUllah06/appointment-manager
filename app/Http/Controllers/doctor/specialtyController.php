@@ -21,7 +21,7 @@ class specialtyController extends Controller
         $auth_user_id = Auth::user()->id;
         
         //query with specilty table for record with Auth::user()->id        
-        $specialties = specialty::where('user_id', $auth_user_id)->get(); //change first() if posible      
+        $specialties = specialty::where('user_id', $auth_user_id)->get();     
         
         //return view to specilty page with specilty query object.        
         return view('doctor.pages.settings.specialty', ['specialties'=>$specialties]);

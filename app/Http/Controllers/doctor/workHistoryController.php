@@ -21,7 +21,7 @@ class workHistoryController extends Controller
         $auth_user_id = Auth::user()->id;
         
         //query with work-history table for record with Auth::user()        
-        $work_histories = work_history::where('user_id', $auth_user_id)->get(); //
+        $work_histories = work_history::where('user_id', $auth_user_id)->get();
 
         //if no record found redirect to "work_history/new" page with error message           
         if(empty($work_histories[0])){

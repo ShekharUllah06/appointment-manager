@@ -47,7 +47,7 @@
                             <div class="title-info row" style="margin:0px;">
                             <!--Card Visible Portion. At Right side of Card Image-->
                                 <h3> <!--Card Title-->
-                                    {{$education->degree_name }}
+                                    {{ $education->degree_name }}
                                 </h3>
                                 <h4>   <!--Secondary title or Under Card Title-->
                                     {{ $education->institute_name }}

@@ -11,8 +11,8 @@ use Carbon;
 //use Illuminate\Support\Facades\DB;
 
 trait zakiPrivateLibTrait{
-
-    //query with schedule table for record with Auth::user()->id
+    
+    //query on schedule and chamber tables for record with Auth::user()->id
     //param: 1. User ID.
     protected function scheduleJointQuery($auth_user_id, $requestedScheduleDate, $daysinMonth){
         $schedulesQuery = null;
