@@ -2,7 +2,7 @@
 
 @section('content')
 
-<header>
+    
     <div class="container-fluid">
         <div class="row page-header">
             
@@ -11,85 +11,108 @@
                 <div class="row">
                     <!--Profile Image-->
                     <div class="col-md-4">
-                        <img src="{{url('uploads/avatars/'.$personal_info->imageUrl)}}" alt="Profile Picture" style="width:160px; height:160px; border-radius: 20%;"/>
+                        <img src="{{ url('uploads/avatars/'.$personal_info->imageUrl) }}" alt="Profile Picture" style="width: 160px; height: 160px; border-radius: 20%;"/>
                     </div>
-                    <!--Short Description-->
-                    <div class="col-md-7" style="text-align: left;">
+                    <!--Short Description at top-->
+                    <div class="col-md-7" style="text-align: left">
                         <div class="row">
                             <h4><b><?php if($user->first_name){echo(ucfirst($user->first_name));} ?> <?php if($user->last_name){echo(ucwords($user->last_name));} ?></b></h4>
                         </div>
                         <div class="row">
-                            @foreach($work_histories as $work_history)
-                                @if($work_history->current_position)
+                            @if(count($work_histories) < 1)
+                                Work history Information not yet submitted.
+                            @else
+                                @foreach($work_histories as $work_history)
+                                    @if($work_history->current_position)
+                                        <span style="border: 5px; padding: 5px;">
+                                            <b>{{ $work_history->position }},</b> At: <b>{{$work_history->organization}}</b>
+                                        </span>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <div class="row">
+                            @if(count($educations) < 1)
+                                Education Information not yet submitted.
+                            @else
+                                @foreach($educations as $education)
                                     <span style="border: 5px; padding: 5px;">
-                                        <b>{{ $work_history->position }},</b> At: <b>{{$work_history->organization}}</b>
+                                        <b>{{ $education->degree_name }},</b>
                                     </span>
-                                @endif
-                            @endforeach
+
+                                @endforeach
+                            @endif
                         </div>
                         <div class="row">
-                            @foreach($educations as $education)
-                                <span style="border: 5px; padding: 5px;">
-                                    <b>{{ $education->degree_name }},</b>
-                                </span>
+                            @if(count($specialties) < 1)
+                                Specialties Information not yet submitted.
+                            @else
+                                @foreach($specialties as $specialty)
+                                    <span style="border: 5px; padding: 5px;">
+                                        <b>{{ $specialty->specialty }},</b>
+                                    </span>
 
-                            @endforeach
-                        </div>
-                        <div class="row">
-                            @foreach($specialties as $specialty)
-                                <span style="border: 5px; padding: 5px;">
-                                    <b>{{ $specialty->specialty }},</b>
-                                </span>
-
-                            @endforeach
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                 </div>
+                
+                <!--Detailed Info -->
                 <div class="row">
                     <div class="col-md-8" style="text-align: left; margin: 15px; padding: 15px;">
                         <label>Work History</label>
-                        @foreach($work_histories as $work_history)
-                        <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
-                            <!--Left side Logo-->
-                            <div class="col-md-2">
-                                <img src="{{url('assets/img/workHistoryLogo.png')}}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
+                        @if(count($work_histories) < 1)
+                            Information yet submitted.
+                        @else
+                            @foreach($work_histories as $work_history)
+                            <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
+                                <!--Left side Logo-->
+                                <div class="col-md-2">
+                                    <img src="{{ url('assets/img/workHistoryLogo.png') }}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
+                                </div>
+                                <div class="col-md-8">
+                                    <span style="color: dimgray; font-size: 17px"><b>{{ $work_history->position }}</b></span> <br />
+                                                                    {{ $work_history->organization }} <br />
+                                    <span style="font-size: 11px">{{ $work_history->start_date }} - <?php if(!$work_history->current_position){echo($work_history->end_date);} ?></span>
+                                    <br />
+
+                                    <button id="see{{ $work_history->work_history_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $work_history->work_history_id }}" aria-expanded="false" aria-controls="{{ $work_history->work_history_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
+                                        See more
+                                    </button>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <span style="color: dimgray; font-size: 17px"><b>{{ $work_history->position }}</b></span> <br />
-                                                                {{ $work_history->organization }} <br />
-                                <span style="font-size: 11px">{{ $work_history->start_date }} - <?php if(!$work_history->current_position){echo($work_history->end_date);} ?></span>
-                                <br />
-                                
-                                <button id="see{{ $work_history->work_history_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $work_history->work_history_id }}" aria-expanded="false" aria-controls="{{ $work_history->work_history_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
-                                    See more
-                                </button>
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-8" style="text-align: left; margin-top: 5px; margin-left: 15px; margin-right: 15px; margin-bottom: 15px; padding: 15px; ">
+                    <div class="col-md-8" style="text-align: left; margin-top: 5px; margin-left: 15px; margin-right: 15px; margin-bottom: 15px; padding: 15px;">
                         <label>Education</label>
-                        @foreach($educations as $education)
-                        <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
-                            <!--Left side Logo-->
-                            <div class="col-md-2">
-                                <img src="{{url('assets/img/educationLogo.png')}}" alt="education logo" height="62" width="53" style="margin-top:4px;"> 
+
+                        @if(count($educations) < 1)
+                            Information not yet submitted.
+                        @else
+                            @foreach($educations as $education)
+                            <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
+                                <!--Left side Logo-->
+                                <div class="col-md-2">
+                                    <img src="{{ url('assets/img/educationLogo.png') }}" alt="education logo" height="62" width="53" style="margin-top:4px;"> 
+                                </div>
+                                <div class="col-md-8">
+                                    <span style="color: dimgray; font-size: 17px"><b>{{ $education->degree_name }}</b></span> <br />
+                                       {{ $education->institute_name }} <br />
+                                       <table style="margin-top: 5px; font-size: 11px;">
+                                           <tr>
+                                               <td style="border: 1px solid black; padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;">Icon</td>
+                                               <td style="border: 1px solid black; padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;">Year Passed: {{ $education->pass_year }}</td>
+                                           </tr>
+                                       </table>
+                                    <br />                               
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <span style="color: dimgray; font-size: 17px"><b>{{ $education->degree_name }}</b></span> <br />
-                                   {{ $education->institute_name }} <br />
-                                   <table style="margin-top: 5px; font-size: 11px;">
-                                       <tr>
-                                           <td style="border: 1px solid black; padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;">Icon</td>
-                                           <td style="border: 1px solid black; padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;">Year Passed: {{ $education->pass_year }}</td>
-                                       </tr>
-                                   </table>
-                                <br />                               
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -98,7 +121,7 @@
             <div class="col-md-4"><h3 style="color: chocolate; margin-top: -20px;">Schedule Calender</h3>
                 <table class="table table-bordered">
                     <thead>  
-                        <tr><th><a href=" {{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b><<</b></h4></a></th><th colspan="5"><h4 style="text-align: center; color: #1b6d85; margin-top: -2px;">{{ $calender['monthName'] }} - {{ $calender['year']}}</h4></th><th><a href=" {{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b>>></b></h3></a></th></tr>
+                        <tr><th><a href="{{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b> << </b></h4></a></th><th colspan="5"><h4 style="text-align: center; color: #1b6d85; margin-top: -2px;">{{ $calender['monthName'] }} - {{ $calender['year']}}</h4></th><th><a href=" {{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b> >> </b></h4></a></th></tr>
                     </thead>                    
                     <tr>
                         <td colspan="7" style="font-size: smaller">
@@ -113,7 +136,7 @@
                             <th>Thu</th>
                             <th style="color: red">Fri</th>  
                             <th>Sat</th>
-                    
+                        </tr>
                    @for($i = 0; $i < count($calender['calender']); $i++)                   
                         <tr>
                             <?php $countDayInWeek = count($calender['calender'][$i]);
@@ -169,12 +192,10 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4"></div>
-            <div class="col-md-4"><a href='/'><button class='btn btn-primary'>Home</button></a></div>           
+            <div class="col-md-4"><a href='/'><button class='btn btn-primary'>Back</button></a></div>           
         </div>
     </div>
-</header>
+
 @endsection
 
 @section('jscript')
