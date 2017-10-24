@@ -55,6 +55,7 @@ class RegisterController extends Controller
                 'username'           	=> 'required|unique:users|min:4',
 		'first_name'            => 'required',
                 'last_name'             => 'required',
+                'userType'              => 'required',
                 'email'                 => 'required|email|unique:users',
                 'password'              => 'required|min:6|max:20',
                 'password_confirmation' => 'required|same:password',
@@ -64,6 +65,7 @@ class RegisterController extends Controller
                 'username.min'          => 'Username needs to have at least 6 characters',
                 'first_name.required'   => 'First Name is required',
                 'last_name.required'    => 'Last Name is required',
+                'userType.required'     => 'Please select your Roll/Type (e.g. Doctor or Patient) from the drodown menu',
                 'email.required'        => 'Email is required',
                 'email.email'           => 'Email is invalid',
                 'password.required'     => 'Password is required',
@@ -87,6 +89,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
 	    'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
+            'userType' => $data['userType'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'activated' => !config('settings.send_activation_email')  // if we do not send the activation email, then set this flag to 1 right away

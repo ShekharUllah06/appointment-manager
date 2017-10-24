@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('title', 'Register')
-@section('description', 'Register to the admin area')
+@section('description', 'Register to the registered Doctor/Patient area')
 
 @section('content')
 	<div class="container">
@@ -16,7 +16,7 @@
 		  @include('notifications.errors_message')
 		  <div class="col-md-6">
 			<div class="card-container text-center">
-				<img src="assets/img/register-splash.jpg" alt="Tutorial Splash image">
+				<img src="" alt="Appointment Manager Splash Image">
 			</div>
 		  </div>
 		  <div class="col-md-6">
@@ -37,6 +37,16 @@
 					@endif
 					<input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last name" value="{{ old('last_name') }}" required autofocus>
 					@if ($errors->has('last_name'))
+						<span class="help-block">
+							<strong>{{ $errors->first('name') }}</strong>
+						</span>
+					@endif
+                                        <select  id="userType" name="userType" class="form-control selectpicker" style="margin-bottom: 10px" required autofocus>
+                                            <option value="" disabled selected style="color: gray">I am a (User Type/Roll)...</option>
+                                            <option value="1" label="Doctor">Doctor</option>
+                                            <option value="2" label="Patient">Patient</option>
+                                        </select>
+					@if ($errors->has('userType'))
 						<span class="help-block">
 							<strong>{{ $errors->first('name') }}</strong>
 						</span>

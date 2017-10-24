@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\doctor;
+namespace App\Http\Controllers\patient;
 
 use App\Http\Controllers\Controller;
 
 
-//This class contains the Doctor Pannel Routing.
+//This class contains the Patient Pannel Routing
 
 class PagesController extends Controller
 {
 
     public function getDashboard()
     {
-        return view('doctor.pages.dashboard');
+        return view('patient.dashboard');
     }
   
 }

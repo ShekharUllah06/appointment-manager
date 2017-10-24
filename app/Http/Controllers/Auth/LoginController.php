@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class LoginController extends Controller
 {
@@ -59,8 +60,13 @@ class LoginController extends Controller
             'password'  => $password,
             'activated' => 1,
         ], $remember == 1 ? true : false)) {
-
-            return redirect()->route('doctor.dashboard');
+            
+            //Code modified to allow redirection acording to user type -zaki
+            if((User::where('username', $username)->first()->userType) == 1){
+                return redirect()->route('doctor.dashboard');
+            }else{
+                return redirect()->route('patient.dashboard');
+            }
 
         }
         else {
