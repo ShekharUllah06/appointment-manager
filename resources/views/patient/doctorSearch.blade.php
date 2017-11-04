@@ -43,7 +43,7 @@
                 <div class="form-group col-md-4">
                     <label for="district" class="col-md-4 control-label">District: </label>
                     <div class="col-md-8">
-                        <select id="district" name="district" class="form-control" onchange="loadThana(this.value)">
+                        <select id="district" name="district" class="form-control">
                             <option value="" selected disabled>By District..</option>
                             @foreach($districts as $district)                           
                                 <option value="{!! $district['district'] !!}">{{ $district['district'] }}</option>  
@@ -58,8 +58,7 @@
                     <div class="col-md-8">
                         <select id="thana" name="thana" class="form-control">
                             <option value="" selected disabled>By Thana..</option>
-                            
-
+                                <!--Ajax Call for Thana Lis-->
                         </select> 
                     </div>
                 </div>
@@ -97,6 +96,7 @@
         
     </form>
     
+    
     <?php print'<pre>'; print_r($doctors); print"</pre>"; ?>
     
     
@@ -106,31 +106,42 @@
  
 
 @section('jscriptPatientSearch')    
-
     <script>    
-        function loadThana(districtName){
-            var xmlHttpRequest = new XMLHttpRequest();
-            xmlHttpRequest.onreadystatechange = function(){
-                                        
-                if(xmlHttpRequest.status == 200){
-//                    var selectThana = document.getElementById("thana");
-//                    var i;
-                    var jObj = JSON.parse(xmlHttpRequest.responseText);
-//                    for(i = 0; i < jObj.length; i++){
-alert(jObj.response);
-//                        var option = document.createElement("option");
 
-//                        option.text = thanaName;
-//                        selectThana.add(option);
-
-                        
+        $(document).ready(function(){
+            $("#district").change(function(dData){
+                var districtVal = $("#district").val();
+                var myUrl = "/patient/search/a";
+//                $.ajaxSetup({
+//                    headers: {
+//                        'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
 //                    }
+//                });
+                $.ajax({
+                    url : myUrl + "/" + districtVal,
+//                    data : districtVal,
+                    type : "GET",
+                    contentType:"application/json",
+                    dataType : 'json',
+                    success: function(data){
+                        
+                            if(data.length){
+                                $("#thana").html('');
+                                        $.each(data, function(key, value){
+                                            var listItem = new Option(value.thana, value.thana);                                     
+                                            $("#thana").append(listItem);
+                                        });
+                            }else{
+                                $("#thana").html('<option value="" selected disabled>No List Found</option>');
+                            }
+                        },
+                    error: function(data){
+                        console.log("AJAX error in request: " + JSON.stringify(data, null, 2));
 
-                }
-                xmlHttpRequest.open("GET", "{{ url('patient/search/a') }}", true);
-                xmlHttpRequest.send();
-            };
-        }
+                    }
+                });       
+            });
+        });    
+ 
     </script>
-
 @endsection

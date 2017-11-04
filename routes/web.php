@@ -157,7 +157,7 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
                 //Schedule Page Route
                 Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
                 //Schedule Page Route
-                Route::get('search/a', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
+                Route::get('search/a/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
 //                Route::pose()
             });
         });

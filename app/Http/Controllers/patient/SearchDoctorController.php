@@ -15,7 +15,7 @@ use App\Models\district;
 class SearchDoctorController extends Controller
 {
   /**
-     * This function queries db for data and returns doctor records to search doctor page.
+     * This function queries db for data and returns doctor record list to search doctor page.
      * 
      * @return array
      */
@@ -32,12 +32,17 @@ class SearchDoctorController extends Controller
     }
     
     
-    
-    public function returnThanaList(){
-//        $thanas = thana::select('thana')->where('district', $district)->orderBy('thana', 'asc')->get()->toArray();
+    /**
+     * This function takes 'district name' as input via Ajax request, queries db for data and returns 
+     * 'thana' list to search doctor page.
+     * 
+     * @return JSON Array
+     */
+    public function returnThanaList($districtVal){
         
-//        return Response::json($district);
-        return response()->json(array('response' => 'This is get method'), 200);
+        $thanas = thana::select('thana')->where('district', $districtVal)->orderBy('thana', 'asc')->get()->toArray();
+
+        return response()->json($thanas);
     }
 
     
