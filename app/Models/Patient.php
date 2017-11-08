@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var string.
      */
-    protected $table = 'users';
+    protected $table = 'patients';
 
     /**
      * The attributes that are not mass assignable.
@@ -40,19 +40,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      *
      * @var array
      */
-    protected $fillable = ['username','first_name','last_name','userType','email','password'];
+    protected $fillable = ['username','first_name','last_name','email','password'];
 
-    
-    /**
-     *Relationship functions to chamber and schedule models
-     *
-     *
-     */
 
-    
-    public function schedules(){
-           return $this->hasMany('App\Models\schedule', 'user_id');
-    }
 
         
         

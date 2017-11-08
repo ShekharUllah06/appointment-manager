@@ -1,7 +1,7 @@
-@extends('layouts.doctor')
+@extends('layouts.patient')
 
 @section('title', 'Dashboard')
-@section('description', 'This is the dashboard')
+@section('description', 'This is the patient dashboard')
 
 @section('content')
     <div class="container-fluid">
@@ -30,7 +30,7 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <p>You are now in the Doctor section. This is the dashboard and nothing but only the Menu works but you are logged-in as a Doctor <i class="fa fa-smile-o fa"></i>. Once you are done looking around, you can <a href="{{ url('/logout') }}"
+                <p>You are now in the Patient section. This is the dashboard and nothing but only the Menu works but you are logged-in as a Patient <i class="fa fa-smile-o fa"></i>. Once you are done looking around, you can <a href="{{ url('/logout') }}"
                                                         onclick="event.preventDefault();
                                                                          document.getElementById('logout-form').submit();">
                                                         <i class="fa fa-fw fa-power-off"></i> Log Out
