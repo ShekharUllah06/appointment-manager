@@ -19,8 +19,11 @@ Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHom
 Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
 //Route::get('/doctor_profile/{doctorID}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
 
-//Doctor Route Section 
+//
+//Doctor Route 
+//Section 
 //Starts here.
+//
         //Doctor's Panel Route
         Route::get('/doctor', ['as' => 'doctor.dashboard', 'uses' => 'doctor\PagesController@getDashboard', 'middleware' => 'auth']);
 
@@ -142,7 +145,7 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
         });
 //End Doctor Rout Section
 
-
+//
 //Patient's Panel Route
 //
         //Patient's Panel Route
@@ -151,14 +154,15 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
         //Patient Pannel Route Groups
         Route::group(['prefix' => 'patient', 'middleware' => 'auth'], function(){
 
-            //schedule Page Route
+            //Patient Pannel Route Group
             Route::group(['namespace' => 'patient'], function(){    
 
-                //Schedule Page Route
-                Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
-                //Schedule Page Route
-                Route::get('search/a/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
-//                Route::pose()
+                //Patient Search/Browse Route
+                Route::get('search/{pageNo?}', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                //Patient Thana/Sub-District Ajax Call Route
+                Route::get('search/ajax/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
+                //Patient Filter Form Submission Route
+                Route::post('search', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
             });
         });
             
