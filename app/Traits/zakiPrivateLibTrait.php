@@ -12,6 +12,64 @@ use Carbon;
 
 trait zakiPrivateLibTrait{
     
+    protected function doctorCalender($doctorID, $calenderMonth, $profileType = NULL){
+        $futureScheduleRecord = [];
+        $schedules = [];
+        $dateTimeZone = 'Asia/Dhaka';
+        $dateToday = Carbon::now($dateTimeZone);
+        
+        date_default_timezone_set($dateTimeZone);
+        
+        //Check if requested date is valid and return or return current month date; assembeles as array.
+        $returnCalenderMonth = $this->returnCalenderMonth($dateToday, $calenderMonth);
+        
+        $daysinMonth = cal_days_in_month(CAL_GREGORIAN, $returnCalenderMonth['carbonMonth'], $returnCalenderMonth['carbonYear']) -1;
+                              
+        //query with schedule table for record with $doctorID         
+        $schedulesQuery = $this->scheduleJointQuery($doctorID, $returnCalenderMonth['requestedCalenderMonth'], $daysinMonth);
+        
+        
+                //Get single Record out of DB Result Set
+        foreach ($schedulesQuery as $scheduleRecord){     
+
+            //Convert and join schedule date and time
+            if($this->multiKeyExists($scheduleRecord, 'schedule_date')){
+
+                $scheduleDate = $scheduleRecord['schedule_date'];
+                
+            //Compare Schedule date with current date, if schedule date is greater then assamble schedules array
+                $futureScheduleRecord = $this->futureSchedule($scheduleRecord, $scheduleDate, $dateToday, $profileType);
+            }
+            else{
+                
+                $futureScheduleRecord = $scheduleRecord;
+            }
+
+            //Assemble Schedules Array if $futureScheduleRecord is not null
+            if(!$futureScheduleRecord == null){     
+                
+                $schedules[] = $futureScheduleRecord;
+            }               
+        }
+        
+        
+        if(empty($schedules)){
+            $schedules['monthName'] = jdmonthname(gregoriantojd((int)$returnCalenderMonth['carbonMonth'], 
+                        (int)$returnCalenderMonth['carbonDay'] , (int)$returnCalenderMonth['carbonYear']), 1);
+            $schedules['scheduleDate'] = $returnCalenderMonth['requestedCalenderMonth'];
+            $schedules['scheduleDateOnly'] = $returnCalenderMonth['carbonDay'];
+            $schedules['scheduleMonth'] = $returnCalenderMonth['carbonMonth'];
+            $schedules['scheduleYear'] = $returnCalenderMonth['carbonYear'];                   
+        }
+
+        //make calender array from schedules array
+        $calender = $this->makeScheduleCalender($schedules, $returnCalenderMonth['requestedCalenderMonth']);       
+        
+        return $calender;
+    }
+    
+    
+    
     //query on schedule and chamber tables for record with Auth::user()->id
     //param: 1. User ID.
     protected function scheduleJointQuery($auth_user_id, $requestedScheduleDate, $daysinMonth){
@@ -21,7 +79,7 @@ trait zakiPrivateLibTrait{
             $schedulesQuery = schedule::join('users', 'schedule.user_id', '=', 'users.id')       //SQL Join needs to be converted to Laravel Relations!!!
                     ->join('chamber', 'schedule.chamber_id', '=', 'chamber.chamber_id')
                     ->where('schedule.user_id', $auth_user_id)
-                    ->get();//
+                    ->get();
         }else{
             $maxMonth = date('Y-m-d', strtotime($requestedScheduleDate.'+'.$daysinMonth.' day')); //Add +total number of days in the month -1 day with $requestedScheduleDate to narrow down results to one month
             $schedulesQuery = schedule::join('users', 'schedule.user_id', '=', 'users.id')       //SQL Join needs to be converted to Laravel Relations!!!
@@ -48,7 +106,7 @@ trait zakiPrivateLibTrait{
      * 
      * @return array
      */   
-    private function returnCalenderMonth($calenderMonth = null, $dateToday){ 
+    private function returnCalenderMonth($dateToday, $calenderMonth = NULL){ 
         
         //set $requestedCalenderMonth validating if paramerter passed. If not passed set current date
         if(isset($calenderMonth)){
@@ -137,9 +195,9 @@ trait zakiPrivateLibTrait{
            $j++;
         }
         
+        //Sptit the month in to weeks array
         $splitCalander = array_chunk($tempCalender, 7); 
 
-        //Sptit the month in to weeks array
         foreach($splitCalander as $arrayRow){
             
             $calender['calender'][] = $arrayRow;
@@ -157,7 +215,6 @@ trait zakiPrivateLibTrait{
                 }
             }
         
-
                 return $calender;
     }
     
@@ -199,7 +256,7 @@ trait zakiPrivateLibTrait{
      *
      * @return int
      */   
-    private function futureSchedule($scheduleRecord, $scheduleDate, $dateToday){
+    private function futureSchedule($scheduleRecord, $scheduleDate, $dateToday, $profileType){
                                     
         if($scheduleDate >= $dateToday){
 
@@ -215,11 +272,14 @@ trait zakiPrivateLibTrait{
             $futureScheduleRecord['scheduleDateOnly'] = $date;
             $futureScheduleRecord['scheduleMonth'] = $month;
             $futureScheduleRecord['scheduleYear'] = $year;
-            $futureScheduleRecord['chamberName'] = $scheduleRecord['chamber_name'];
-            $futureScheduleRecord['startTime'] = $scheduleRecord['start_time'];
-            $futureScheduleRecord['endTime'] = $scheduleRecord['end_time'];
-            $futureScheduleRecord['consultFee'] = $scheduleRecord['consult_fee'];            
             $futureScheduleRecord['timeStamp'] = $scheduleTimeStamp;
+            
+            if($profileType != 'patient'){                          //condition may not apply on appointment!!
+                $futureScheduleRecord['chamberName'] = $scheduleRecord['chamber_name'];
+                $futureScheduleRecord['startTime'] = $scheduleRecord['start_time'];
+                $futureScheduleRecord['endTime'] = $scheduleRecord['end_time'];
+                $futureScheduleRecord['consultFee'] = $scheduleRecord['consult_fee'];                           
+            }
         }else{
             $futureScheduleRecord = null;
         }

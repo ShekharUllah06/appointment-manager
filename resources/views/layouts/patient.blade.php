@@ -17,6 +17,7 @@
 
     <!-- Custom CSS -->
     <link href="{!! asset('assets/css/admin.css') !!}" rel="stylesheet">
+    <link href="{!! asset('assets/css/zakiStyle.css') !!}" rel="stylesheet">
 	
 	<!-- Morris Charts CSS -->
     <link href="{!! asset('assets/css/plugins/morris.css') !!}" rel="stylesheet">

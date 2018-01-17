@@ -36,7 +36,7 @@ class personal_info extends Model
      *
      * @var array
      */
-        protected $hidden = ['id','updated_at', 'created_at'];
+        protected $hidden = ['updated_at', 'created_at'];
         
      /**
      * The attributes excluded from the model's JSON form.

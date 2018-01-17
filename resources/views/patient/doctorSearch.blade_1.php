@@ -191,43 +191,6 @@
                                 <th>Sat</th>
                         </thead> 
 
-                        @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
-                        <tr>
-                            <?php $countDayInWeek = count($doctor['calender']['calender'][$i]);
-                            
-                                for($j = 0; $j < $countDayInWeek; $j++){
-                            ?>
-                                <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
-                                            print ("<td style='background-color: yellow;'>");
-                                      }else{
-                                          print("<td>");
-                                      }
-                                    ?>                  
-                                    @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
-                                        @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-                                            <span style="color: red">
-                                                {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-                                            </span>  
-                                        @else
-                                            <span style="color: red">
-                                                {{ $doctor['calender']['calender'][$i][$j] }}
-                                            </span>
-                                        @endif
-                                    @else
-                                    
-                                        @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-                                        
-                                            {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-                                  
-                                        @else
-                                            {{ $doctor['calender']['calender'][$i][$j] }}
-                                        @endif
-                                    @endif
-                                    
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    @endfor
 
 
                     </table>   
@@ -248,40 +211,29 @@
                         . '<nav aria-label="Page navigation">'
                         . '<ul class="pagination">');
                 
-                
-                //Original return page number starts at 0, but we are displaying and submitting pagination links starting from 1.
-                //Previous Button
-                if($array_data['current_page'] > 0){                                                                                                            
-                    ?>
-                        <li class="page-item">
-                            <a href=" {{url('patient/search', ['pageNo' => $array_data['current_page'] -1])}} " class="page-link" aria-label="Previous">
-                                <span aria-hidden="true"> &laquo; </span>
-                                <span class="sr-only"> Previous </span>
-                            </a>
-                        </li>
-                    <?php
+                if($array_data['current_page'] > 0){
+                    print('<li class="page-item">'
+                            . '<a href="#" class="page-link" aria-label="Previous" onclick="ajaxGetPage()"> '
+                            . '<span aria-hidden="true"> &raquo; </span>'
+                            . '<span class="sr-only"> Previous </span>'
+                            . '</a>'
+                            . '</li>');
                 }
-                
-                //Page Numbers
+
                 for($count; $count < $array_data['total_page']; $count++){
                     $count2 = $count + 1;
-                    ?>
-                        <li class="page-item">
-                            <a href="{{ url('patient/search', ['pageNo' => $count2]) }}" class="page-link">{{ $count2 }}</a>
-                        </li>
-                    <?php
+                    print('<li class="page-item">'
+                            . '<a href="#" class="page-link" onclick="ajaxGetPage('.$count.')">'.$count2.'</a>'
+                            . '</li>');
                 }
                 
-                //Next Button
                 if(count($array_data['total_page'])-($array_data['current_page']) >= 1){
-                    ?>
-                        <li>
-                            <a href="{{ url('patient/search', ['pageNo' => $array_data['current_page'] +2]) }}" class="page-link" aria-label="Next"> 
-                                <span aria-hidden="true"> &raquo; </span>
-                                <span class="sr-only"> Next </span>
-                            </a>
-                        </li>
-                    <?php
+                    print('<li>'
+                            . '<a href="#" class="page-link" aria-label="Next" onclick="ajaxGetPage()"> '
+                            . '<span aria-hidden="true"> &raquo; </span>'
+                            . '<span class="sr-only"> Next </span>'
+                            . '</a>'
+                            . '</li>');
                 }
 
                 print('</ul>'
@@ -303,7 +255,6 @@
     <script>    
 //Retrive thana by district through ajax
         $(document).ready(function(){
-            
             $("#district").change(function(dData){
                 var districtVal = $("#district").val();
                 var myUrl = "/patient/search/ajax/";
@@ -335,10 +286,10 @@
         
 
 //        Get paginated search result
-//        function ajaxGetPage(terget_page){
-//            
-//            
-//            };
+        function ajaxGetPage(terget_page){
+            
+            
+            };
         
         
         
