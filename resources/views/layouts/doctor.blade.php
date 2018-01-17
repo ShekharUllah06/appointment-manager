@@ -42,7 +42,7 @@
 </head>
 
 <body>
-
+    <?php $url = $_SERVER['REQUEST_URI'];?>     <!--Get Current URL for menu selection-->
     <div id="wrapper">
 
         <!-- Navigation --->
@@ -91,19 +91,45 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li>
                         <a href="{{ url('/doctor') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
-                        <a href="{{ url('/doctor/schedule') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
-                    </li>
-                    <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse">
+                    
+                    <!--Schedule Menu Item-->
+                    <?php if(strpos($url, '/doctor/schedule') !== false){ ?>     <!--Menu selected Highlight-->
+                        <li class="active">
+                    <?php }else{ ?>
+                        <li>
+                    <?php } ?>
+                            <a href="{{ url('/doctor/schedule') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
+                        </li>
+                    
+                    <!--Settings Menu Item-->
+                    <?php if(strpos($url, '/settings/') !== false){ ?>
+                        <li class="active" data-toggle="collapse" data-target="#submenu-collapse" aria-expanded='true'>
+                            
                         <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
-                        <ul class="sub-menu collapse" id="submenu-collapse">
-                            <li>
-                                <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
-                            </li>
-                            <li>
+                        <ul class="sub-menu collapse in" id="submenu-collapse" aria-expanded='true' style="">
+                    <?php }else{ ?>
+                        <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse" aria-expanded='false'>
+
+                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
+                        <ul class="sub-menu collapse" id="submenu-collapse"  aria-expanded='false' style="height: 0px;">
+                    <?php } ?>
+                            
+                            <!--Chamber Sub-Menu Item-->
+                            <?php if(strpos($url, '/doctor/settings/chamber') !== false){ ?> <!--this php code should highlight current selection, but not working-->
+                                <li class="active">
+                            <?php }else{ ?>
+                                <li class="">
+                            <?php } ?>
+                                    <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
+                                </li>
+                            
+                                
+                                                           
+
+                            <li class="active">
                                 <a href="{{ url('/doctor/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
                             </li>
                             <li>

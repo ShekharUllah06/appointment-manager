@@ -38,7 +38,7 @@ trait zakiPrivateLibTrait{
                 $scheduleDate = $scheduleRecord['schedule_date'];
                 
             //Compare Schedule date with current date, if schedule date is greater then assamble schedules array
-                $futureScheduleRecord = $this->futureSchedule($scheduleRecord, $scheduleDate, $dateToday, $profileType);
+                $futureScheduleRecord = $this->futureSchedule($scheduleRecord, date('Y-m-d', strtotime($scheduleDate)), date('Y-m-d', strtotime($dateToday)), $profileType);
             }
             else{
                 

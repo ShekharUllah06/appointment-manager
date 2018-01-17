@@ -23,36 +23,38 @@ class SearchDoctorController extends Controller
      * 
      * @return array
      */
-    protected function viewSearchPage(Request $request, $pageNo = NULL)
+    protected function viewSearchPage(Request $request, $pageNo = NULL, $forwardspecialty = NULL, $forwardDistrict = NULL, $forwardThana = NULL, $forwardArea = NULL)
     {   
-        $calenderMonth = '2018-12-01';
+        $filterItems = [];
+        $calenderMonth = date("Y-m-d");
         $count = 0;     
         $doctor = [];
         $doctor_item = NULL;
-        $doctor_filterList = [];
+        $doctor_filteredList = [];
         $doctorFilterRecord = [];
-        $array_data = [];
+        $array_info = [];
         $selectedItems = [];
         $page_number = 0;
-        $districtsList = district::select('district')->orderBy('district','asc')->get()->toArray();
-        $JSONSpecialties = specialty::select('specialty')->get()->toArray();
-        $personalInfoData = personal_info::select('id','imageUrl')->get()->toArray();   
         
+        //DB Query
+        $filterItems['district'] = district::select('district')->orderBy('district','asc')->get()->toArray();
+        $filterItems['specialty'] = specialty::select('specialty')->groupBy('specialty')->orderBy('specialty','asc')->get()->toArray();
+        //***Note Area data not yet complete***
+        $personalInfoData = personal_info::select('id','imageUrl')->get()->toArray();           
         $doctorFilterQuery = $this->doctorFilterJointQuery();
+        
+        //Make copy of doctorFilterQuery for latter use
         $doctorFilterQuery_2 =  $doctorFilterQuery;                            
                                 
         //sort and then splitMultyArray_by_ID();
         usort($doctorFilterQuery, array("App\Http\Controllers\patient\SearchdoctorController", "compareID"));           
         $doctorListGrouped = $this->groupMultyArray_by_ID($doctorFilterQuery);                         
-                                
-                                
+                                                               
                                 
         foreach($doctorListGrouped as $doctorQueryOrganised){
             $uniqueDegreeName = NULL;
             $uniqueSpecialty = NULL;
             $uniqueDistrict = NULL;
-            $uniqueThana = NULL;
-            $districtList = [];
             $listDegree = [];
             $listSpecialty = [];
                         
@@ -69,8 +71,7 @@ class SearchDoctorController extends Controller
             $doctor['imageUrl'] = $doctorFilterRecord['imageUrl'];
             $doctor['position'] = $doctorQueryOrganised[$count]['position'];
             $doctor['organization'] = $doctorQueryOrganised[$count]['organization'];
-            $doctor['thana_district'] = [];   //$doctorQueryOrganised[$count]['district'];
-//            $doctor['thana'] = [];  //$doctorQueryOrganised[$count]['thana']; //needs to be an array
+            $doctor['thana_district'] = [];
             $doctor['degree_name'] = [];
             $doctor['specialty'] = [];
                     
@@ -100,24 +101,7 @@ class SearchDoctorController extends Controller
             $uniqueDistrict = array_unique(array_column($doctorQueryOrganised, "district"));
             $uniqueDistrict = array_values($uniqueDistrict);          
            
-            //Make District and Thana combined list
-            foreach($uniqueDistrict as $district){
-                $count2 = 0;                    
-                $thana = [];
-                
-                //Loop through raw query result
-                for($count2; $count2<count($doctorFilterQuery_2); $count2++){
-                    if(($doctorFilterQuery_2[$count2]['id'] == $doctor['id']) && ($doctorFilterQuery_2[$count2]['district'] == $district)){
-                        $thana[] = $doctorFilterQuery_2[$count2]['thana'];
-
-                    }                        
-                }
-
-                //make thana list array out of $doctorFilterQuery_2
-                $uniqueThana = array_unique(array_column($thana, NULL));
-                $uniqueThana = array_values($uniqueThana);
-                $districtList[$district] = $uniqueThana;
-            }          
+            $districtList = $this->combianDistrictThana($uniqueDistrict, $doctorFilterQuery_2, $doctor);
             
             $doctor['thana_district'] = $districtList;
                                             
@@ -127,62 +111,70 @@ class SearchDoctorController extends Controller
             $doctor_list_Array[] = $doctor;
             $count += $count;
         }
-    
+        $tmp = $doctor_list_Array;
         //Check if Specialty exist
         foreach($doctor_list_Array as $doctor_item_array){           
             
             if(isset($request['specialty']) && $this->multyArray_search($doctor_item_array, 'specialty', $request['specialty'])){
+                $doctor_item = $doctor_item_array;
+            }elseif(isset($forwardspecialty) && $this->multyArray_search($doctor_item_array, 'specialty', $forwardspecialty)){
                 $doctor_item = $doctor_item_array;
             }else{
                 $doctor_item = NULL;
             }
             
             if($doctor_item !== NULL){               
-                $doctor_filterList[] = $doctor_item_array;
+                $doctor_filteredList[] = $doctor_item_array;
                 $doctor_item = NULL;
             }
         }
         
-        if(isset($doctor_filterList[0]['id'])){
-            $doctor_list_Array = $doctor_filterList;
-            $doctor_filterList = [];
+        if(isset($doctor_filteredList[0]['id'])){
+            $doctor_list_Array = $doctor_filteredList;
+            $doctor_filteredList = [];
         }
         
         //Check if Thana exist
         foreach($doctor_list_Array as $doctor_item_array){           
             if(isset($request['thana']) && $this->multyArray_search($doctor_item_array, 'thana_district', $request['district'], $request['thana'])){
                 $doctor_item = $doctor_item_array;
-            }
-            
-            if($doctor_item !== NULL){               
-                $doctor_filterList[] = $doctor_item;
-                $doctor_item = NULL;
-            }
-        }
-        
-        if(isset($doctor_filterList[0]['id'])){
-            $doctor_list_Array = $doctor_filterList;
-            $doctor_filterList = [];
-        }
-    
-        //Check if Location exist
-        foreach($doctor_list_Array as $doctor_item_array){           
-            
-            if(isset($request['area']) && $this->multyArray_search($doctor_item, 'area', $request['area'])){
+            }elseif(isset($forwardThana) && $this->multyArray_search($doctor_item_array, 'thana_district', $forwardDistrict, $forwardThana)){
                 $doctor_item = $doctor_item_array;
             }else{
                 $doctor_item = NULL;
             }
             
             if($doctor_item !== NULL){               
-                $doctor_filterList[] = $doctor_item_array;
+                $doctor_filteredList[] = $doctor_item;
                 $doctor_item = NULL;
             }
         }
         
-        if(isset($doctor_filterList[0]['id'])){
-            $doctor_list_Array = $doctor_filterList;
-            $doctor_filterList = [];
+        if(isset($doctor_filteredList[0]['id'])){
+            $doctor_list_Array = $doctor_filteredList;
+            $doctor_filteredList = [];
+        }
+    
+        //Check if Area exist
+        foreach($doctor_list_Array as $doctor_item_array){           
+            
+            if(isset($request['area']) && $this->multyArray_search($doctor_item, 'area', $request['area'])){
+                $doctor_item = $doctor_item_array;
+            }elseif(isset($forwardArea) && $this->multyArray_search($doctor_item, 'area', $forwardArea)){
+                $doctor_item = $doctor_item_array;
+            }else{
+                $doctor_item = NULL;
+            }
+            
+            if($doctor_item !== NULL){               
+                $doctor_filteredList[] = $doctor_item_array;
+                $doctor_item = NULL;
+            }
+        }
+        
+        if(isset($doctor_filteredList[0]['id'])){
+            $doctor_list_Array = $doctor_filteredList;
+            $doctor_filteredList = [];
         }
         
         
@@ -196,39 +188,47 @@ class SearchDoctorController extends Controller
         }
         
         //Return Extra Array with Pagination Data
-        $array_data['total_page'] = count($paginated_doctor);
-        $array_data['current_page'] = $page_number;
+        $array_info['total_page'] = count($paginated_doctor);
+        $array_info['current_page'] = $page_number;
 
         
         
         //return dropdown filter item if selected 
-        
+        //return selected specialty
         if($request['specialty']){
             $selectedItems['specialty'] = $request['specialty'];
+        }elseif(isset($forwardspecialty) && $forwardspecialty != "null" && $forwardspecialty != ""){
+            $selectedItems['specialty'] = $forwardspecialty;
         }else{
-            $selectedItems['specialty'] = NULL;
+            $selectedItems['specialty'] = "";
         }
-        
+        //return selected district
         if($request['district']){
             $selectedItems['district'] = $request['district'];
+        }elseif(isset($forwardDistrict) && $forwardDistrict != "null" && $forwardDistrict != ""){
+            $selectedItems['district'] = $forwardDistrict;
         }else{
-            $selectedItems['district'] = NULL;
+            $selectedItems['district'] = "";
         }
-        
-//        if($request['thana']){
-//            $selectedItems['thana'] = $request['thana'];      //thana return not working (**may be ajax related problem)
-//        }else{
-//            $selectedItems['thana'] = NULL;
-//        }
-        
+        //return selected thana
+        if($request['thana']){
+            $selectedItems['thana'] = $request['thana'];        //For improvement Need to return full thana list by district with selected thana data insteade of just one thana
+        }elseif(isset($forwardThana) && $forwardThana != "null" && $forwardThana != ""){
+            $selectedItems['thana'] = $forwardThana;
+        }else{
+            $selectedItems['thana'] = "";
+        }
+        //return selected area
         if($request['area']){
             $selectedItems['area'] = $request['area'];
+        }elseif(isset($forwardArea) && $forwardArea != "null" && $forwardArea != ""){
+            $selectedItems['area'] = $forwardArea;
         }else{
-            $selectedItems['area'] = NULL;
+            $selectedItems['area'] = "";
         }
         
         
-        return view('patient.doctorSearch', ['JSONSpecialties' => $JSONSpecialties, 'districtsList' => $districtsList, 'doctors' => $paginated_doctor[$page_number], 'selectedItems' => $selectedItems, 'array_data' => $array_data, 'temp' => $doctor]);
+        return view('patient.doctorSearch', ['filterItems' => $filterItems, 'doctors' => $paginated_doctor[$page_number], 'selectedItems' => $selectedItems, 'array_info' => $array_info, 'tmp'=>$tmp]);
     }
     
     

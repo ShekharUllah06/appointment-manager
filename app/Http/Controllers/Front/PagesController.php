@@ -40,7 +40,7 @@ class PagesController extends Controller
         $calender = $this->doctorCalender($doctorID, $calenderMonth);
 
         
-        return view('front.pages.doctor_public_profile', ['calender' => $calender, 'user' => $user, 'educations' => $educations, 'work_histories' => $work_histories, 'specialties' => $specialties, 'personal_info' => $personal_info, 'temp' => $calender]);
+        return view('front.pages.doctor_public_profile', ['calender' => $calender, 'user' => $user, 'educations' => $educations, 'work_histories' => $work_histories, 'specialties' => $specialties, 'personal_info' => $personal_info]);
 
     }
 }

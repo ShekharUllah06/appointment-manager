@@ -158,11 +158,13 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
             Route::group(['namespace' => 'patient'], function(){    
 
                 //Patient Search/Browse Route
-                Route::get('search/{pageNo?}', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                //Patient filter pagination Route
+                Route::get('search/result/{pageNo}/{specialty}/{districtName}/{thanaName}/{area}', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
                 //Patient Thana/Sub-District Ajax Call Route
                 Route::get('search/ajax/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
                 //Patient Filter Form Submission Route
-                Route::post('search', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                Route::post('search/result', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
             });
         });
             
