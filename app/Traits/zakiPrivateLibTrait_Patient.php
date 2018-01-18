@@ -33,7 +33,45 @@ trait zakiPrivateLibTrait_Patient{
     }
     
     
+    /**
+     * Helper function. It takes Query and return a District and Thana combined array
+     * 
+     * @param type $uniqueDistrict
+     * @param type $doctorFilterQuery_2
+     * @param type $doctor
+     */
+    protected function combianDistrictThana($uniqueDistrict, $doctorFilterQuery_2, $doctor){    
+        $districtList = [];
+        $uniqueThana = NULL;
+        //Make District and Thana combined list
+        foreach($uniqueDistrict as $district){
+            $count2 = 0;                    
+            $thana = [];
+
+            //Loop through raw query result
+            for($count2; $count2<count($doctorFilterQuery_2); $count2++){
+                if(($doctorFilterQuery_2[$count2]['id'] == $doctor['id']) && ($doctorFilterQuery_2[$count2]['district'] == $district)){
+                    $thana[] = $doctorFilterQuery_2[$count2]['thana'];
+
+                }                        
+            }
+
+            //make thana list array out of $doctorFilterQuery_2
+            $uniqueThana = array_unique(array_column($thana, NULL));
+            $uniqueThana = array_values($uniqueThana);
+            $districtList[$district] = $uniqueThana;
+
+            return $districtList;
+        }          
+    }
     
+    
+    /**
+     * Helper function. Take array as input and Sort then return result array.
+     * 
+     * @param type $array
+     * @return type $array
+     */
     protected function groupMultyArray_by_ID($array){
         $returnMultiArray = [];
         $temp = 0;
@@ -46,9 +84,7 @@ trait zakiPrivateLibTrait_Patient{
             
             $tempArray = array_slice($array, $k, $key);
             $returnMultiArray[] = $tempArray; 
-        }
-
-          
+        }         
                         
         return $returnMultiArray;
     }

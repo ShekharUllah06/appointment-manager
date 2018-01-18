@@ -7,7 +7,7 @@
         
     <!--Starting the Form-->
 
-    <form action="{!! url('patient/search') !!}" method="post" class="well form-horizontal" id="scheduleForm"  style="margin-bottom: 10px; padding-bottom: 4px;">
+    <form action="{!! url('patient/search/result') !!}" method="post" class="well form-horizontal" id="scheduleForm"  style="margin-bottom: 10px; padding-bottom: 4px;">
         <h4 style="margin-top: -6px; margin-bottom: -6px;">Filter By:</h4>
         <hr style="margin-top: 12px; margin-bottom: 12px;" />
         <fieldset>
@@ -19,8 +19,8 @@
                     <div class="col-md-8">
                         <select id="specialty" name="specialty" class="form-control col-md-8" >
                             <option value="" selected disabled>By Specialty..</option>
-                            @foreach($JSONSpecialties as $JSONSpecialty)                           
-                                <option value="{!! $JSONSpecialty['specialty'] !!}">{{ $JSONSpecialty['specialty'] }}</option>  
+                            @foreach($filterItems['specialty'] as $specialtyName)                           
+                                <option value="{!! $specialtyName['specialty'] !!}">{{ $specialtyName['specialty'] }}</option>  
                             @endforeach
                         </select>
                     </div>
@@ -33,7 +33,7 @@
                     <div class="col-md-8">
                         <select id="district" name="district" class="form-control">
                             <option value="" selected disabled>By District..</option>
-                            @foreach($districtsList as $districtName)                           
+                            @foreach($filterItems['district'] as $districtName)                           
                                 <option value="{!! $districtName['district'] !!}">{{ $districtName['district'] }}</option>  
                             @endforeach
                         </select> 
@@ -73,7 +73,7 @@
                         </select> 
                     </div>
                 </div>
-                
+                <script>document.getElementById('thana').value = '{{ $selectedItems["thana"] }}';</script>
             <!--Submit, Delete and Cancel Button-->
                 <div class="form-group" id="BTN_filter">                                
                     <div class="col-md-2 float-right" >
@@ -93,7 +93,7 @@
         <?php 
             $i = 0; 
             foreach ($doctors as $doctor){
-             
+//             check add number of card and style it
                 if($i % 2 == 0){
                     print '<div class="row oddCard" id="doctorSearchCard">';
                 }else{
@@ -143,8 +143,8 @@
                                                 </span>
                                             <?php } ?>
                                         </div>
-                                        <button id="seeDeg{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#deg{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
-                                            See more
+                                        <button id="seeDeg{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#deg{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                            See more &#9661;
                                         </button>
                                     @endif
                                 @endif                                
@@ -166,8 +166,8 @@
                                                 </span>
                                             <?php } ?>
                                         </div>
-                                        <button id="seeSpc{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
-                                            See more
+                                        <button id="seeSpc{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                            See more &#9661;
                                         </button>
                                     @endif
                                 @endif
@@ -179,58 +179,61 @@
 
                 <!--Calander Section start-->
                 <div class="col-md-4" style="float: right; margin: 3px;">
-                    <table class="table table-bordered" style="font-size: 10px; background-color: white;">
-                        <thead>  
+                    <div class="panel panel-default">
+                        <table class="table table-bordered" style="font-size: 10px; background-color: white; text-align: center;">
+                            <thead>
+                                <th colspan="7" style="background-color: lightblue; color: black; text-align: center; padding: 3px;">Schedule Calender:  {{ $doctor['calender']['monthName'] }} - {{ $doctor['calender']['year']}}</th>
+                            </thead>
+                            <thead style="background-color: lightgrey;">  
+                                <th style='padding: 2px;'>Sun</th>
+                                <th style='padding: 2px;'>Mon</th>
+                                <th style='padding: 2px;'>Tue</th>
+                                <th style='padding: 2px;'>Wed</th>
+                                <th style='padding: 2px;'>Thu</th>
+                                <th style="color: red; padding: 3px;">Fri</th>  
+                                <th style='padding: 2px;'>Sat</th>
+                            </thead> 
 
-                                <th>Sun</th>
-                                <th>Mon</th>
-                                <th>Tue</th>
-                                <th>Wed</th>
-                                <th>Thu</th>
-                                <th style="color: red">Fri</th>  
-                                <th>Sat</th>
-                        </thead> 
+                            @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
+                            <tr>
+                                <?php $countDayInWeek = count($doctor['calender']['calender'][$i]);
 
-                        @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
-                        <tr>
-                            <?php $countDayInWeek = count($doctor['calender']['calender'][$i]);
-                            
-                                for($j = 0; $j < $countDayInWeek; $j++){
-                            ?>
-                                <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
-                                            print ("<td style='background-color: yellow;'>");
-                                      }else{
-                                          print("<td>");
-                                      }
-                                    ?>                  
-                                    @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
-                                        @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-                                            <span style="color: red">
+                                    for($j = 0; $j < $countDayInWeek; $j++){
+                                ?>
+                                    <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
+                                                print ("<td style='background-color: yellow; padding: 0;'>");
+                                          }else{
+                                              print("<td  style='padding: 2px;'>");
+                                          }
+                                        ?>                  
+                                        @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
+                                            @if(isset($doctor['calender']['calender'][$i][$j]['date']))
+                                                <span style="color: red">
+                                                    {{ $doctor['calender']['calender'][$i][$j]['date'] }}
+                                                </span>  
+                                            @else
+                                                <span style="color: red">
+                                                    {{ $doctor['calender']['calender'][$i][$j] }}
+                                                </span>
+                                            @endif
+                                        @else
+
+                                            @if(isset($doctor['calender']['calender'][$i][$j]['date']))
+
                                                 {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-                                            </span>  
-                                        @else
-                                            <span style="color: red">
+
+                                            @else
                                                 {{ $doctor['calender']['calender'][$i][$j] }}
-                                            </span>
+                                            @endif
                                         @endif
-                                    @else
-                                    
-                                        @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-                                        
-                                            {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-                                  
-                                        @else
-                                            {{ $doctor['calender']['calender'][$i][$j] }}
-                                        @endif
-                                    @endif
-                                    
-                                </td>
-                            <?php } ?>
-                        </tr>
-                    @endfor
 
-
-                    </table>   
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        @endfor
+                        <tr style="background-color: lightcyan;"><td colspan="7" style="padding: 2px;"><span style="color: red;">***</span>Yellow Background = Schedule date.</td></tr>
+                        </table>  
+                    </div>
                 </div>
     </div> 
     <?php
@@ -241,42 +244,43 @@
     <!--Pagination Navigation Section-->
     <div class="row">
         <?php 
-            if((isset($array_data['total_page'])) && ($array_data['total_page'] > 1)){
+            if((isset($array_info['total_page'])) && ($array_info['total_page'] > 1)){
                 $count = 0;
-                print('<div class="col-md-4"></div>'
-                        . '<div class="col-md-4">'
+                print('<div class="col-md-3"></div>'
+                        . '<div class="col-md-6 text-center">'
                         . '<nav aria-label="Page navigation">'
                         . '<ul class="pagination">');
                 
                 
                 //Original return page number starts at 0, but we are displaying and submitting pagination links starting from 1.
                 //Previous Button
-                if($array_data['current_page'] > 0){                                                                                                            
+                if($array_info['current_page'] > 0){                                                                                                            
                     ?>
                         <li class="page-item">
-                            <a href=" {{url('patient/search', ['pageNo' => $array_data['current_page'] -1])}} " class="page-link" aria-label="Previous">
+                            <a href=" {{url('patient/search/result', ['pageNo' => $array_info['current_page']])}} " class="page-link" onclick="passFilter($(this).attr('href'))"  aria-label="Previous">
                                 <span aria-hidden="true"> &laquo; </span>
                                 <span class="sr-only"> Previous </span>
                             </a>
                         </li>
                     <?php
+                    
                 }
                 
                 //Page Numbers
-                for($count; $count < $array_data['total_page']; $count++){
+                for($count; $count < $array_info['total_page']; $count++){
                     $count2 = $count + 1;
                     ?>
                         <li class="page-item">
-                            <a href="{{ url('patient/search', ['pageNo' => $count2]) }}" class="page-link">{{ $count2 }}</a>
+                            <a href="{{ url('patient/search/result', ['pageNo' => $count2]) }}" class="page-link" onclick="passFilter($(this).attr('href'))">{{ $count2 }}</a>
                         </li>
                     <?php
                 }
-                
+
                 //Next Button
-                if(count($array_data['total_page'])-($array_data['current_page']) >= 1){
+                if(($array_info['total_page'])-($array_info['current_page']) > 1){
                     ?>
                         <li>
-                            <a href="{{ url('patient/search', ['pageNo' => $array_data['current_page'] +2]) }}" class="page-link" aria-label="Next"> 
+                            <a href="{{ url('patient/search/result', ['pageNo' => $array_info['current_page'] +2]) }}" class="page-link" onclick="passFilter($(this).attr('href'))" aria-label="Next"> 
                                 <span aria-hidden="true"> &raquo; </span>
                                 <span class="sr-only"> Next </span>
                             </a>
@@ -287,13 +291,11 @@
                 print('</ul>'
                         . '</nav>'
                         . '</div>'
-                        . '<div class="col-md-4"></div>');
+                        . '<div class="col-md-3"></div>');
             }
         ?>
     </div>
-            
-                
-       <?php print'<pre>'; print_r($temp); print"</pre>"; ?> <hr />
+
          
 @endsection
  
@@ -301,26 +303,28 @@
 
 @section('jscriptPatientSearch')    
     <script>    
-//Retrive thana by district through ajax
-        $(document).ready(function(){
-            
+
+//Check if server returned thana name (from query result page change), else Retrive thana by district through ajax
+    if('{{$selectedItems["thana"]}}'){
+        $("#thana").append("<option value={{$selectedItems["thana"]}} selected='selected'>{{$selectedItems["thana"]}}</option>");
+    }else{
+        $(document).ready(function(){           
             $("#district").change(function(dData){
                 var districtVal = $("#district").val();
                 var myUrl = "/patient/search/ajax/";
-
+                
                 $.ajax({
                     url : myUrl + districtVal,
                     type : "GET",
                     contentType:"application/json",
                     dataType : 'json',
                     success: function(data){
-                        
-                            if(data.length){
-                                $("#thana").html('');
-                                        $.each(data, function(key, value){
-                                            var listItem = new Option(value.thana, value.thana);                                     
-                                            $("#thana").append(listItem);
-                                        });
+                            if(data.length){                                
+                                $("#thana").html('');   //this line clears all option entry if any
+                                $.each(data, function(key, value){
+                                    var listItem = new Option(value.thana, value.thana);                                     
+                                    $("#thana").append(listItem);
+                                });
                             }else{
                                 $("#thana").html('<option value="" selected disabled>No List Found</option>');
                             }
@@ -328,18 +332,11 @@
                     error: function(data){
                         console.log("AJAX error in request: " + JSON.stringify(data, null, 2));
 
-                    }
+                        }
                 });       
             });
-        });   
-        
-
-//        Get paginated search result
-//        function ajaxGetPage(terget_page){
-//            
-//            
-//            };
-        
+        });
+    }
         
         
 //        Change See More Buten Text
@@ -352,14 +349,45 @@
             
             if (text.includes("See more")) {
                 
-                txtElem.textContent = "See less";
+                txtElem.innerHTML = "See less <html>&#9651;</html>";
 
             }else{
                 
-                txtElem.textContent = "See more";
+                txtElem.innerHTML = "See more <html>&#9661;</html>";
 
             }
-        }       
+        } 
+        
+//        add district and thana data with page link
+        function passFilter(pageUrl){
+            this.event.preventDefault();
+            var specialtyName = document.getElementById('specialty').value;
+            var districtName = document.getElementById('district').value;
+            var thanaName = document.getElementById('thana').value;
+            var areaName = document.getElementById('area').value;
+            
+            if(!specialtyName){
+                specialtyName = null;
+            }
+            
+            if(!districtName){
+                districtName = null;
+            }
+            
+            if(!thanaName){
+                thanaName = null;
+            }
+            
+            if(!areaName){
+                areaName = null;
+            }
+            
+            var pageUrlComplete = pageUrl + "/" + specialtyName + "/" + districtName + "/" + thanaName + "/" + areaName;
+            window.location = pageUrlComplete;
+            
+
+        }
+        
          
     </script>
 @endsection

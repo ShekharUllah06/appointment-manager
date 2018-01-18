@@ -197,7 +197,7 @@
 
 //This function suposse to disable or enable the endDate field on currentPosition value change
         function currentPosition(){
-                        alert("aa");
+
             var chkBox = document.getElementsByName('currentPosition');
 
             document.getElementById('endDate').style.display = chkBox.checked ? 'block' : 'none';

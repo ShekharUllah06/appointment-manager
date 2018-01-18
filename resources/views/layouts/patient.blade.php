@@ -43,7 +43,7 @@
 </head>
 
 <body>
-
+    <?php $url = $_SERVER['REQUEST_URI'];?>     <!--Get Current URL for menu selection-->
     <div id="wrapper">
 
         <!-- Navigation -->
@@ -93,32 +93,16 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li class="">
                         <a href="{!! url('/patient') !!}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-                    <li>
+                    <?php if(strpos($url, '/patient/search') !== false){ ?>     <!--Menu selected Highlight-->
+                        <li class="active">
+                    <?php }else{ ?>
+                        <li>
+                    <?php } ?>
                         <a href="{!! url('/patient/search') !!}"><i class="glyphicon glyphicon-search"></i> Search or Browse Doctor</a>
                     </li>
-<!--                    <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse">
-                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
-                        <ul class="sub-menu collapse" id="submenu-collapse">
-                            <li>
-                                <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/doctor/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/doctor/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/doctor/settings/specialties') }}"><i class="glyphicon glyphicon-list-alt"></i> Specialties</a>
-                            </li>
-                            <li>
-                                <a href="{{ url('/doctor/settings/work-history') }}"><i class="glyphicon glyphicon-list-alt"></i> Work History</a>
-                            </li>
-                        </ul>
-                    </li>-->
 
                 </ul>
             </div>

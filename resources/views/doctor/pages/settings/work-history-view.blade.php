@@ -68,10 +68,9 @@
                                 <div class="collapse" id="sec{{ $work_history->work_history_id }}" style="margin-right: 10px;">
                                     <p>Job Description: {{ $work_history->description }}</p>
                                 </div>
-                                <button id="see{{ $work_history->work_history_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $work_history->work_history_id }}" aria-expanded="false" aria-controls="{{ $work_history->work_history_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
-                                    See more
+                                <button id="see{{ $work_history->work_history_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $work_history->work_history_id }}" aria-expanded="false" aria-controls="{{ $work_history->work_history_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                    See more &#9661;
                                 </button>
-<!--<span class="glyphicon glyphicon-chevron-down" style="padding:4px; margin-top: 2px;"></span>-->
 
                             </div> <!-- End description class-->
                         </div> <!-- End middle class-->
@@ -96,11 +95,11 @@
             
             if (text.includes("See more")) {
                 
-                txtElem.textContent = "See less";
+                txtElem.innerHTML = "See less <html>&#9651;</html>";
 
             }else{
                 
-                txtElem.textContent = "See more";
+                txtElem.innerHTML = "See more <html>&#9661;</html>";
 
             }
         }
