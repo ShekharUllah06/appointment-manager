@@ -42,7 +42,16 @@
 </head>
 
 <body>
-    <?php $url = $_SERVER['REQUEST_URI'];?>     <!--Get Current URL for menu selection-->
+    <?php                                   //Check if user is Doctor or die!
+    if(Auth::user()->userType !== 1){
+        print("<div style='background-color: white; color: red;'>");
+        exit("Illegal attempt to access unauthorized page!! Please go back to the login page to login.");
+        print("</div>");
+    }
+
+    $url = $_SERVER['REQUEST_URI'];         //Get Current URL for menu selection
+    
+    ?>
     <div id="wrapper">
 
         <!-- Navigation --->
@@ -105,34 +114,25 @@
                         </li>
                     
                     <!--Settings Menu Item-->
-                    <?php if(strpos($url, '/settings/') !== false){ ?>
-                        <li class="active" data-toggle="collapse" data-target="#submenu-collapse" aria-expanded='true'>
-                            
-                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
-                        <ul class="sub-menu collapse in" id="submenu-collapse" aria-expanded='true' style="">
-                    <?php }else{ ?>
-                        <li class="collapsed" data-toggle="collapse" data-target="#submenu-collapse" aria-expanded='false'>
+                        <li>
 
-                        <a href="#"><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
-                        <ul class="sub-menu collapse" id="submenu-collapse"  aria-expanded='false' style="height: 0px;">
-                    <?php } ?>
+                        <a href="#homeSubmenu" data-toggle="collapse" aria-expanded='false'><i class="fa fa-fw fa-wrench"></i> Settings  <span class="caret" style="transform: rotate(-90deg);"></span></a>
+                        <ul class="collapse list-unstyled" id="homeSubmenu">
                             
                             <!--Chamber Sub-Menu Item-->
-                            <?php if(strpos($url, '/doctor/settings/chamber') !== false){ ?> <!--this php code should highlight current selection, but not working-->
-                                <li class="active">
-                            <?php }else{ ?>
+
                                 <li class="">
-                            <?php } ?>
                                     <a href="{{ url('/doctor/settings/chamber') }}"><i class="glyphicon glyphicon-briefcase"></i> Chamber</a>
                                 </li>
-                            
-                                
-                                                           
+                            <!--education Sub-Menu Item-->
 
-                            <li class="active">
+                                <li class="">
                                 <a href="{{ url('/doctor/settings/education') }}"><i class="glyphicon glyphicon-book"></i> Education</a>
-                            </li>
-                            <li>
+                                </li>
+                            
+                            <!--personal-info Sub-Menu Item-->
+                            
+                                <li class="">
                                 <a href="{{ url('/doctor/settings/personal-info') }}"><i class="glyphicon glyphicon-user"></i> Personal Info</a>
                             </li>
                             <li>
