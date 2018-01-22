@@ -43,11 +43,20 @@
 </head>
 
 <body>
-    <?php $url = $_SERVER['REQUEST_URI'];?>     <!--Get Current URL for menu selection-->
+    <?php                                   //Check if user is patient or die!
+        if(Auth::user()->userType !== 2){
+            print("<div style='background-color: white; color: red;'>");
+            exit("Illegal attempt to access unauthorized page!! Please go back to the login page to login.");
+            print("</div>");
+    }
+
+    $url = $_SERVER['REQUEST_URI'];         //Get Current URL for menu selection
+    
+    ?>
     <div id="wrapper">
 
         <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
+        <nav class="navbar navbar-inverse navbar-fixed-top"  style="background-color: black">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -60,7 +69,7 @@
             </div>
             
             <!-- Top Menu Items -->
-            <ul class="nav navbar-right top-nav">
+            <ul class="nav navbar-right top-nav"  style="background-color: dimgray">
                 <li class="dropdown">
                     
                     @if (Auth::guest())
