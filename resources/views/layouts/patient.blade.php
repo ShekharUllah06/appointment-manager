@@ -149,7 +149,6 @@
 
 //        sub-menu selection active
             if(window.location.href.indexOf("/patient/search") != -1){
-                alert('hi');
                 $('#searchMenuItem').addClass('activeMenuItem');
             }else{
                 $('#dashboardMenuItem').addClass('activeMenuItem');
