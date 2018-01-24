@@ -41,3 +41,8 @@ and open the template in the editor.
     background-color: #f5ffff;
     color: black;
 }
+
+.activeMenuItem {
+    color: #fff;
+    background: #080808;
+}
