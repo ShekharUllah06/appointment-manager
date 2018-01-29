@@ -64,8 +64,10 @@ class LoginController extends Controller
             //Code modified to allow redirection acording to user type -zaki
             if((User::where('username', $username)->first()->userType) == 1){
                 return redirect()->route('doctor.dashboard');
-            }else{
+            }elseif((User::where('username', $username)->first()->userType) == 2){
                 return redirect()->route('patient.dashboard');
+            }else{
+                return redirect()->route('front.home');
             }
 
         }

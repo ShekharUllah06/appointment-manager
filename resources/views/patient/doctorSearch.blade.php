@@ -5,89 +5,6 @@
 
 @section('searchBody')     
         
-    <!--Starting the Form-->
-
-    <form action="{!! url('patient/search/result') !!}" method="post" class="well form-horizontal" id="scheduleForm"  style="margin-bottom: 10px; padding-bottom: 4px;">
-        <h4 style="margin-top: -6px; margin-bottom: -6px;">Filter By:</h4>
-        <hr style="margin-top: 12px; margin-bottom: 12px;" />
-        <fieldset>
-            <div class="row">
-                
-                <!--Specialty-->                
-                <div class="form-group col-md-5">
-                    <label for="specialty" class="col-md-4 control-label">Specialty: </label>
-                    <div class="col-md-8">
-                        <select id="specialty" name="specialty" class="form-control col-md-8" >
-                            <option value="" selected disabled>By Specialty..</option>
-                            @foreach($filterItems['specialty'] as $specialtyName)                           
-                                <option value="{!! $specialtyName['specialty'] !!}">{{ $specialtyName['specialty'] }}</option>  
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <script>document.getElementById('specialty').value = '{{ $selectedItems["specialty"] }}';</script>
-    
-                <!--District-->
-                <div class="form-group col-md-5">
-                    <label for="district" class="col-md-4 control-label">District: </label>
-                    <div class="col-md-8">
-                        <select id="district" name="district" class="form-control">
-                            <option value="" selected disabled>By District..</option>
-                            @foreach($filterItems['district'] as $districtName)                           
-                                <option value="{!! $districtName['district'] !!}">{{ $districtName['district'] }}</option>  
-                            @endforeach
-                        </select> 
-                    </div>
-                </div>
-                <script>document.getElementById('district').value = '{{ $selectedItems["district"] }}';</script>
-                
-                <div class="form-group" id="BTN_clear"> 
-                    <div class="col-md-2 float-right" >
-                        <a href="{{url('patient/search')}}"><button type="button" class="btn btn-md btn-warning"><span class="glyphicon glyphicon-remove"></span> Clear</button></a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">                              
-                <!--Area-->
-                <div class="form-group col-md-5">
-                    <label for="area" class="col-md-4 control-label">Area: </label>
-                    <div class="col-md-8">
-                        <select id="area" name="area" class="form-control">
-                            <option value="" selected disabled>By Area..</option>
-                                <?php
-                                    print ('<option>ad</option>');
-                                ?>
-                        </select>
-                    </div>
-                </div>
-                <script>document.getElementById('area').value = '{{ $selectedItems["area"] }}';</script>
-                                
-                <!--Thana-->
-                <div class="form-group col-md-5">
-                    <label for="thana" class="col-md-4 control-label">Thana: </label>
-                    <div class="col-md-8">
-                        <select id="thana" name="thana" class="form-control">
-                            <option value="" selected disabled>By Thana..</option>
-                                <!--Ajax Call for Thana Lis-->
-                        </select> 
-                    </div>
-                </div>
-                <script>document.getElementById('thana').value = '{{ $selectedItems["thana"] }}';</script>
-            <!--Submit, Delete and Cancel Button-->
-                <div class="form-group" id="BTN_filter">                                
-                    <div class="col-md-2 float-right" >
-                        <button type="submit" class="btn btn-md btn-info"><span class="glyphicon glyphicon-filter"></span> Filter</button>
-                    </div>                               
-                </div>
-            </div>
-
-        </fieldset>
-        
-        {{ csrf_field() }}
-        
-    </form>
-    
     <div>
     <!--Result Section-->
         <?php 
@@ -95,146 +12,147 @@
             foreach ($doctors as $doctor){
 //             check add number of card and style it
                 if($i % 2 == 0){
-                    print '<div class="row oddCard" id="doctorSearchCard">';
+                    print '<div class="row resultCard">'; //oddCard
                 }else{
-                    print '<div class="row" id="doctorSearchCard">';
+                    print '<div class="row resultCard">';
                 }
         ?>
-                <!--Info section start-->
-                <div class="col-md-7" style="margin: 10px;">
+    
+        <!--Info section start-->
+        <div class="col-md-7">
+            <div class="row">
+                <!--Profile Image-->
+                <div class="col-md-3">
+                    <img src="{{ url('uploads/avatars/'.$doctor['imageUrl']) }}" class="cardImage" alt="Profile Picture">
+                </div>
+                <!--Short Description-->
+                <div class="col-md-7 shortDescription">
                     <div class="row">
-                        <!--Profile Image-->
-                        <div class="col-md-3">
-                            <img src="{{ url('uploads/avatars/'.$doctor['imageUrl']) }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%;"/>
-                        </div>
-                        <!--Short Description-->
-                        <div class="col-md-7" style="text-align: left">
-                            <div class="row">
-                                <h4><b><?php if($doctor['first_name']){ echo(ucfirst($doctor['first_name']));} ?> <?php if($doctor['last_name']){echo(ucwords($doctor['last_name'])); } ?></b></h4>
-                            </div>
-                            <div class="row">                           
-                                <span style="border: 5px; padding: 5px;">
-                                    <?php if(isset($doctor['position'])){
-                                                    print($doctor['position']);
-                                                    print(", <b>At: </b>");
-                                                    print($doctor['organization']);                                     
-                                            }else{ 
-                                                    print("Unknown");
-                                                    print(", <b>At: </b>");
-                                                    print("Unknown");  
-                                            }
+                        <h4><b><?php if($doctor['first_name']){ echo(ucfirst($doctor['first_name']));} ?> <?php if($doctor['last_name']){echo(ucwords($doctor['last_name'])); } ?></b></h4>
+                    </div>
+                    <div class="row">                           
+                        <span style="border: 5px; padding: 5px;">
+                            <?php if(isset($doctor['position'])){
+                                            print($doctor['position']);
+                                            print(", <b>At: </b>");
+                                            print($doctor['organization']);                                     
+                                    }else{ 
+                                            print("Unknown");
+                                            print(", <b>At: </b>");
+                                            print("Unknown");  
+                                    }
+                            ?>
+                        </span>
+                    </div>
+                    <div class="row">
+                        @if(count($doctor['degree_name']) < 1)
+                            Education Information not yet submitted.
+                        @else
+                            <span style="border: 5px; padding: 5px;">
+                                <b>Degree:</b> {{ $doctor['degree_name'][0] }}
+                            </span>  
+                            @if(count($doctor['degree_name']) > 1)
+                                <div class="collapse" id="deg{{ $i }}" style="margin-right: 10px;">
+                                    <?php $j = 1;
+                                          for($j; $j<count($doctor['degree_name']); $j++){
                                     ?>
-                                </span>
-                            </div>
-                            <div class="row">
-                                @if(count($doctor['degree_name']) < 1)
-                                    Education Information not yet submitted.
-                                @else
-                                    <span style="border: 5px; padding: 5px;">
-                                        <b>Degree:</b> {{ $doctor['degree_name'][0] }}
-                                    </span>  
-                                    @if(count($doctor['degree_name']) > 1)
-                                        <div class="collapse" id="deg{{ $i }}" style="margin-right: 10px;">
-                                            <?php $j = 1;
-                                                  for($j; $j<count($doctor['degree_name']); $j++){
-                                            ?>
-                                                <span style="border: 5px; padding: 5px;">
-                                                    {{ $doctor['degree_name'][$j] }}<br />
-                                                </span>
-                                            <?php } ?>
-                                        </div>
-                                        <button id="seeDeg{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#deg{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
-                                            See more &#9661;
-                                        </button>
+                                        <span style="border: 5px; padding: 5px;">
+                                            {{ $doctor['degree_name'][$j] }}<br />
+                                        </span>
+                                    <?php } ?>
+                                </div>
+                                <button id="seeDeg{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#deg{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                    See more &#9661;
+                                </button>
+                            @endif
+                        @endif                                
+                    </div>
+                    <div class="row">
+                        @if(count($doctor['specialty']) < 1)
+                            Specialties Information not yet submitted.
+                        @else
+                            <span style="border: 5px; padding: 5px;">
+                                <b>Specialties: </b> {{ $doctor['specialty'][0] }}
+                            </span>
+                            @if(count($doctor['specialty']) > 1)
+                                <div class="collapse" id="sec{{ $i }}" style="margin-right: 10px;">
+                                    <?php $k = 0;
+                                          for($k; $k<count($doctor['specialty']); $k++){
+                                    ?>
+                                        <span style="border: 5px; padding: 5px;">
+                                            {{ $doctor['specialty'][$k] }}<br />
+                                        </span>
+                                    <?php } ?>
+                                </div>
+                                <button id="seeSpc{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                    See more &#9661;
+                                </button>
+                            @endif
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!--Calander Section start-->
+        <div class="col-md-4" style="float: right; margin: 3px;">
+            <div class="panel panel-default">
+                <table class="table table-bordered" style="font-size: 10px; background-color: white; text-align: center;">
+                    <thead>
+                        <th colspan="7" style="background-color: lightblue; color: black; text-align: center; padding: 3px;">Schedule Calender:  {{ $doctor['calender']['monthName'] }} - {{ $doctor['calender']['year']}}</th>
+                    </thead>
+                    <tr style="background-color: lightgrey; font-weight: bold; text-align: left;">  
+                        <td style='padding: 2px;'>Sun</td>
+                        <td style='padding: 2px;'>Mon</td>
+                        <td style='padding: 2px;'>Tue</td>
+                        <td style='padding: 2px;'>Wed</td>
+                        <td style='padding: 2px;'>Thu</td>
+                        <td style="color: red; padding: 3px;">Fri</td>  
+                        <td style='padding: 2px;'>Sat</td>
+                    </tr> 
+
+                    @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
+                    <tr>
+                        <?php $countDayInWeek = count($doctor['calender']['calender'][$i]);
+
+                            for($j = 0; $j < $countDayInWeek; $j++){
+                        ?>
+                            <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
+                                        print ("<td style='background-color: yellow; padding: 0;'>");
+                                  }else{
+                                      print("<td  style='padding: 2px;'>");
+                                  }
+                                ?>                  
+                                @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
+                                    @if(isset($doctor['calender']['calender'][$i][$j]['date']))
+                                        <span style="color: red">
+                                            {{ $doctor['calender']['calender'][$i][$j]['date'] }}
+                                        </span>  
+                                    @else
+                                        <span style="color: red">
+                                            {{ $doctor['calender']['calender'][$i][$j] }}
+                                        </span>
                                     @endif
-                                @endif                                
-                            </div>
-                            <div class="row">
-                                @if(count($doctor['specialty']) < 1)
-                                    Specialties Information not yet submitted.
                                 @else
-                                    <span style="border: 5px; padding: 5px;">
-                                        <b>Specialties: </b> {{ $doctor['specialty'][0] }}
-                                    </span>
-                                    @if(count($doctor['specialty']) > 1)
-                                        <div class="collapse" id="sec{{ $i }}" style="margin-right: 10px;">
-                                            <?php $k = 0;
-                                                  for($k; $k<count($doctor['specialty']); $k++){
-                                            ?>
-                                                <span style="border: 5px; padding: 5px;">
-                                                    {{ $doctor['specialty'][$k] }}<br />
-                                                </span>
-                                            <?php } ?>
-                                        </div>
-                                        <button id="seeSpc{{ $i }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $i }}" aria-expanded="false" aria-controls="{{ $i }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
-                                            See more &#9661;
-                                        </button>
+
+                                    @if(isset($doctor['calender']['calender'][$i][$j]['date']))
+
+                                        {{ $doctor['calender']['calender'][$i][$j]['date'] }}
+
+                                    @else
+                                        {{ $doctor['calender']['calender'][$i][$j] }}
                                     @endif
                                 @endif
-                            </div>
-                        </div>
-                    </div>
 
-                </div>
-
-                <!--Calander Section start-->
-                <div class="col-md-4" style="float: right; margin: 3px;">
-                    <div class="panel panel-default">
-                        <table class="table table-bordered" style="font-size: 10px; background-color: white; text-align: center;">
-                            <thead>
-                                <th colspan="7" style="background-color: lightblue; color: black; text-align: center; padding: 3px;">Schedule Calender:  {{ $doctor['calender']['monthName'] }} - {{ $doctor['calender']['year']}}</th>
-                            </thead>
-                            <thead style="background-color: lightgrey;">  
-                                <th style='padding: 2px;'>Sun</th>
-                                <th style='padding: 2px;'>Mon</th>
-                                <th style='padding: 2px;'>Tue</th>
-                                <th style='padding: 2px;'>Wed</th>
-                                <th style='padding: 2px;'>Thu</th>
-                                <th style="color: red; padding: 3px;">Fri</th>  
-                                <th style='padding: 2px;'>Sat</th>
-                            </thead> 
-
-                            @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
-                            <tr>
-                                <?php $countDayInWeek = count($doctor['calender']['calender'][$i]);
-
-                                    for($j = 0; $j < $countDayInWeek; $j++){
-                                ?>
-                                    <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
-                                                print ("<td style='background-color: yellow; padding: 0;'>");
-                                          }else{
-                                              print("<td  style='padding: 2px;'>");
-                                          }
-                                        ?>                  
-                                        @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
-                                            @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-                                                <span style="color: red">
-                                                    {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-                                                </span>  
-                                            @else
-                                                <span style="color: red">
-                                                    {{ $doctor['calender']['calender'][$i][$j] }}
-                                                </span>
-                                            @endif
-                                        @else
-
-                                            @if(isset($doctor['calender']['calender'][$i][$j]['date']))
-
-                                                {{ $doctor['calender']['calender'][$i][$j]['date'] }}
-
-                                            @else
-                                                {{ $doctor['calender']['calender'][$i][$j] }}
-                                            @endif
-                                        @endif
-
-                                    </td>
-                                <?php } ?>
-                            </tr>
-                        @endfor
-                        <tr style="background-color: lightcyan;"><td colspan="7" style="padding: 2px;"><span style="color: red;">***</span>Yellow Background = Schedule date.</td></tr>
-                        </table>  
-                    </div>
-                </div>
+                            </td>
+                        <?php } ?>
+                    </tr>
+                @endfor
+                <tr style="background-color: lightcyan;"><td colspan="7" style="padding: 2px;"><span style="color: red;">***</span>Yellow Background = Schedule date.</td></tr>
+                </table>  
+            </div>
+        </div>
     </div> 
     <?php
             $i++;
