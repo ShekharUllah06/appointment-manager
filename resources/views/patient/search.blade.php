@@ -9,7 +9,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-auto"> 
-            <form action="{!! url('patient/search/result') !!}" method="post" class="well form-horizontal" id="scheduleForm"  style="margin-bottom: 10px; padding-bottom: 4px;">
+            <form action="{{ url('patient/search/result') }}" method="post" class="well form-horizontal" id="scheduleForm"  style="margin-bottom: 10px; padding-bottom: 4px;">
                 <h4 style="margin-top: -6px; margin-bottom: -6px;">Filter By:</h4>
                 <hr style="margin-top: 12px; margin-bottom: 12px;" />
                 <fieldset>

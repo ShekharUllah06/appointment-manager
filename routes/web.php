@@ -169,10 +169,7 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
         });
             
             
-            
-
-//Route::get('admin/settings/work-history', ['as' => 'adminWorkHistory', 'uses' => 'doctor\workHistoryController@viewWorkHistory']);
-
+           
 // auth routes setup
 Auth::routes();
 
