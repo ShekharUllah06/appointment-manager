@@ -16,7 +16,7 @@
 
 @section('chamberBody')
 
-<div class="row" style="background-color: #f5f5f5 ">
+<div class="row" style="">
     
     <!--Page Title and Add New button--->
     <header class="row"  style=" margin: 0px;">
@@ -29,91 +29,112 @@
     </header>
     
     <!--main section and/or cards section-->
-    <div class="list-section row" style="margin: 0px">        
-        <ul class="list-unstyled col-md-10 col-md-offset-1" style="background-color: white;">
+    <div class="row">        
+        <div class="list-unstyled col-md-10 col-md-offset-1" style="text-align: center">
         <!--Loop through chamber data array-->
-            @foreach($chambers as $chamber)
-                <li>
-                    <div class="card row" style="border-bottom: 1px solid black;">   
-                        <!--Left side Logo-->
-                        <img src="{{url('assets/img/chamberLogo.png')}}" class="left-image-column col-sm-2" alt="chabmer logo" height="100" width="100" style="margin-top:10px;">
-                        
-                        <!--Right Side Edit Button-->
-                        <a href="{{ url('doctor/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
-                            <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" width="35px" style="float: right;" />
-                        </a>
-                        <div class="middle-info-coloumn col-sm-8" style="margin-left: 5px; padding-right:5px;">
-                            <div class="title-info row" style="margin:0px;">
-                            <!--Card Visible Portion. At Right side of Card Image-->
-                                <h3> <!--Card Title-->
-                                    {{$chamber->chamber_name }}
-                                </h3>
-                                <h4>   <!--Secondary title or Under Card Title-->
-                                    ID - {{ $chamber->chamber_id }}
-                                </h4>
-                            </div> <!--End title-info class--> 
-                            <div class="multi-info row" style="margin:0px; border">   <!--Other Informations--> 
-                                <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
-                                    <span class="glyphicon glyphicon-phone">
-                                        {{ $chamber->telephone_number1 }}
-                                    </span>
-                                </p>
-                                <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
-                                    <span class="glyphicon glyphicon-phone-alt">
-                                        {{ $chamber->mobile_number1 }}
-                                    </span>
-                                </p>
-                                <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
-                                    <span class="glyphicon glyphicon-phone-alt">
-                                        {{ $chamber->mobile_number2 }}
-                                    </span>
-                                </p>
-                            </div> <!--End Other Informations--> 
-                            <div class="row" style="margin-top: 10px;"> <!--hidden section-->
-                                <div class="collapse" id="sec{{ $chamber->chamber_id }}" style="margin-right: 10px;">
-                                    <table class="table">
-                                            <tr>
-                                                <td>Institute Name:</td> <td>{{ $chamber->institute }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Consultancy Fee (Tk.):</td> <td>{{ $chamber->consult_fee }}</td>
-                                            </tr>                                            
-                                            <tr>
-                                                <td>Telephone Number-2:</td> <td>{{ $chamber->telephone_number2 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Telephone Number-3:</td> <td>{{ $chamber->telephone_number3 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mobile Number-3:</td> <td>{{ $chamber->mobile_number3 }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Thana(Police Station) Name:</td> <td>{{ $chamber->thana }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Post Code:</td> <td>{{ $chamber->post_code }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>City:</td> <td>{{ $chamber->city }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>District:</td> <td>{{ $chamber->district }}</td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address:</td> <td>{{ $chamber->address }}</td>
-                                            </tr>
-                                        </table>
-                                </div>
-                                <button id="see{{ $chamber->chamber_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $chamber->chamber_id }}" aria-expanded="false" aria-controls="{{ $chamber->chamber_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
-                                    See more &#9661;
-                                </button>
+        <?php 
+            $i = 0; 
+            foreach ($chambers as $chamber){
+//             check add number of card and style it
+                if($i % 2 == 0){
+                    print ('<div class="row resultCard oddCard"  style="background-color: white;">');
+                }else{
+                    print ('<div class="row resultCard"  style="background-color: white;">');
+                }
+        ?>
+        
+        <!--Info section start-->
+            <div class="col-md-12"> 
+                    <div class="row">
+                    <!--Left side Logo-->
+                    <div class="col-md-3">
+                        <img src="{{url('assets/img/chamberLogo.png')}}" class="cardImage" style="margin-left: -15px;" alt="chabmer logo">
+                    </div>
+                    <!--Right Side Edit Button-->
+                    <a href="{{ url('doctor/settings/chamber/edit', ['cId' => $chamber->chamber_id])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                        <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit chamber" height="35px" style="height:35px; width:35px; float: right;" />
+                    </a>
+                    
+                    <!--Short Description-->
+                    <div class="middle-info-coloumn col-sm-7 shortDescription" style="margin-left: -20px;">
+                        <div class="row">
+                        <!--Card Visible Portion. At Right side of Card Image-->
+                            <h4> <!--Card Title-->
+                                <b>
+                                    <?php if($chamber->chamber_name){ echo(ucfirst($chamber->chamber_name)); } ?>
+                                </b>
+                            </h4>
+                            <h5>   <!--Secondary title or Under Card Title-->
+                                <b>ID:</b>
+                                 <?php if($chamber->chamber_id){ echo(ucfirst($chamber->chamber_id)); } ?>
+                            </h5>
+                        </div> <!--End title-info class--> 
+                        <div class="row" style="margin:0px; border">   <!--Other Informations--> 
+                            <p class="col-sm-4" style="padding-left: 0px">   <!--first part, at left--> 
+                                <span class="glyphicon glyphicon-phone">
+                                    {{ $chamber->telephone_number1 }}
+                                </span>
+                            </p>
+                            <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
+                                <span class="glyphicon glyphicon-phone-alt">
+                                    {{ $chamber->mobile_number1 }}
+                                </span>
+                            </p>
+                            <p class="col-sm-4" style="padding-left: 0px">   <!--second part, at right side of first part--> 
+                                <span class="glyphicon glyphicon-phone-alt">
+                                    {{ $chamber->mobile_number2 }}
+                                </span>
+                            </p>
+                        </div> <!--End Other Informations--> 
+                        <div class="row"> <!--hidden section-->
+                            <div class="collapse" id="sec{{ $chamber->chamber_id }}" style="margin-right: 10px;">
+                                <table class="table">
+                                        <tr>
+                                            <td>Institute Name:</td> <td>{{ $chamber->institute }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Consultancy Fee (Tk.):</td> <td>{{ $chamber->consult_fee }}</td>
+                                        </tr>                                            
+                                        <tr>
+                                            <td>Telephone Number-2:</td> <td>{{ $chamber->telephone_number2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Telephone Number-3:</td> <td>{{ $chamber->telephone_number3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile Number-3:</td> <td>{{ $chamber->mobile_number3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Thana(Police Station) Name:</td> <td>{{ $chamber->thana }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Post Code:</td> <td>{{ $chamber->post_code }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>City:</td> <td>{{ $chamber->city }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>District:</td> <td>{{ $chamber->district }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Address:</td> <td>{{ $chamber->address }}</td>
+                                        </tr>
+                                    </table>
+                            </div>
+                            <button id="see{{ $chamber->chamber_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $chamber->chamber_id }}" aria-expanded="false" aria-controls="{{ $chamber->chamber_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px;">
+                                See more &#9661;
+                            </button>
 
-                            </div> <!-- End description class-->
-                        </div> <!-- End middle class-->
-                    </div> <!--End Card class-->
-                </li> <!--End card item-->
-            @endforeach <!--End chamber data array Loop -->
-        </ul>
+                        </div> <!-- End description class-->
+                    </div> <!-- End middle class-->
+                </div> <!--End Card class-->
+                </div>
+            </div>
+        <?php
+            $i++;
+               }
+        ?>
+        </div>
     </div>  
 </div>
 

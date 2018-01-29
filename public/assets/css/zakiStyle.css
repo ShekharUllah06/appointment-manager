@@ -8,13 +8,28 @@ and open the template in the editor.
     Author     : zaki
 */
 
-#doctorSearchCard:hover{
+body{
+    background-color: #f5f5f5;
+}
+
+.resultCard:hover{
     background-color: #f1f1ff;
 }
 
 .oddCard{
     background-color: #f5ffff;
     border-radius: 1%;
+}
+
+.cardImage{
+    width: 100px;
+    height: 110px;
+    padding-top: 10px;
+    border-radius: 20%;
+}
+
+.shortDescription{
+    text-align: left;
 }
 
 .btnNav{
@@ -46,9 +61,3 @@ and open the template in the editor.
     color: #fff;
     background: #080808;
 }
-
-#resultCard{
-    margin: 10px;
-}
-
-#resultCard

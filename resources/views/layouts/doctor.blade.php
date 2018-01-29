@@ -25,7 +25,7 @@
     <!-- Custom Fonts -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     
-    <!-- Custom CSS --->
+    <!-- Custom CSS -->
     <link href="{{ asset('assets/css/zakiStyle.css') }}" rel="stylesheet">
     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -47,16 +47,9 @@
 </head>
 
 <body>
-    <?php                                   //Check if user is Doctor or die!
-    if(Auth::user()->userType !== 1){
-        print("<h1 style='background-color: white; color: red;'>");
-        exit("Illegal attempt to access unauthorized page!! Please go back to the login page to login again.");
-        print("</h1>");
-    }
+                                       
 
-//    $url = $_SERVER['REQUEST_URI'];         //Get Current URL for menu selection
-    
-    ?>
+
     <div id="wrapper">
 
         <!-- Navigation --->

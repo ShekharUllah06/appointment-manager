@@ -12,21 +12,21 @@
             foreach ($doctors as $doctor){
 //             check add number of card and style it
                 if($i % 2 == 0){
-                    print '<div class="row oddCard" id="doctorSearchCard">';
+                    print '<div class="row resultCard">'; //oddCard
                 }else{
-                    print '<div class="row" id="doctorSearchCard">';
+                    print '<div class="row resultCard">';
                 }
         ?>
     
         <!--Info section start-->
-        <div id="resultCard" class="col-md-7" style="margin: 10px;">
+        <div class="col-md-7">
             <div class="row">
                 <!--Profile Image-->
                 <div class="col-md-3">
-                    <img src="{{ url('uploads/avatars/'.$doctor['imageUrl']) }}" alt="Profile Picture" style="width: 100px; height: 100px; border-radius: 20%;"/>
+                    <img src="{{ url('uploads/avatars/'.$doctor['imageUrl']) }}" class="cardImage" alt="Profile Picture">
                 </div>
                 <!--Short Description-->
-                <div class="col-md-7" style="text-align: left">
+                <div class="col-md-7 shortDescription">
                     <div class="row">
                         <h4><b><?php if($doctor['first_name']){ echo(ucfirst($doctor['first_name']));} ?> <?php if($doctor['last_name']){echo(ucwords($doctor['last_name'])); } ?></b></h4>
                     </div>
@@ -102,15 +102,15 @@
                     <thead>
                         <th colspan="7" style="background-color: lightblue; color: black; text-align: center; padding: 3px;">Schedule Calender:  {{ $doctor['calender']['monthName'] }} - {{ $doctor['calender']['year']}}</th>
                     </thead>
-                    <thead style="background-color: lightgrey;">  
-                        <th style='padding: 2px;'>Sun</th>
-                        <th style='padding: 2px;'>Mon</th>
-                        <th style='padding: 2px;'>Tue</th>
-                        <th style='padding: 2px;'>Wed</th>
-                        <th style='padding: 2px;'>Thu</th>
-                        <th style="color: red; padding: 3px;">Fri</th>  
-                        <th style='padding: 2px;'>Sat</th>
-                    </thead> 
+                    <tr style="background-color: lightgrey; font-weight: bold; text-align: left;">  
+                        <td style='padding: 2px;'>Sun</td>
+                        <td style='padding: 2px;'>Mon</td>
+                        <td style='padding: 2px;'>Tue</td>
+                        <td style='padding: 2px;'>Wed</td>
+                        <td style='padding: 2px;'>Thu</td>
+                        <td style="color: red; padding: 3px;">Fri</td>  
+                        <td style='padding: 2px;'>Sat</td>
+                    </tr> 
 
                     @for($i = 0; $i < count($doctor['calender']['calender']); $i++)                   
                     <tr>
