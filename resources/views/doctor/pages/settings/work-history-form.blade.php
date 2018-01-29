@@ -119,11 +119,14 @@
                                 <label for="currentPosition" class="col-md-8 control-label">Current Job Position?</label>
                                 <div class="col-md-2 checkbox">
                                     <!--Need to change this process to JS. If current_position is on then print checkBox checked, else not checked-->
-                                    <?php if($work_history->current_position){                      
-                                        echo('<input type="checkbox" class="checkbox" name="currentPosition" id="currentPosition" onclick="currentPosition()" checked/>');                                
-                                    }else{
-                                        echo('<input type="checkbox" class="checkbox" name="currentPosition" id="currentPosition" onclick="currentPosition()"/>');
-                                    } ?>
+                                    <input type="checkbox" class="checkbox" name="currentPosition" id="currentPosition" onclick="currentPosition()" <?php if(isset($work_history->current_position)){                      
+                                                                                                                                                            echo('checked');
+                                                                                                                                                        }elseif(Request::old('currentPosition')){
+                                                                                                                                                            echo('checked');
+                                                                                                                                                        }else{
+
+                                                                                                                                                        } ?>/>
+                                
 
                                 </div>
                             </div>  
@@ -188,10 +191,10 @@
 //                this portion suppos to check or uncheck currentPosition fiend 
 //                based on work_history->current_position data
                 
-                var chkBox = document.getElementsByName('currentPosition');
-                if(<?php echo($work_history->current_position) ?>){
-                    chkBox.checked = 'true';
-                }
+//                var chkBox = document.getElementsByName('currentPosition');
+//                if(){
+//                    chkBox.checked = 'true';
+//                }
             }
 
 
