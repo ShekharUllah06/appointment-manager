@@ -57,13 +57,15 @@ trait zakiPrivateLibTrait_Patient{
             }
 
             //make thana list array out of $doctorFilterQuery_2
-            $uniqueThana = array_unique(array_column($thana, NULL));
+            $uniqueThana = array_unique($thana);
             $uniqueThana = array_values($uniqueThana);
             $districtList[$district] = $uniqueThana;
 
             return $districtList;
         }          
     }
+    
+   
     
     
     /**
@@ -102,8 +104,9 @@ trait zakiPrivateLibTrait_Patient{
               
         if($field == 'specialty'){
             foreach($array['specialty'] as $specialtyRecord){
-                if($specialtyRecord == $data){
 
+                if($specialtyRecord == $data){
+                return $specialtyRecord;
                     return TRUE;
                 }
             }

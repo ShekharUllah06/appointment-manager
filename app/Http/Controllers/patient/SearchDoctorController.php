@@ -5,7 +5,7 @@ namespace App\Http\Controllers\patient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Auth;
-use Validator;
+//use Validator;
 use App\Traits\zakiPrivateLibTrait;
 use App\Traits\zakiPrivateLibTrait_Patient;
 use App\Models\district;
@@ -42,14 +42,13 @@ class SearchDoctorController extends Controller
         //***Note Area data not yet complete***
         $personalInfoData = personal_info::select('id','imageUrl')->get()->toArray();           
         $doctorFilterQuery = $this->doctorFilterJointQuery();
-        
+
         //Make copy of doctorFilterQuery for latter use
         $doctorFilterQuery_2 =  $doctorFilterQuery;                            
                                 
         //sort and then splitMultyArray_by_ID();
         usort($doctorFilterQuery, array("App\Http\Controllers\patient\SearchdoctorController", "compareID"));           
-        $doctorListGrouped = $this->groupMultyArray_by_ID($doctorFilterQuery);                         
-                                                               
+        $doctorListGrouped = $this->groupMultyArray_by_ID($doctorFilterQuery);                                                                     
                                 
         foreach($doctorListGrouped as $doctorQueryOrganised){
             $uniqueDegreeName = NULL;
@@ -71,9 +70,10 @@ class SearchDoctorController extends Controller
             $doctor['imageUrl'] = $doctorFilterRecord['imageUrl'];
             $doctor['position'] = $doctorQueryOrganised[$count]['position'];
             $doctor['organization'] = $doctorQueryOrganised[$count]['organization'];
-            $doctor['thana_district'] = [];
             $doctor['degree_name'] = [];
             $doctor['specialty'] = [];
+            $doctor['thana_district'] = [];
+            $doctor['area'] = [];
                     
 
             //make degree_name list array out from $doctorFilterList  
@@ -93,17 +93,23 @@ class SearchDoctorController extends Controller
                 }
             }
 
-            $uniqueSpecialty = array_unique(array_column($listSpecialty, NULL));
+            $uniqueSpecialty = array_unique($listSpecialty);
             $uniqueSpecialty = array_values($uniqueSpecialty);
             $doctor['specialty'] = $uniqueSpecialty;           
             
             //make district list array out of $doctorFilterList
-            $uniqueDistrict = array_unique(array_column($doctorQueryOrganised, "district"));
+            $chamberDistrict = array_column($doctorQueryOrganised, "district");
+            $uniqueDistrict = array_unique($chamberDistrict);
             $uniqueDistrict = array_values($uniqueDistrict);          
            
             $districtList = $this->combianDistrictThana($uniqueDistrict, $doctorFilterQuery_2, $doctor);
-            
             $doctor['thana_district'] = $districtList;
+        
+            //make area list array out of of $doctorFilterList
+            $chamberArea = array_column($doctorQueryOrganised, "area");
+            $uniqueArea = array_unique($chamberDistrict);
+            $uniqueArea = array_values($uniqueArea); 
+            $doctor['area'] = $uniqueArea;
                                             
             //Calender Section. Get calender from zakiPrivateLibTrait.
             $doctor['calender'] = $this->doctorCalender($doctor['id'], $calenderMonth);
@@ -111,10 +117,9 @@ class SearchDoctorController extends Controller
             $doctor_list_Array[] = $doctor;
             $count += $count;
         }
-        $tmp = $doctor_list_Array;
+
         //Check if Specialty exist
-        foreach($doctor_list_Array as $doctor_item_array){           
-            
+        foreach($doctor_list_Array as $doctor_item_array){      //this logic is not fisible (also at thana, area) for hardware resource. need to use if($request['--']) before for     
             if(isset($request['specialty']) && $this->multyArray_search($doctor_item_array, 'specialty', $request['specialty'])){
                 $doctor_item = $doctor_item_array;
             }elseif(isset($forwardspecialty) && $this->multyArray_search($doctor_item_array, 'specialty', $forwardspecialty)){
@@ -128,7 +133,7 @@ class SearchDoctorController extends Controller
                 $doctor_item = NULL;
             }
         }
-        
+
         if(isset($doctor_filteredList[0]['id'])){
             $doctor_list_Array = $doctor_filteredList;
             $doctor_filteredList = [];
@@ -227,7 +232,7 @@ class SearchDoctorController extends Controller
             $selectedItems['area'] = "";
         }
         
-        
+      $tmp ="";   
         return view('patient.doctorSearch', ['filterItems' => $filterItems, 'doctors' => $paginated_doctor[$page_number], 'selectedItems' => $selectedItems, 'array_info' => $array_info, 'tmp'=>$tmp]);
     }
     

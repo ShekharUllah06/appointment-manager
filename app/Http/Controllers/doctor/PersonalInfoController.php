@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\personal_info;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Validator;
 use Image;
 use Carbon;
@@ -125,7 +126,7 @@ class PersonalInfoController extends Controller
             $fileArray = array('image' => $avatar);
             
             //Tell the Validator that this file should be an image with type and size
-            $rulesArray = array('image' => 'mimes:jpeg,jpg,png,gif|max:3000');
+            $rulesArray = array('image' => 'image|mimes:jpeg,jpg,png,gif|max:3000');
             
             //Now pass the input and rules in to the validator
             $validator = Validator::make($fileArray, $rulesArray);

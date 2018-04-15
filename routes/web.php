@@ -15,6 +15,10 @@
 //Home Page Route
 Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
 
+//Public Front-end Route
+Route::get('/help', ['as' => 'front.help',   'uses' => 'Front\helpController@getHelp']);
+Route::get('/help/faq', ['as' => 'front.faq',   'uses' => 'Front\helpController@getHelp']);
+
 //Doctor's public Profile Route
 Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
 //Route::get('/doctor_profile/{doctorID}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
@@ -26,10 +30,14 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
 //
         //Doctor's Panel Route
         Route::get('/doctor', ['as' => 'doctor.dashboard', 'uses' => 'doctor\PagesController@getDashboard', 'middleware' => 'auth']);
-
-
+        //Accounts Setting Change Route 
+        Route::post('/doctor/account', ['as' => 'doctorAccountSettings', 'uses' => 'doctor\AccountSettingsController@showAccountSettings']);
+        Route::post('doctor/account/information', ['as' => 'doctorChangeInfo', 'uses' => 'doctor\AccountSettingsController@changeInformation']);
+        Route::post('doctor/account/password', ['as' => 'doctorChangePassword', 'uses' => 'doctor\AccountSettingsController@changePassword']);
+        
         //Doctor Pannel Route Groups
         Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
+            
 
             //schedule Page Route
             Route::group(['namespace' => 'doctor'], function(){    
@@ -165,6 +173,8 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
                 Route::get('search/ajax/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
                 //Patient Filter Form Submission Route
                 Route::post('search/result', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                //Registered Patient Appointment Route
+                Route::post('appintment/{DoctorID}/{PatientID}', ['as' => 'doctorAppointment', 'uses' => 'doctorAppointmentController@registeredAppointment']);
             });
         });
             

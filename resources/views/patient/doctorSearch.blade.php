@@ -23,12 +23,19 @@
             <div class="row">
                 <!--Profile Image-->
                 <div class="col-md-3">
-                    <img src="{{ url('uploads/avatars/'.$doctor['imageUrl']) }}" class="cardImage" alt="Profile Picture">
+                    <img src="{{ url('storage/uploads/avatars/'.$doctor['imageUrl']) }}" class="cardImage" alt="Profile Picture">
+                    
+                    <a href="{{url('/doctor_profile', ['DoctorID' => $doctor['id'], 'CalanderMonth' => \Carbon\Carbon::now()->format('Y-m-d')])}}"><button class="btn btn-default" style="margin-top: 10px;">View Profile</button></a>
                 </div>
                 <!--Short Description-->
                 <div class="col-md-7 shortDescription">
                     <div class="row">
-                        <h4><b><?php if($doctor['first_name']){ echo(ucfirst($doctor['first_name']));} ?> <?php if($doctor['last_name']){echo(ucwords($doctor['last_name'])); } ?></b></h4>
+                        <h4>
+                            <b>
+                                <?php if($doctor['first_name']){ echo(ucfirst($doctor['first_name']));} ?>
+                                <?php if($doctor['last_name']){echo(ucwords($doctor['last_name'])); } ?>
+                            </b>
+                        </h4>
                     </div>
                     <div class="row">                           
                         <span style="border: 5px; padding: 5px;">
@@ -46,7 +53,7 @@
                     </div>
                     <div class="row">
                         @if(count($doctor['degree_name']) < 1)
-                            Education Information not yet submitted.
+                            <!--Education Information not yet submitted.-->
                         @else
                             <span style="border: 5px; padding: 5px;">
                                 <b>Degree:</b> {{ $doctor['degree_name'][0] }}
@@ -92,13 +99,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!--Calander Section start-->
         <div class="col-md-4" style="float: right; margin: 3px;">
             <div class="panel panel-default">
-                <table class="table table-bordered" style="font-size: 10px; background-color: white; text-align: center;">
+                <table class="table table-bordered" style="font-size: 8.5px; background-color: white; text-align: center;">
                     <thead>
                         <th colspan="7" style="background-color: lightblue; color: black; text-align: center; padding: 3px;">Schedule Calender:  {{ $doctor['calender']['monthName'] }} - {{ $doctor['calender']['year']}}</th>
                     </thead>
@@ -121,7 +127,7 @@
                             <?php if(isset($doctor['calender']['calender'][$i][$j]['chamberName'])){
                                         print ("<td style='background-color: yellow; padding: 0;'>");
                                   }else{
-                                      print("<td  style='padding: 2px;'>");
+                                      print("<td style='padding: 2px;'>");
                                   }
                                 ?>                  
                                 @if((array_search($doctor['calender']['calender'][$i][$j], $doctor['calender']['calender'][$i]) == 5) || (isset($doctor['calender']['calender'][$i][$j]['date']) && ($doctor['calender']['calender'][$i][$j]['date'] == 5))) 
@@ -149,8 +155,9 @@
                         <?php } ?>
                     </tr>
                 @endfor
-                <tr style="background-color: lightcyan;"><td colspan="7" style="padding: 2px;"><span style="color: red;">***</span>Yellow Background = Schedule date.</td></tr>
-                </table>  
+                    <tr style="background-color: lightcyan;"><td colspan="7" style="padding: 2px;"><span style="color: red;">***</span>Yellow Background = Schedule date.</td></tr>
+                </table>
+                <a href="{{url('/patient/appointment', ['DoctorID' => $doctor['id'], 'PatientID' => Auth::user()->id])}}"><button class="btn btn-block btn-primary">Get Appointment</button></a>
             </div>
         </div>
     </div> 
@@ -214,7 +221,6 @@
         ?>
     </div>
 
-         
 @endsection
  
  

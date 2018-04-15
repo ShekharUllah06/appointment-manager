@@ -2,21 +2,28 @@
 
 @section('content')
 
-    
-    <div class="container-fluid">
+    <div class="container-fluid row3">                        
         <div class="row page-header">
+            
+            <!--left side blank space holder-->
+            <div class= "col-md-1"></div>
             
             <!--Info section start-->
             <div class="col-md-7">
                 <div class="row">
                     <!--Profile Image-->
-                    <div class="col-md-4">
-                        <img src="{{ url('uploads/avatars/'.$personal_info->imageUrl) }}" alt="Profile Picture" style="width: 160px; height: 160px; border-radius: 20%;"/>
+                    <div class="col-md-4" style="text-align: right;">
+                        <img src="{{ url('uploads/avatars/'.$personal_info->imageUrl) }}" alt="Doctor Profile Picture" style="width: 150px; height: 150px; border-radius: 20%; padding-right: 0px; margin-right: 0px;"/>
                     </div>
                     <!--Short Description at top-->
-                    <div class="col-md-7" style="text-align: left">
+                    <div class="col-md-6" style="text-align: left;">
                         <div class="row">
-                            <h4><b><?php if($user->first_name){echo(ucfirst($user->first_name));} ?> <?php if($user->last_name){echo(ucwords($user->last_name));} ?></b></h4>
+                            <h4>
+                                <b>
+                                    <?php if($user->first_name){ echo(ucfirst($user->first_name)); } ?> 
+                                        <?php if($user->last_name){ echo(ucwords($user->last_name)); } ?>
+                                </b>
+                            </h4>
                         </div>
                         <div class="row">
                             @if(count($work_histories) < 1)
@@ -24,8 +31,9 @@
                             @else
                                 @foreach($work_histories as $work_history)
                                     @if($work_history->current_position)
-                                        <span style="border: 5px; padding: 5px;">
-                                            <b>{{ $work_history->position }},</b> At: <b>{{$work_history->organization}}</b>
+                                        <span style="">
+                                            <b>{{ $work_history->position }},</b> 
+                                            At: <b>{{$work_history->organization}}</b>
                                         </span>
                                     @endif
                                 @endforeach
@@ -36,7 +44,7 @@
                                 Education Information not yet submitted.
                             @else
                                 @foreach($educations as $education)
-                                    <span style="border: 5px; padding: 5px;">
+                                    <span style="">
                                         <b>{{ $education->degree_name }},</b>
                                     </span>
 
@@ -48,7 +56,7 @@
                                 Specialties Information not yet submitted.
                             @else
                                 @foreach($specialties as $specialty)
-                                    <span style="border: 5px; padding: 5px;">
+                                    <span style="">
                                         <b>{{ $specialty->specialty }},</b>
                                     </span>
 
@@ -69,15 +77,18 @@
                             <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
                                 <!--Left side Logo-->
                                 <div class="col-md-2">
-                                    <img src="{{ url('assets/img/workHistoryLogo.png') }}" alt="add new" height="50px" width="50px" style="margin-top: 10px; margin-right: 5px;" />
+                                    <img src="{{ url('assets/img/workHistoryLogo.png') }}" alt="add new" height="50" width="50" style="margin-top: 10px; margin-right: 5px;" />
                                 </div>
                                 <div class="col-md-8">
-                                    <span style="color: dimgray; font-size: 17px"><b>{{ $work_history->position }}</b></span> <br />
+                                    <span style=""><b>{{ $work_history->position }}</b></span> <br />
                                                                     {{ $work_history->organization }} <br />
-                                    <span style="font-size: 11px">{{ $work_history->start_date }} - <?php if(!$work_history->current_position){echo($work_history->end_date);} ?></span>
+                                    <span style="">{{ $work_history->start_date }} 
+                                        to <?php if($work_history->current_position){ echo("Current"); }
+                                                    else{echo($work_history->end_date);} ?>
+                                    </span>
                                     <br />
 
-                                    <button id="see{{ $work_history->work_history_id }}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{{ $work_history->work_history_id }}" aria-expanded="false" aria-controls="{{ $work_history->work_history_id }}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
+                                    <button id="see{!! $work_history->work_history_id !!}" onclick="changeBtnTxt()" data-toggle="collapse" data-target="#sec{!! $work_history->work_history_id !!}" aria-expanded="false" aria-controls="{!! $work_history->work_history_id !!}" style="border:none; background-color: white; color: gray; margin-top: 5px; margin-bottom: 5px; text-decoration: underline;">
                                         See more
                                     </button>
                                 </div>
@@ -117,85 +128,90 @@
                 </div>
             </div>
             
-            <!--Calander Section start-->
-            <div class="col-md-4"><h3 style="color: chocolate; margin-top: -20px;">Schedule Calender</h3>
-                <table class="table table-bordered">
-                    <thead>  
-                        <tr><th><a href="{{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b> << </b></h4></a></th><th colspan="5"><h4 style="text-align: center; color: #1b6d85; margin-top: -2px;">{{ $calender['monthName'] }} - {{ $calender['year']}}</h4></th><th><a href=" {{ url('#') }}"><h4 style="text-align: center; color: gray; margin-top: -2px;"><b> >> </b></h4></a></th></tr>
-                    </thead>                    
-                    <tr>
-                        <td colspan="7" style="font-size: smaller">
-                            <span style="color: red">***</span> Schedule Dates are marked with "<span style="color: blue">Chamber name</span>", "<span style="color: blue">Start Time</span>", "<span style="color: blue">End Time</span>" and "<span style="color: blue">End Time</span>", and with <span style="background-color: yellowgreen">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> color in background below the Date. If you don't see any such texts, then there is no schedule in this month.
-                        </td>
-                    </tr>
-                        <tr>
-                            <th>Sun</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th style="color: red">Fri</th>  
-                            <th>Sat</th>
+            <!--Calander Section (at right side) start-->
+            <div class="col-md-3">
+                <h4 style="">Schedule Calender</h4>
+                <div class="panel panel-default">
+                    <table class="table table-bordered" style="font-size: 11px; background-color: inherit; text-align: center; color: inherit;">
+                        <thead>  
+                            <th style="background-color: lightgreen; text-align: center; padding: 3px;"><a href="{{ url('#') }}"><h6 style="color: black;"><b> &#9664; </b></h6></a></th>
+                            <th colspan="5" style="background-color: lightblue; color: black; font-size: 18px; text-align: center; padding: 3px;">{{ $calender['monthName'] }} - {{ $calender['year']}}</th>
+                            <th style="background-color: lightgreen; text-align: center; padding: 3px;"><a href=" {{ url('#') }}"><h6 style="color: black;"><b> &#9654; </b></h6></a></th>
+                        </thead>                    
+                        
+                        <tr style="background-color: lightgrey; font-weight: bold; text-align: left;">
+                            <td style='padding: 2px;'>Sun</td>
+                            <td style='padding: 2px;'>Mon</td>
+                            <td style='padding: 2px;'>Tue</td>
+                            <td style='padding: 2px;'>Wed</td>
+                            <td style='padding: 2px;'>Thu</td>
+                            <td style="color: red; padding: 3px;">Fri</td>  
+                            <td style='padding: 2px;'>Sat</td>
                         </tr>
-                   @for($i = 0; $i < count($calender['calender']); $i++)                   
-                        <tr>
-                            <?php $countDayInWeek = count($calender['calender'][$i]);
-                            
-                                for($j = 0; $j < $countDayInWeek; $j++){
-                            ?>
-                                <td>
-                                    @if((array_search($calender['calender'][$i][$j], $calender['calender'][$i]) == 5) || (isset($calender['calender'][$i][$j]['date']) && ($calender['calender'][$i][$j]['date'] == 5))) 
-                                        @if(isset($calender['calender'][$i][$j]['date']))
-                                            <span style="color: red">
+                       @for($i = 0; $i < count($calender['calender']); $i++)                   
+                            <tr>
+                                <?php $countDayInWeek = count($calender['calender'][$i]);
+
+                                    for($j = 0; $j < $countDayInWeek; $j++){
+                                ?>
+                                    <td style='padding: 2px;'>
+                                        @if((array_search($calender['calender'][$i][$j], $calender['calender'][$i]) == 5) || (isset($calender['calender'][$i][$j]['date']) && ($calender['calender'][$i][$j]['date'] == 5))) 
+                                            @if(isset($calender['calender'][$i][$j]['date']))
+                                                <span style="">
+                                                    {{ $calender['calender'][$i][$j]['date'] }}
+                                                </span>
+                                                <div style="font-size: 9.5px; background-color: yellowgreen;"> 
+                                                    <span style="color: blue;">
+                                                        <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
+                                                    </span>
+                                                    <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?>
+                                                    <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
+                                                    <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
+                                                </div>    
+                                            @else
+                                                <span style="color: red">
+                                                    {{ $calender['calender'][$i][$j] }}
+                                                </span>
+                                            @endif
+                                        @else
+
+                                            @if(isset($calender['calender'][$i][$j]['date']))
+
                                                 {{ $calender['calender'][$i][$j]['date'] }}
-                                            </span>
-                                            <div style="font-size: smaller; background-color: yellowgreen;"> 
-                                                <span style="color: blue;">
-                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
-                                                </span>
-                                                <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?>
-                                                <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
-                                                <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
-                                            </div>    
-                                        @else
-                                            <span style="color: red">
+                                                <div style="font-size: 9.5px; background-color: yellowgreen;"> 
+                                                    <span style="">
+                                                        <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
+                                                    </span>
+                                                    <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?> 
+                                                    <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
+                                                    <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
+                                                </div>    
+                                            @else
                                                 {{ $calender['calender'][$i][$j] }}
-                                            </span>
+                                            @endif
                                         @endif
-                                    @else
-                                    
-                                        @if(isset($calender['calender'][$i][$j]['date']))
-                                        
-                                            {{ $calender['calender'][$i][$j]['date'] }}
-                                            <div style="font-size: smaller; background-color: yellowgreen;"> 
-                                                <span style="color: blue;">
-                                                    <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
-                                                </span>
-                                                <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?> 
-                                                <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
-                                                <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
-                                            </div>    
-                                        @else
-                                            {{ $calender['calender'][$i][$j] }}
-                                        @endif
-                                    @endif
-                                    
-                                </td>
-                            <?php } ?>
+
+                                    </td>
+                                <?php } ?>
+                            </tr>
+                        @endfor
+                        <tr>
+                            <td colspan="7" style="">
+                                <span style="">***</span> Schedule Dates are marked with "<span style="">Chamber name</span>", "<span style="">Start Time</span>", "<span style="">End Time</span>" and "<span style="">End Time</span>", and with <span style="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> color in background below the Date. If you don't see any such texts, then there is no schedule in this month.
+                            </td>
                         </tr>
-                    @endfor
 
-
-                </table>   
+                    </table>   
+                </div>
             </div>
-            
+            <!--right side blank space holder-->
+            <div class= "col-md-1"></div>
         </div>
-
+        
         <div class="row">
             <div class="col-md-4"><a href='/'><button class='btn btn-primary'>Back</button></a></div>    
         </div>
     </div>
-
 
 
 @endsection
