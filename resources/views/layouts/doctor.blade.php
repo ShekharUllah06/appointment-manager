@@ -62,7 +62,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Appointment Manager</a>
+                <a class="navbar-brand" href="www.mydoctorbd.com">MyDoctorBD.com</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -76,7 +76,15 @@
                             <a href="{!! url('/doctor/blank') !!}"><i class="fa fa-fw fa-user"></i>Edit Profile</a>
                         </li>
                         <li>                    
-                            <a href="{!! url('/doctor_profile', ['doctorID' => Auth::user()->id, 'calanderMonth' => ' ']) !!}"><i class="fa fa-fw fa-user"></i>View Profile as Visitor</a>
+                            <a href="{!! url('/doctor/account') !!}"
+								onclick="event.preventDefault();
+										 document.getElementById('userId-form').submit();">
+								<i class="fa fa-fw fa-power-user"></i> Account Settings
+							</a>
+                            <form id="userId-form" action="{!! url('/doctor/account') !!}" method="POST" style="display: none;">
+                                <input type="hidden" name="userID" id="userId" value="{{ Auth::user()->id }}"/>
+                                {{ csrf_field() }}
+                            </form>
                         </li> 
                         <li class="divider"></li>
                         <li>

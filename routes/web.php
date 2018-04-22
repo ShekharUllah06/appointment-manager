@@ -15,87 +15,95 @@
 //Home Page Route
 Route::get('/', ['as' => 'front.home',   'uses' => 'Front\PagesController@getHome']);
 
+//Public Front-end Route
+Route::get('/help', ['as' => 'front.help',   'uses' => 'Front\helpController@getHelp']);
+Route::get('/help/faq', ['as' => 'front.faq',   'uses' => 'Front\helpController@getHelp']);
+
 //Doctor's public Profile Route
 Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
 //Route::get('/doctor_profile/{doctorID}', ['as' => 'doctorProfile',   'uses' => 'Front\PagesController@getDoctorPublicProfile']);
 
 //
-//Doctor Route 
-//Section 
+//Doctor Route
+//Section
 //Starts here.
 //
         //Doctor's Panel Route
         Route::get('/doctor', ['as' => 'doctor.dashboard', 'uses' => 'doctor\PagesController@getDashboard', 'middleware' => 'auth']);
-
+        //Accounts Setting Change Route
+        Route::post('/doctor/account', ['as' => 'doctorAccountSettings', 'uses' => 'doctor\AccountSettingsController@showAccountSettings']);
+        Route::post('doctor/account/information', ['as' => 'doctorChangeInfo', 'uses' => 'doctor\AccountSettingsController@changeInformation']);
+        Route::post('doctor/account/password', ['as' => 'doctorChangePassword', 'uses' => 'doctor\AccountSettingsController@changePassword']);
 
         //Doctor Pannel Route Groups
         Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
 
+
             //schedule Page Route
-            Route::group(['namespace' => 'doctor'], function(){    
+            Route::group(['namespace' => 'doctor'], function(){
 
                 //Schedule Page Route
                 Route::get('schedule', ['as' => 'doctorSchedule', 'uses' => 'ScheduleController@viewScheduleList']);
 
-                //Schedule New Route     
+                //Schedule New Route
                 Route::get('schedule/new', ['as' => 'doctorScheduleNew', 'uses' => 'ScheduleController@newScheduleForm']);
 
-               //Schedule Edit Route     
-                Route::get('schedule/edit/{scheduleId}', ['as' => 'doctorScheduleEdit', 'uses' => 'ScheduleController@editScheduleForm']);    
+               //Schedule Edit Route
+                Route::get('schedule/edit/{scheduleId}', ['as' => 'doctorScheduleEdit', 'uses' => 'ScheduleController@editScheduleForm']);
 
-                //Schedule Save Route     
+                //Schedule Save Route
                 Route::post('schedule/save', ['as' => 'doctorScheduleSave', 'uses' => 'ScheduleController@saveSchedule']);
 
-                //Schedule Remove Route     
-                Route::get('schedule/remove/{scheduleId}', ['as' => 'doctorScheduleRemove', 'uses' => 'ScheduleController@removeSchedule']); 
+                //Schedule Remove Route
+                Route::get('schedule/remove/{scheduleId}', ['as' => 'doctorScheduleRemove', 'uses' => 'ScheduleController@removeSchedule']);
 
-            });  
+            });
 
 
             //
             //
-            //Settings Sub-Menu routes  
-            //  
+            //Settings Sub-Menu routes
+            //
             //
 
 
             //chamber Page Route
-            Route::group(['namespace' => 'doctor', 'prefix' => 'settings/chamber'], function(){ 
+            Route::group(['namespace' => 'doctor', 'prefix' => 'settings/chamber'], function(){
 
                         Route::get('/', ['as' => 'doctorChamber', 'uses' => 'ChamberController@viewChamberList']);
 
-                    //chamber New Route     
+                    //chamber New Route
                         Route::get('/new', ['as' => 'doctorChamberNew', 'uses' => 'ChamberController@newChamberForm']);
 
-                    //chamber Edit Route     
-                        Route::get('/edit/{cId}', ['as' => 'doctorChamberEdit', 'uses' => 'ChamberController@editChamberForm']);    
+                    //chamber Edit Route
+                        Route::get('/edit/{cId}', ['as' => 'doctorChamberEdit', 'uses' => 'ChamberController@editChamberForm']);
 
-                    //chamber Save Route     
+                    //chamber Save Route
                         Route::post('/save', ['as' => 'doctorChamberSave', 'uses' => 'ChamberController@saveChamber']);
 
-                    //chamber Remove Route     
+                    //chamber Remove Route
                         Route::get('/remove/{cId}', ['as' => 'doctorChamberRemove', 'uses' => 'ChamberController@removeChamber']);
 
-            });  
+            });
 
 
             //education Page Route
-            Route::group(['namespace' => 'doctor', 'prefix' => 'settings/education'], function(){            
+            Route::group(['namespace' => 'doctor', 'prefix' => 'settings/education'], function(){
 
                         Route::get('/', ['as' => 'doctorEducation', 'uses' => 'EducationController@viewEducationList']);
 
-                    //educating New Route     
+                    //educating New Route
                         Route::get('/new', ['as' => 'doctorEducationNew', 'uses' => 'EducationController@newEducationForm']);
 
-                    //educating Edit Route     
-                        Route::get('/edit/{degreeName}', ['as' => 'doctorEducationEdit', 'uses' => 'EducationController@editEducationForm']);\      
+                    //educating Edit Route
+                        Route::get('/edit/{degreeName}', ['as' => 'doctorEducationEdit', 'uses' => 'EducationController@editEducationForm']);\
 
-                    //educating Save Route     
+                    //educating Save Route
                         Route::post('/save', ['as' => 'doctorEducationSave', 'uses' => 'EducationController@saveEducation']);
 
-                    //educating Remove Route     
-                        Route::get('/remove/{degreeName}', ['as' => 'doctorEducationRemove', 'uses' => 'EducationController@removeEducation']);            
-            });   
+                    //educating Remove Route
+                        Route::get('/remove/{degreeName}', ['as' => 'doctorEducationRemove', 'uses' => 'EducationController@removeEducation']);
+            });
 
 
             //personal-info Page Route
@@ -103,12 +111,12 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
                     //view route
                         Route::get('/', ['as' => 'doctorPersonalInfo', 'uses' => 'PersonalInfoController@viewPersonalInfo']);
 
-                    //personal-info information Save Route    
+                    //personal-info information Save Route
                         Route::post('/save', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@savePersonalInfo']);
 
-                    //personal-info avatar/image Save Route    
+                    //personal-info avatar/image Save Route
                         Route::post('/save_avatar', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@saveAvatar']);
-            });  
+            });
 
 
             //work history Routes
@@ -116,18 +124,18 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
 
                         Route::get('/', ['as' => 'doctorWorkHistory', 'uses' => 'workHistoryController@viewWorkHistory']);
 
-                    //work-history  New Route     
+                    //work-history  New Route
                         Route::get('/new', ['as' => 'doctorWorkHistoryNew', 'uses' => 'workHistoryController@newWorkHistoryForm']);
 
-                    //work-history  Edit Route     
-                        Route::get('/edit/{workHistoryId}', ['as' => 'doctorWorkHistoryEdit', 'uses' => 'workHistoryController@editWorkHistoryForm']);\      
+                    //work-history  Edit Route
+                        Route::get('/edit/{workHistoryId}', ['as' => 'doctorWorkHistoryEdit', 'uses' => 'workHistoryController@editWorkHistoryForm']);\
 
-                    //work-history  Save Route     
+                    //work-history  Save Route
                         Route::post('/save', ['as' => 'doctorWorkHistorySave', 'uses' => 'workHistoryController@saveWorkHistory']);
 
-                    //work-history  Remove Route     
-                        Route::get('/remove/{workHistoryId}', ['as' => 'doctorWorkHistoryRemove', 'uses' => 'workHistoryController@removeWorkHistory']);  
-            }); 
+                    //work-history  Remove Route
+                        Route::get('/remove/{workHistoryId}', ['as' => 'doctorWorkHistoryRemove', 'uses' => 'workHistoryController@removeWorkHistory']);
+            });
 
 
             //Specialty Routes
@@ -135,11 +143,11 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
 
                         Route::get('/', ['as' => 'doctorSpecialty', 'uses' => 'specialtyController@viewSpecialty']);
 
-                    //work-history  Save Route     
+                    //work-history  Save Route
                         Route::post('/save', ['as' => 'doctorSpecialtySave', 'uses' => 'specialtyController@saveSpecialty']);
 
-                    //work-history  Remove Route     
-                        Route::get('/remove/{specialtyName}', ['as' => 'doctorSpecialtyRemove', 'uses' => 'specialtyController@removeSpecialty']);  
+                    //work-history  Remove Route
+                        Route::get('/remove/{specialtyName}', ['as' => 'doctorSpecialtyRemove', 'uses' => 'specialtyController@removeSpecialty']);
             });
 
         });
@@ -155,7 +163,7 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
         Route::group(['prefix' => 'patient', 'middleware' => 'auth'], function(){
 
             //Patient Pannel Route Group
-            Route::group(['namespace' => 'patient'], function(){    
+            Route::group(['namespace' => 'patient'], function(){
 
                 //Patient Search/Browse Route
                 Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
@@ -165,11 +173,13 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
                 Route::get('search/ajax/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
                 //Patient Filter Form Submission Route
                 Route::post('search/result', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
+                //Registered Patient Appointment Route
+                Route::post('appointment/{DoctorID}/{PatientID}', ['as' => 'doctorAppointment', 'uses' => 'doctorAppointmentController@registeredAppointment']);
             });
         });
-            
-            
-           
+
+
+
 // auth routes setup
 Auth::routes();
 
