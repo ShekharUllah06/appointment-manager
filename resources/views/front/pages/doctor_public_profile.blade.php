@@ -13,7 +13,7 @@
                 <div class="row">
                     <!--Profile Image-->
                     <div class="col-md-4" style="text-align: right;">
-                        <img src="{{ url('uploads/avatars/'.$personal_info->imageUrl) }}" alt="Doctor Profile Picture" style="width: 150px; height: 150px; border-radius: 20%; padding-right: 0px; margin-right: 0px;"/>
+                        <img src="{{ url('storage/uploads/avatars/'.$personal_info->imageUrl) }}" alt="Doctor Profile Picture" style="width: 150px; height: 150px; border-radius: 20%; padding-right: 0px; margin-right: 0px;"/>
                     </div>
                     <!--Short Description at top-->
                     <div class="col-md-6" style="text-align: left;">
