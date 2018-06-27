@@ -24,7 +24,7 @@ return [
     | the Mailgun mail service which will provide reliable deliveries.
     |
     */
-    'host' => env('MAIL_HOST', 'mail.mydoctorbd.com'),
+    'host' => env('MAIL_HOST', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -47,7 +47,7 @@ return [
     |
     */
     'from' => [
-        'address' => 'account_activation@mydoctorbd.com',
+        'address' => '',
         'name' => 'Auto Response',
     ],
     /*
@@ -71,7 +71,7 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-    'username' => env('MAIL_USERNAME', 'account_activation@mydoctorbd.com'),
+    'username' => env('MAIL_USERNAME', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Password
@@ -82,7 +82,7 @@ return [
     | connection so that the application will be able to send messages.
     |
     */
-    'password' => env('MAIL_PASSWORD', 'jQMpi~lI[x},'),
+    'password' => env('MAIL_PASSWORD', ''),
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
