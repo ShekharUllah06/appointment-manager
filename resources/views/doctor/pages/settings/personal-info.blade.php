@@ -3,12 +3,12 @@
 @section('title', 'Personal Information Page')
 @section('description', 'This is the Your Personal Information Page')
 
-@section('content')                 
+@section('content')
 <div class="container-fluid">
     <div class="">
         <div class="row">
             <div class="col-lg-12">
-                
+
                 <ol class="breadcrumb">
                     <li class="active">
                         <i class="fa fa-dashboard"></i> Personal Info Page
@@ -17,44 +17,44 @@
                     @include('notifications.status_message')
                     @include('notifications.errors_message')
             </div>
-            
+
         </div>
 
-    <div class="row col-md-12"> 
-        <div class="well">   
-        <legend>Personal Information Edit Form</legend>  
+    <div class="row col-md-12">
+        <div class="well">
+        <legend>Personal Information Edit Form</legend>
     <!--Starting the Avatar-Form--->
 
-        <form action="{{url('doctor/settings/personal-info/save_avatar')}}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">      
+        <form action="{{url('doctor/settings/personal-info/save_avatar')}}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
 
-         <!--Hidden User ID Field-->   
+         <!--Hidden User ID Field-->
 
                         <input type="hidden" id="userId" name="userId" value="{{ $personal_info->id }}">
                         <br />
         <!--Picture-->
                         <div class="row">
                             <div class="col-md-4"></div>
-                            <img class="col-md-4" src="{{url('storage/uploads/avatars/'.$personal_info->imageUrl)}}" alt="Profile Picture" style="width:200px; height:200px; border-radius:15%; margin:5px; padding-bottom: 2px;"/>
+                            <img class="col-md-4" src="{{url('public/assets/img/'.$personal_info->imageUrl)}}" alt="Profile Picture" style="width:200px; height:200px; border-radius:15%; margin:5px; padding-bottom: 2px;"/>
                         </div>
                         <div class="form-group row">
                             <label for="profilePicture" class="col-md-4 control-label">Avatar: </label>
                             <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group" id="profilePicture">                        
+                                <div class="input-group" id="profilePicture">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
                                     <input type="file" class="form-control" id="profilePicture" name="profilePicture" accept="image/gif, image/jpeg, image/png"/>
                                 </div>
                             </div>
-                            
+
                             <!--Submit Button-->
                                 <div class="col-md-1">
                                     <button type="submit" class="btn btn-sm btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Upload</button>
                                 </div>
-                        </div>       
+                        </div>
 
         <div class="col-md-4"></div>
 
                     {{ csrf_field() }}
-        </form>       
+        </form>
 
 
 
@@ -66,7 +66,7 @@
 
                     <fieldset>
 
-        <!--Hidden User ID Field-->   
+        <!--Hidden User ID Field-->
 
                         <input type="hidden" id="userId" name="userId" value="{{ $personal_info->id }}">
                         <br />
@@ -383,7 +383,7 @@
 
         <!--Script to select a country option from the Select drop down menu getting value from database.-->
 
-                                    <script>document.getElementById('countryName').value = '{{ $personal_info->country }}';</script> 
+                                    <script>document.getElementById('countryName').value = '{{ $personal_info->country }}';</script>
 
                                 </div>
                             </div>
@@ -425,24 +425,24 @@
 @endsection
 
 @section('jscript')
-<!--Custom Java Script-->        
-<script> 
-    
+<!--Custom Java Script-->
+<script>
+
 //this JS function enables the form fields for editing
 
     function enableFields(){
         document.getElementById("showBTN_saveCancel").style.display = "block";
         document.getElementById("btnEdit").style.display = "none";
-        
+
 //Change Disabled Fileds to enabled
-        document.getElementById("dateOfBirth").readOnly = false;   
+        document.getElementById("dateOfBirth").readOnly = false;
         document.getElementById("homeTown").readOnly = false;
         document.getElementById("address").readOnly = false;
         document.getElementById("countryName").disabled = false;
         document.getElementById("genderName").disabled = false;
-        
+
     }
-    
+
 
 </script>
 @endsection

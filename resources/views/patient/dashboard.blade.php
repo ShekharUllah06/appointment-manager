@@ -13,7 +13,7 @@
                     @if (Auth::guest())
                     <small>Dashboard</small>
                     @else
-                    {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}'s <small>Dashboard</small>
+                    {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }}'s <small>Dashboard</small>
                     @endif
 
                 </h1>

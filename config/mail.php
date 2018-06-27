@@ -13,7 +13,7 @@ return [
     |            "ses", "sparkpost", "log"
     |
     */
-    'driver' => env('MAIL_DRIVER', 'mail'),
+    'driver' => env('MAIL_DRIVER', 'sendmail'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -82,7 +82,7 @@ return [
     | connection so that the application will be able to send messages.
     |
     */
-    'password' => env('MAIL_PASSWORD', '@#&C73ml4FF'),
+    'password' => env('MAIL_PASSWORD', 'jQMpi~lI[x},'),
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
@@ -94,6 +94,6 @@ return [
     |
     */
     'sendmail' => '/usr/sbin/sendmail -bs',
-    
+
     "pretend" => false
 ];
