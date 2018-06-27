@@ -41,11 +41,11 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic" rel="stylesheet" type="text/css">
 
-    
+
     <!-- Custom CSS --->
     <link href="{{ asset('assets/css/front.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/zakiStyle.css') }}" rel="stylesheet">
-    
+
     <!--template related-->
     <link href="{{ asset('assets/layout/styles/layout.css') }}" rel="stylesheet" type="text/css" media="all">
 
@@ -56,7 +56,7 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
+
 	<script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
@@ -66,10 +66,10 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
 </head>
 
 <body id="top">
-    
+
     <!--topmost bar-->
 <div class="wrapper row0">
-  <div id="topbar" class="hoc clear"> 
+  <div id="topbar" class="hoc clear">
     <!-- ################################################################################################ -->
     <div class="fl_left">
       <ul class="nospace">
@@ -89,10 +89,10 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
   </div>
 </div>
-    
+
     <!--second top bar-->
 <div class="wrapper row1">
-  <header id="header" class="hoc clear"> 
+  <header id="header" class="hoc clear">
     <!-- ################################################################################################ -->
     <div id="logo" class="fl_left">
       <h1><a href="index.html">My Doctor BD</a></h1>
@@ -116,16 +116,16 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
     <!-- ################################################################################################ -->
   </header>
 </div>
-    
-    
+
+
    <!--Content Area-->
-        
+
     @yield('content')
-    
-    
-             
+
+
+
 <div class="wrapper row4">
-  <footer id="footer" class="hoc clear"> 
+  <footer id="footer" class="hoc clear">
     <!-- ################################################################################################ -->
     <div class="one_third first">
       <h6 class="title">Social Media Pages</h6>
@@ -159,11 +159,11 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
         <li><a href="http://www.mydoctorbd.com/">Home</a></li>
         <li>
             <ul>
-                <li><a href="http://www.mydoctorbd.com/find/">Find Doctor</a></li>
-                <li><a href="http://www.mydoctorbd.com/help/">Help</a></li>
+                <li><a href="http://www.mydoctorbd.com/search">Find a Doctor</a></li>
+                <li><a href="http://www.mydoctorbd.com/help">Help</a></li>
                 <li>
                     <ul>
-                        <li><a href="http://www.mydoctorbd.com/help/faq/">FAQ</a></li>
+                        <li><a href="http://www.mydoctorbd.com/help/faq">FAQ</a></li>
                     </ul>
                 </li>
                 <li><a href="http://www.mydoctorbd.com/login/">Login</a></li>
@@ -179,7 +179,7 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
 <!-- ################################################################################################ -->
 <!-- ################################################################################################ -->
 <div class="wrapper row5">
-  <div id="copyright" class="hoc clear"> 
+  <div id="copyright" class="hoc clear">
     <!-- ################################################################################################ -->
     <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="www.mydoctorbd.com">MyDoctorBD.com</a></p>
     <p class="fl_right">Template by <a target="_blank" href="http://www.os-templates.com/" title="Free Website Templates">OS Templates</a></p>
@@ -188,7 +188,7 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
 </div>
 
 <!-- ################################################################################################ -->
-<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>    
+<a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
 
 
 
@@ -209,7 +209,7 @@ Public pages Template Licence URI: http://www.os-templates.com/template-terms
 
     <!-- Theme JavaScript -->
     <script src="{!! asset('assets/js/front.js') !!}"></script>
-    
+
     <!--template related-->
     <script src="{{ asset('assets/layout/scripts/jquery.min.js') }}"></script>
     <script src="{{ asset('assets/layout/scripts/jquery.backtotop.js') }}"></script>

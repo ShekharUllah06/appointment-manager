@@ -8,6 +8,7 @@ use App\Models\chamber;
 use App\Traits\zakiPrivateLibTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Carbon;
 
@@ -21,32 +22,46 @@ class ScheduleController extends Controller
      */
     public function viewScheduleList()
     {
-        $auth_user_id = Auth::user()->id;
-        $schedules = [];        
         
-        $schedulesQuery = $this->scheduleJointQuery($auth_user_id, null, null);//
-
-        $carbon_dateTime = Carbon::now(); // Get System Date with  Carbon
-        $dateToday = $carbon_dateTime->toDateString();
+//        $auth_user_id = Auth::user()->id;
+//        $schedules = [];        
+//        
+//        $schedulesQuery = $this->scheduleJointQuery($auth_user_id, null, null);//
+//
+//        $carbon_dateTime = Carbon::now(); // Get System Date with  Carbon
+//        $dateToday = $carbon_dateTime->toDateString();
+//        
+//        //Get single Record out of DB Result Set
+//        foreach ($schedulesQuery as $scheduleRecord){             
+//            //Convert and join schedule date and time
+//            $scheduleDate           = $scheduleRecord['schedule_date'];
+//            $scheduleDateConverted  = strtotime($scheduleDate);
+//            $scheduleDateFormated   = date('d-M-Y',$scheduleDateConverted);
+//            $scheduleTime           = $scheduleRecord['start_time'];
+//            $scheduleTimeStamp      = date('Y-m-d H:i:s', strtotime("$scheduleDate $scheduleTime"));
+//            
+//            //Compare Schedule date with current date then assamble schedules array
+//            if($scheduleDate >= $dateToday){               
+//                $scheduleRecord['schedule_date'] = $scheduleDateFormated;    
+//                $scheduleRecord['timeStamp'] = $scheduleTimeStamp;
+//                $schedules[] = $scheduleRecord;                                       
+//            }            
+//        }
+//        //sort array records by dateTime
+//        usort($schedules, array("App\Http\Controllers\doctor\ScheduleController", "compareDateTime"));
         
-        //Get single Record out of DB Result Set
-        foreach ($schedulesQuery as $scheduleRecord){             
-            //Convert and join schedule date and time
-            $scheduleDate           = $scheduleRecord['schedule_date'];
-            $scheduleDateConverted  = strtotime($scheduleDate);
-            $scheduleDateFormated   = date('d-M-Y',$scheduleDateConverted);
-            $scheduleTime           = $scheduleRecord['start_time'];
-            $scheduleTimeStamp      = date('Y-m-d H:i:s', strtotime("$scheduleDate $scheduleTime"));
-            
-            //Compare Schedule date with current date then assamble schedules array
-            if($scheduleDate >= $dateToday){               
-                $scheduleRecord['schedule_date'] = $scheduleDateFormated;    
-                $scheduleRecord['timeStamp'] = $scheduleTimeStamp;
-                $schedules[] = $scheduleRecord;                                       
-            }            
-        }
-        //sort array records by dateTime
-        usort($schedules, array("App\Http\Controllers\doctor\ScheduleController", "compareDateTime"));
+        
+        $schedules = DB::table('users')      //SQL Join needs to be converted to Laravel Relations!!!
+                
+                    ->join('chamber', 'users.id', '=', 'chamber.user_id')
+                
+                    ->join('schedule', 'users.id', '=', 'schedule.user_id') 
+                    ->where('schedule.user_id', '1')
+                    ->select('users.id','users.first_name','users.last_name','chamber.institute','chamber.chamber_name','chamber.consult_fee','chamber.address','chamber.telephone_number1','chamber.telephone_number2','chamber.telephone_number3','chamber.mobile_number1','chamber.mobile_number2','chamber.mobile_number3','chamber.post_code','chamber.thana','chamber.city','chamber.district','schedule.schedule_date','schedule.schedule_id','schedule.start_time','schedule.end_time')
+                    ->get()
+                ->groupBy('id')
+                ->toArray();
+        
         
         return view('doctor.pages.schedule-view', ['schedules'=>$schedules]);
     }

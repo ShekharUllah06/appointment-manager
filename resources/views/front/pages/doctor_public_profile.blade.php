@@ -2,25 +2,25 @@
 
 @section('content')
 
-    <div class="container-fluid row3">                        
+    <div class="container-fluid row3">
         <div class="row page-header">
-            
+
             <!--left side blank space holder-->
             <div class= "col-md-1"></div>
-            
+
             <!--Info section start-->
             <div class="col-md-7">
                 <div class="row">
                     <!--Profile Image-->
                     <div class="col-md-4" style="text-align: right;">
-                        <img src="{{ url('storage/uploads/avatars/'.$personal_info->imageUrl) }}" alt="Doctor Profile Picture" style="width: 150px; height: 150px; border-radius: 20%; padding-right: 0px; margin-right: 0px;"/>
+                        <img src="{{ url('public/assets/img/'.$personal_info->imageUrl) }}" alt="Doctor Profile Picture" style="width: 150px; height: 150px; border-radius: 20%; padding-right: 0px; margin-right: 0px;"/>
                     </div>
                     <!--Short Description at top-->
                     <div class="col-md-6" style="text-align: left;">
                         <div class="row">
                             <h4>
                                 <b>
-                                    <?php if($user->first_name){ echo(ucfirst($user->first_name)); } ?> 
+                                    <?php if($user->first_name){ echo(ucfirst($user->first_name)); } ?>
                                         <?php if($user->last_name){ echo(ucwords($user->last_name)); } ?>
                                 </b>
                             </h4>
@@ -32,7 +32,7 @@
                                 @foreach($work_histories as $work_history)
                                     @if($work_history->current_position)
                                         <span style="">
-                                            <b>{{ $work_history->position }},</b> 
+                                            <b>{{ $work_history->position }},</b>
                                             At: <b>{{$work_history->organization}}</b>
                                         </span>
                                     @endif
@@ -65,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!--Detailed Info -->
                 <div class="row">
                     <div class="col-md-8" style="text-align: left; margin: 15px; padding: 15px;">
@@ -82,7 +82,7 @@
                                 <div class="col-md-8">
                                     <span style=""><b>{{ $work_history->position }}</b></span> <br />
                                                                     {{ $work_history->organization }} <br />
-                                    <span style="">{{ $work_history->start_date }} 
+                                    <span style="">{{ $work_history->start_date }}
                                         to <?php if($work_history->current_position){ echo("Current"); }
                                                     else{echo($work_history->end_date);} ?>
                                     </span>
@@ -108,7 +108,7 @@
                             <div class="row" style="margin: 5px; padding: 5px; border-bottom: 1px black solid;">
                                 <!--Left side Logo-->
                                 <div class="col-md-2">
-                                    <img src="{{ url('assets/img/educationLogo.png') }}" alt="education logo" height="62" width="53" style="margin-top:4px;"> 
+                                    <img src="{{ url('assets/img/educationLogo.png') }}" alt="education logo" height="62" width="53" style="margin-top:4px;">
                                 </div>
                                 <div class="col-md-8">
                                     <span style="color: dimgray; font-size: 17px"><b>{{ $education->degree_name }}</b></span> <br />
@@ -119,7 +119,7 @@
                                                <td style="border: 1px solid black; padding-top: 4px; padding-bottom: 4px; padding-left: 8px; padding-right: 8px;">Year Passed: {{ $education->pass_year }}</td>
                                            </tr>
                                        </table>
-                                    <br />                               
+                                    <br />
                                 </div>
                             </div>
                             @endforeach
@@ -127,47 +127,47 @@
                     </div>
                 </div>
             </div>
-            
+
             <!--Calander Section (at right side) start-->
             <div class="col-md-3">
                 <h4 style="">Schedule Calender</h4>
                 <div class="panel panel-default">
                     <table class="table table-bordered" style="font-size: 11px; background-color: inherit; text-align: center; color: inherit;">
-                        <thead>  
+                        <thead>
                             <th style="background-color: lightgreen; text-align: center; padding: 3px;"><a href="{{ url('#') }}"><h6 style="color: black;"><b> &#9664; </b></h6></a></th>
                             <th colspan="5" style="background-color: lightblue; color: black; font-size: 18px; text-align: center; padding: 3px;">{{ $calender['monthName'] }} - {{ $calender['year']}}</th>
                             <th style="background-color: lightgreen; text-align: center; padding: 3px;"><a href=" {{ url('#') }}"><h6 style="color: black;"><b> &#9654; </b></h6></a></th>
-                        </thead>                    
-                        
+                        </thead>
+
                         <tr style="background-color: lightgrey; font-weight: bold; text-align: left;">
                             <td style='padding: 2px;'>Sun</td>
                             <td style='padding: 2px;'>Mon</td>
                             <td style='padding: 2px;'>Tue</td>
                             <td style='padding: 2px;'>Wed</td>
                             <td style='padding: 2px;'>Thu</td>
-                            <td style="color: red; padding: 3px;">Fri</td>  
+                            <td style="color: red; padding: 3px;">Fri</td>
                             <td style='padding: 2px;'>Sat</td>
                         </tr>
-                       @for($i = 0; $i < count($calender['calender']); $i++)                   
+                       @for($i = 0; $i < count($calender['calender']); $i++)
                             <tr>
                                 <?php $countDayInWeek = count($calender['calender'][$i]);
 
                                     for($j = 0; $j < $countDayInWeek; $j++){
                                 ?>
                                     <td style='padding: 2px;'>
-                                        @if((array_search($calender['calender'][$i][$j], $calender['calender'][$i]) == 5) || (isset($calender['calender'][$i][$j]['date']) && ($calender['calender'][$i][$j]['date'] == 5))) 
+                                        @if((array_search($calender['calender'][$i][$j], $calender['calender'][$i]) == 5) || (isset($calender['calender'][$i][$j]['date']) && ($calender['calender'][$i][$j]['date'] == 5)))
                                             @if(isset($calender['calender'][$i][$j]['date']))
                                                 <span style="">
                                                     {{ $calender['calender'][$i][$j]['date'] }}
                                                 </span>
-                                                <div style="font-size: 9.5px; background-color: yellowgreen;"> 
+                                                <div style="font-size: 9.5px; background-color: yellowgreen;">
                                                     <span style="color: blue;">
                                                         <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
                                                     </span>
                                                     <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?>
                                                     <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
                                                     <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
-                                                </div>    
+                                                </div>
                                             @else
                                                 <span style="color: red">
                                                     {{ $calender['calender'][$i][$j] }}
@@ -178,14 +178,14 @@
                                             @if(isset($calender['calender'][$i][$j]['date']))
 
                                                 {{ $calender['calender'][$i][$j]['date'] }}
-                                                <div style="font-size: 9.5px; background-color: yellowgreen;"> 
+                                                <div style="font-size: 9.5px; background-color: yellowgreen;">
                                                     <span style="">
                                                         <?php if(isset($calender['calender'][$i][$j]['chamberName'])){ print ($calender['calender'][$i][$j]['chamberName'] . ", ");} ?>
                                                     </span>
-                                                    <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?> 
+                                                    <?php if(isset($calender['calender'][$i][$j]['startTime'])){ print ($calender['calender'][$i][$j]['startTime']); print "-"; }  ?>
                                                     <?php if(isset($calender['calender'][$i][$j]['endTime'])){ print ($calender['calender'][$i][$j]['endTime'] . ", ");} ?>
                                                     <?php if(isset($calender['calender'][$i][$j]['consultFee'])){ print ("Fee - " . $calender['calender'][$i][$j]['consultFee'] . "/-");} ?>
-                                                </div>    
+                                                </div>
                                             @else
                                                 {{ $calender['calender'][$i][$j] }}
                                             @endif
@@ -201,15 +201,15 @@
                             </td>
                         </tr>
 
-                    </table>   
+                    </table>
                 </div>
             </div>
             <!--right side blank space holder-->
             <div class= "col-md-1"></div>
         </div>
-        
+
         <div class="row">
-            <div class="col-md-4"><a href='/'><button class='btn btn-primary'>Back</button></a></div>    
+            <div class="col-md-4"><a href='/'><button class='btn btn-primary'>Back</button></a></div>
         </div>
     </div>
 
@@ -218,20 +218,20 @@
 
 @section('jscript')
 
-<script type='text/javascript'> 
+<script type='text/javascript'>
         function changeBtnTxt(){
-            
+
             var target= event.target || event.srcElement;
             var id = target.id;
-            var txtElem = document.getElementById(id);               
+            var txtElem = document.getElementById(id);
             var text = txtElem.textContent || txtElem.innerText;
-            
+
             if (text.includes("See more")) {
-                
+
                 txtElem.textContent = "See less";
 
             }else{
-                
+
                 txtElem.textContent = "See more";
 
             }

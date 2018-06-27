@@ -167,14 +167,30 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
 
                 //Patient Search/Browse Route
                 Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+
                 //Patient filter pagination Route
                 Route::get('search/result/{pageNo}/{specialty}/{districtName}/{thanaName}/{area}', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+
                 //Patient Thana/Sub-District Ajax Call Route
                 Route::get('search/ajax/{districtVal}', ['as' => 'searchDoctorThanaList', 'uses' => 'SearchDoctorController@returnThanaList']);
+
                 //Patient Filter Form Submission Route
                 Route::post('search/result', ['as' => 'filterDoctorList', 'uses' => 'SearchDoctorController@viewSearchPage']);
+
                 //Registered Patient Appointment Route
-                Route::post('appointment/{DoctorID}/{PatientID}', ['as' => 'doctorAppointment', 'uses' => 'doctorAppointmentController@registeredAppointment']);
+                Route::post('appointment', ['as' => 'doctorAppointment', 'uses' => 'doctorAppointmentController@registeredAppointment']);
+
+                //Registered Patient Appointment Schedule ajax query Route
+                Route::get('appointment/getAjaxSchedule/{scheduleID}', ['as' => 'doctorAjaxSchedule', 'uses' => 'doctorAppointmentController@getAjaxSchedule']);
+
+                //Registered Patient Appointment Save Route
+                Route::post('appointment/save', ['as' => 'doctorAppointmentSave', 'uses' => 'doctorAppointmentController@registeredAppointmentSave']);
+
+                //Registered Patient Appointment Cancel Route
+                Route::get('appointment/cancel/{appointmentID}', ['as' => 'doctorAppointmentSave', 'uses' => 'doctorAppointmentController@registeredAppointmentCancel']);
+
+                //Registered Patient My Appointments Route
+                Route::get('myappointments/{pageNumber?}', ['as' => 'myAppointments', 'uses' => 'doctorAppointmentController@myAppointments']);
             });
         });
 

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Validator;
 use Image;
-use Carbon;
+// use Carbon;
 
 class PersonalInfoController extends Controller
 {
@@ -140,7 +140,7 @@ class PersonalInfoController extends Controller
             }else{
                 $fileName = $user_id .".". $avatar->getClientOriginalExtension();
                 //Resize and upload image ith image intervention
-                Image::make($avatar)->resize(300, 300)->save(public_path('storage/uploads/avatars/' . $fileName));
+                Image::make($avatar)->resize(300, 300)->save(public_path('assets/img/' . $fileName));
 
 
                 //query with personal_info table for record with input id
