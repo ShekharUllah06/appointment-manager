@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\doctor;
+namespace App\Http\Controllers\patient;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -24,7 +24,7 @@ class AccountSettingsController extends Controller
                       ->select('id', 'first_name', 'last_name', 'email')
                       ->first();
 
-       return view('doctor.account.accountSettings', ['userInfo' => $userInfo]);
+      return view('patient.account.accountSettings', ['userInfo' => $userInfo]);
     }
 
 
@@ -44,8 +44,8 @@ class AccountSettingsController extends Controller
         //Query User Table
         $userInfo_1 = User::find($request['userId']);
 
-         //Check if passed user id is logged in
-         if($request['userId'] == Auth::user()->id){
+       //Check if passed user id is logged in
+       if($request['userId'] == Auth::user()->id){
             $userInfo_1->first_name = $request['firstName'];
             $userInfo_1->last_name = $request['lastName'];
             $userInfo_1->email = $request['email'];

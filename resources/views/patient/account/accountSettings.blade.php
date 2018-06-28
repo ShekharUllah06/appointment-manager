@@ -1,5 +1,5 @@
-@extends('layouts.doctor')
-@section('title', 'Doctor Account Settings Page')
+@extends('layouts.patient')
+@section('title', 'Patient Account Settings Page')
 @section('description', 'Change Name, Email, Password')
 
 @section('content')
@@ -16,7 +16,7 @@
         <div class="col-md-1"></div>
         <div class="col-md-10">
             <!-- main section -->
-            <form action="{{url('doctor/account/saveInfo')}}" method="post" class="form-horizontal well" role="form">
+            <form action="{{url('patient/account/saveInfo')}}" method="post" class="form-horizontal well" role="form">
                 <input type="hidden" id="userId" name="userId" value="{{Auth::user()->id}}" maxlength="10"/>
                 <legend>Information</legend>
                 <fieldset>
@@ -58,7 +58,7 @@
             </form>
 
 
-            <form action="{{url('doctor/account/savePassword')}}" method="post" class="form-horizontal well" role="form">
+            <form action="{{url('patient/account/savePassword')}}" method="post" class="form-horizontal well" role="form">
                 <input type="hidden" id="userId" name="userId" value="{{Auth::user()->id}}"  maxlength="10"/>
                 <legend>Password</legend>
                 <fieldset>

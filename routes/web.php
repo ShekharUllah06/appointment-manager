@@ -30,14 +30,20 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
 //
         //Doctor's Panel Route
         Route::get('/doctor', ['as' => 'doctor.dashboard', 'uses' => 'doctor\PagesController@getDashboard', 'middleware' => 'auth']);
-        //Accounts Setting Change Route
-        Route::post('/doctor/account', ['as' => 'doctorAccountSettings', 'uses' => 'doctor\AccountSettingsController@showAccountSettings']);
-        Route::post('doctor/account/information', ['as' => 'doctorChangeInfo', 'uses' => 'doctor\AccountSettingsController@changeInformation']);
-        Route::post('doctor/account/password', ['as' => 'doctorChangePassword', 'uses' => 'doctor\AccountSettingsController@changePassword']);
+
+
 
         //Doctor Pannel Route Groups
         Route::group(['prefix' => 'doctor', 'middleware' => 'auth'], function(){
 
+            //Account Settings Page Route
+            Route::group(['namespace' => 'doctor'], function(){
+                Route::get('account', ['as' => 'doctorAccountSettings', 'uses' => 'AccountSettingsController@showAccountSettings']);
+
+                Route::post('account/saveInfo', ['as' => 'doctorChangeInfo', 'uses' => 'AccountSettingsController@changeInformation']);
+
+                Route::post('account/savePassword', ['as' => 'doctorChangePassword', 'uses' => 'AccountSettingsController@changePassword']);
+            });
 
             //schedule Page Route
             Route::group(['namespace' => 'doctor'], function(){
@@ -162,11 +168,21 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
         //Patient Pannel Route Groups
         Route::group(['prefix' => 'patient', 'middleware' => 'auth'], function(){
 
+
             //Patient Pannel Route Group
             Route::group(['namespace' => 'patient'], function(){
 
                 //Patient Search/Browse Route
                 Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
+
+                //Account Settings Page Route
+                Route::get('account', ['as' => 'patientAccountSettings', 'uses' => 'AccountSettingsController@showAccountSettings']);
+
+                //Account Settings Page Save Information Route
+                Route::post('account/saveInfo', ['as' => 'patientChangeInfo', 'uses' => 'AccountSettingsController@changeInformation']);
+
+                //Account Settings Page Save Password Route
+                Route::post('account/savePassword', ['as' => 'patientChangePassword', 'uses' => 'AccountSettingsController@changePassword']);
 
                 //Patient filter pagination Route
                 Route::get('search/result/{pageNo}/{specialty}/{districtName}/{thanaName}/{area}', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
