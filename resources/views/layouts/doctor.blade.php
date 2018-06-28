@@ -47,7 +47,8 @@
 </head>
 
 <body>
-
+  <!-- jQuery -->
+  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 
 
     <div id="wrapper">
@@ -70,21 +71,10 @@
 					@if (Auth::guest())
 					<a href="#"><i class="fa fa-user"></i> Unknown User</a>
 					@else
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"> </i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="{!! url('/doctor/blank') !!}"><i class="fa fa-fw fa-user"></i>Edit Profile</a>
-                        </li>
-                        <li>
-                            <a href="{!! url('/doctor/account') !!}"
-								onclick="event.preventDefault();
-										 document.getElementById('userId-form').submit();">
-								<i class="fa fa-fw fa-power-user"></i> Account Settings
-							</a>
-                            <form id="userId-form" action="{!! url('/doctor/account') !!}" method="POST" style="display: none;">
-                                <input type="hidden" name="userID" id="userId" value="{{ Auth::user()->id }}"/>
-                                {{ csrf_field() }}
-                            </form>
+                            <a href="{!! url('/doctor/account') !!}"><i class="fa fa-fw fa-wrench"></i> My Account</a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -167,8 +157,7 @@
 
 
 
-    <!-- jQuery -->
-    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+
     <!--<script src="https://ajax.googleapis(.)com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
 
     <!-- Plugin JavaScript -->

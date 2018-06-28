@@ -79,11 +79,11 @@
                         <a href="#"><i class="fa fa-user"></i> Unknown User</a>
 
                     @else
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"> </i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li>
-                                <a href="{!! url('/doctor/blank') !!}"><i class="fa fa-fw fa-user"></i>Edit Profile</a>
-                            </li>
+                          <li>
+                              <a href="{!! url('/patient/account') !!}"><i class="fa fa-fw fa-wrench"></i> My Account</a>
+                          </li>
 
                             <li class="divider"></li>
                             <li>
