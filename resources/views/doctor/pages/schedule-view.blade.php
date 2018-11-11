@@ -24,7 +24,7 @@
         <div class="col-sm-5"></div>
 
         <h2 style="margin-left: 15px; margin-top: 10px;">Schedule Card
-            <a href="{{url('doctor/schedule/new')}}">
+            <a href="{{url('doctor/schedules/new')}}">
                 <img src="{{url('assets/img/plus-t-2.png')}}" alt="add new" height="50px" width="50px" style=" margin-left: 7px; border: 1px lightgray solid; padding: 1px;" />
             </a>
         </h2>
@@ -41,7 +41,7 @@
                     <div class="card row" style="border-bottom: 1px solid black;">
 
                         <!--Right Side Edit Button-->
-                        <a href="{{ url('doctor/schedule/edit', ['scheduleId' => $schedule['schedule_id']])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
+                        <a href="{{ url('doctor/schedules/edit', ['scheduleId' => $schedule['schedule_id']])}}" style="float: right; padding-right: 10px; padding-top: 10px;">
                             <img src="{{url('assets/img/edit-t-1.png')}}" alt="edit schedule" height="35px" width="35px" style="float: right;" />
                         </a>
                         <div class="middle-info-coloumn col-sm-10" style="margin-left: 5px; margin-bottom: 8px; padding-right:5px;">

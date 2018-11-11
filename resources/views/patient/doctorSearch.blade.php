@@ -23,7 +23,7 @@
             <div class="row">
                 <!--Profile Image-->
                 <div class="col-md-3">
-                    <img src="{{ url('public/assets/img/'.$doctor['imageUrl']) }}" class="cardImage" alt="Profile Picture">
+                    <img src="{{url('public/assets/img/'.$doctor['imageUrl'])}}" class="cardImage" alt="Profile Picture">
 
                     <a href="{{url('/doctor_profile', ['DoctorID' => $doctor['id'], 'CalanderMonth' => \Carbon\Carbon::now()->format('Y-m-d')])}}"><button class="btn btn-default" style="margin-top: 10px;">View Profile</button></a>
                 </div>
@@ -157,8 +157,7 @@
 
                 <form action="{{url('patient/appointment')}}" method="post" >
                   <input type="hidden" value="{{$doctor['id']}}" name="DoctorID" />
-                  <input type="hidden" value="{{$doctor['chamber_id']}}" name="chamberID" />
-                  <input type="hidden" value="{{$doctor['chamber_name']}}" name="chamberName" />
+
                   <input type="hidden" value="{{Auth::user()->id}}" name="PatientID" />
 
                   {{csrf_field()}}

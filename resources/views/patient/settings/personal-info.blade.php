@@ -1,7 +1,7 @@
-@extends('layouts.doctor')
+@extends('layouts.patient')
 
 @section('title', 'Personal Information Page')
-@section('description', 'This is the Your Personal Information Page')
+@section('description', 'This is the Your Personal Informations Page')
 
 @section('content')
 <div class="container-fluid">
@@ -25,7 +25,7 @@
         <legend>Personal Information Edit Form</legend>
     <!--Starting the Avatar-Form--->
 
-        <form action="{{url('doctor/settings/personal-info/save_avatar')}}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+        <form action="{{url('patient/settings/personal-info/save_avatar')}}" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
 
          <!--Hidden User ID Field-->
 
@@ -61,7 +61,7 @@
 
         <!--Starting the Info-Form--->
 
-        <form action="{{url('doctor/settings/personal-info/save')}}" method="post" class="form-horizontal" role="form" style="padding-top: 1px;">
+        <form action="{{url('patient/settings/personal-info/save')}}" method="post" class="form-horizontal" role="form" style="padding-top: 1px;">
 
 
                     <fieldset>
@@ -409,14 +409,14 @@
                                 <button type="submit" class="btn btn-lg btn-info"><span class="glyphicon glyphicon-floppy-save"></span> Save</button>
                             </div>
                             <div class="col-sm-2" style="margin: 3px; padding: 3px;">
-                                <a href="/doctor/settings/personal-info"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
+                                <a href="/petient/settings/personal-info"><button type="button" class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-stop"></span> Cancel</button></a>
                             </div>
                         </div>
         <div class="col-md-4"></div>
 
         <!--Edit Button-->
             <button type="button" class="btn btn-lg btn-warning col-md-4" id="btnEdit" onclick="enableFields()"> <span class="glyphicon glyphicon-edit"> Edit </span></button>
-                    </fieldset>
+          </fieldset>
                     {{ csrf_field() }}
         </form>
         </div>
@@ -424,12 +424,11 @@
 </div>
 @endsection
 
-@section('jscript')
+@section('jscriptPatient')
 <!--Custom Java Script-->
 <script>
 
 //this JS function enables the form fields for editing
-
     function enableFields(){
         document.getElementById("showBTN_saveCancel").style.display = "block";
         document.getElementById("btnEdit").style.display = "none";
@@ -442,7 +441,6 @@
         document.getElementById("genderName").disabled = false;
 
     }
-
 
 </script>
 @endsection

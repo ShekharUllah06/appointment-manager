@@ -19,7 +19,7 @@ class education extends Model
      * @var array
      */
     protected $guarded = ['degree_name', 'user_id'];
-    
+
     /**
      * The attributes that are Primary Key.
      *
@@ -41,8 +41,20 @@ class education extends Model
      */
     protected $fillable = ['pass_year','institute_name'];
 
-    
-    
+
+
+
+    /**
+     *Relationship functions to chamber and schedule models
+     *
+     *
+     */
+    public function User(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+
+//function to set composit key
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){
@@ -53,6 +65,6 @@ class education extends Model
             return parent::setKeysForSaveQuery($query);
         }
     }
-    
-    
+
+
 }

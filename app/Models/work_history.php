@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class work_history extends Model
 {
    /**
-    * 
+    *
      * The database table used by the model.
      *
      * @var string
@@ -20,8 +20,8 @@ class work_history extends Model
      * @var array
      */
     protected $guarded = ['work_history_id', 'user_id'];
-    
-    
+
+
     protected $primarykey = array('work_history_id', 'user_id');
 
     /**
@@ -38,8 +38,20 @@ class work_history extends Model
      */
     protected $fillable = ['organization','position','description','start_date','end_date','current_position'];
 
-    
-    
+
+
+
+    /**
+     *Relationship functions to chamber and schedule models
+     *
+     *
+     */
+    public function User(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+
+//function to set composit key
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){
@@ -50,6 +62,6 @@ class work_history extends Model
             return parent::setKeysForSaveQuery($query);
         }
     }
-    
-    
+
+
 }

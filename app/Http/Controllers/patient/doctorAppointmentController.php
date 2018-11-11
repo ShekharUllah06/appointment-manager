@@ -29,31 +29,25 @@ class doctorAppointmentController extends Controller
      */
     protected function registeredAppointment(Request $request)
     {
-        $filterItems = [];
-        $count = 0;
-        $doctor = [];
-        $doctor_item = NULL;
-        $doctor_filteredList = [];
-        $selectedItems = [];
+        $schedules = [];
 
         // DB Query
         //User Table query
         $dbUser = User::select('id','first_name','last_name')
                       ->where('id', $request->DoctorID)
-                      ->get()
+                      ->first()
                       ->toArray();
 
         //personal_info Query
         $personalInfoData = personal_info::select('imageUrl')
                                           ->where('id', $request->DoctorID)
-                                          ->get()
+                                          ->first()
                                           ->toArray();
 
         //Assemble the user and personal_info part of infos
-        $doctor['id']       = $request->DoctorID;
-        $doctor['fullName'] = $dbUser[0]['first_name'] . " " . $dbUser[0]['last_name'];
-        $doctor['imageUrl'] = $personalInfoData[0]['imageUrl'];
-
+        $schedules['id']       = $request->DoctorID;
+        $schedules['fullName'] = $dbUser['first_name'] . " " . $dbUser['last_name'];
+        $schedules['imageUrl'] = $personalInfoData['imageUrl'];
         //Specialty Query
         $dbSpecialty = specialty::select('specialty')
                                 ->orderBy('specialty','asc')
@@ -62,7 +56,7 @@ class doctorAppointmentController extends Controller
                                 ->toArray();
           //change multi level result array to single level array and assign it to $doctor array Item
         foreach ($dbSpecialty as $key => $value) {
-          $doctor['specialty'][] = $value['specialty'];
+          $schedules['specialty'][] = $value['specialty'];
         }
 
         //Education Query
@@ -73,34 +67,34 @@ class doctorAppointmentController extends Controller
                                 ->toArray();
           //change multi level result array to single level array and assign it to $doctor array Item
         foreach ($dbEducation as $key => $value){
-          $doctor['degree_name'][] = $value['degree_name'];
+          $schedules['degree_name'][] = $value['degree_name'];
         }
 
-        //dbChamber query
-        $dbChamber =  chamber::select('chamber_name','address','thana','city','post_code','district')
-                ->where('chamber_id',$request->chamberID)
-                ->where('user_id', $request->DoctorID)
-                ->get()
-                ->toArray();
-
-        $doctor['chamber_name'] = $dbChamber[0]['chamber_name'];
-        $doctor['chamber_address'] = $dbChamber[0]['address'];
-        $doctor['chamber_thana'] = $dbChamber[0]['thana'];
-        $doctor['chamber_city'] = $dbChamber[0]['city'];
-        $doctor['chamber_post_code'] = $dbChamber[0]['post_code'];
-        $doctor['chamber_district'] = $dbChamber[0]['district'];
-
         //Schedule Query
-        $dbSchedule = schedule::select('schedule_id','schedule_date')
+        $dbSchedules = schedule::select('schedule_id','chamber_id','schedule_date')
                           ->where('user_id', $request->DoctorID)
-                          ->where('chamber_id', $request->chamberID)
-                          ->whereDate('schedule_date', '>=', Carbon::now('Asia/Dhaka')->toDateString()) // get schedules of >= date today
+                          ->whereDate('schedule_date', '>=', Carbon::now(+6)->toDateString())
                           ->get()
                           ->toArray();
+$tmp = $dbSchedules;
+                  $schedules['schedule'] = [];
 
-        $doctor['schedule'] = $dbSchedule;
+        foreach($dbSchedules as $dbschedule){
+          //dbChamber query
+          $dbChamber =  chamber::select('chamber_name')
+                  ->where('chamber_id', $dbschedule['chamber_id'])
+                  ->where('user_id', $request->DoctorID)
+                  ->first()
+                  ->toArray();
 
-        return view('patient.doctorAppointment', ['doctor'=>$doctor, 'tmp'=>$dbSchedule]);
+          $chamber['schedule_id'] = $dbschedule['schedule_id'];
+          $chamber['schedule_date'] = $dbschedule['schedule_date'];
+          $chamber['chamber_name'] = $dbChamber['chamber_name'];
+
+          $schedules['schedule'][] = $chamber;
+        }
+
+        return view('patient.doctorAppointment', ['schedules'=>$schedules]);
     }
 
 
@@ -113,25 +107,34 @@ class doctorAppointmentController extends Controller
    *
    * @return json array
    */
-    protected function getAjaxSchedule($scheduleID){
+    protected function getAjaxSchedule($userID, $scheduleID){
+      $chamber = [];
+
       //Schedule Query
-      $dbSchedule = schedule::select('schedule_id','schedule_date','start_time','end_time')
+      $dbSchedule = schedule::select('schedule_id','chamber_id','schedule_date','start_time','end_time')
                             ->where('schedule_id', $scheduleID)
-                            ->get()
+                            ->first()
                             ->toArray();
 
       $dbScheduleFormated =[];
 
-      $dbScheduleFormated['schedule_id'] = $dbSchedule[0]['schedule_id'];
-      $dbScheduleFormated['schedule_date'] = date('l', strtotime($dbSchedule[0]['schedule_date']))."  ".date('d-F-Y', strtotime($dbSchedule[0]['schedule_date']));
+      $dbChamber = chamber::select('chamber_name','address','thana','city','post_code','district')
+              ->where('chamber_id', $dbSchedule['chamber_id'])
+              ->where('user_id', $userID)
+              ->first()
+              ->toArray();
 
-      $dbScheduleFormated['start_time'] = date('h:i:s a', strtotime($dbSchedule[0]['start_time']));
+      $chamber['schedule_id'] = $dbSchedule['schedule_id'];
+      $chamber['schedule_date'] = date('l', strtotime($dbSchedule['schedule_date']))."  ".date('d-F-Y', strtotime($dbSchedule['schedule_date']));
 
-      $dbScheduleFormated['end_time'] = date('h:i:s a', strtotime($dbSchedule[0]['end_time']));
-      $dbScheduleFormated['serialNo'] = appointments::where('schedule_id', $scheduleID)
+      $chamber['start_time'] = date('h:i:s a', strtotime($dbSchedule['start_time']));
+
+      $chamber['end_time'] = date('h:i:s a', strtotime($dbSchedule['end_time']));
+      $chamber['chamber_details'] = $dbChamber['chamber_name'].", ".$dbChamber['address'].", ".$dbChamber['thana'].", ".$dbChamber['city'].", ".$dbChamber['post_code'].", ".$dbChamber['district'].".";
+      $chamber['serialNo'] = appointments::where('schedule_id', $scheduleID)
                                                     ->max('serial_number');
 
-      return response()->json($dbScheduleFormated);
+      return response()->json($chamber);
     }
 
 
@@ -143,10 +146,10 @@ class doctorAppointmentController extends Controller
        *
        * @return conformation and Serial Number array
        */
-    protected function registeredAppointmentSave(Request $request){
+    public function registeredAppointmentSave(Request $request){
 
       $validator = Validator::make($request->all(),[
-          'scheduleID' => 'integer|required|max:99999999999',
+          'scheduleDate' => 'integer|required|max:99999999999',
           'doctorID' => 'integer|required|max:9999999999',
           'patientID' => 'integer|required|max:9999999999',
       ]);
@@ -155,13 +158,13 @@ class doctorAppointmentController extends Controller
       if($validator->fails()){
         return redirect()
                 ->back()
-                ->with('message','Some Informations submited are not of desired format. Please contach site Admin!')
+                ->with('message','Some Informations submited are not of desired format. Please go back to privious page and click "Get Appointment". If the problem does not does no solve then contact site Admin!')
                 ->with('status', 'danger')
                 ->withInput()
                 ->withErrors($validator);
       }
 
-      $appointments = appointments::where('schedule_id', $request['scheduleID'])
+      $appointments = appointments::where('schedule_id', $request['scheduleDate'])
                                   ->where('patient_id', $request['patientID'])
                                   ->first();
 
@@ -170,12 +173,12 @@ class doctorAppointmentController extends Controller
           // new appoimntment record instance
           $appointments = new appointments;
 
-          $appointments->schedule_id = $request['scheduleID'];
+          $appointments->schedule_id = $request['scheduleDate'];
           $appointments->doctor_id = $request['doctorID'];
           $appointments->patient_id = $request['patientID'];
 
           //get last(highst) serial_number of this schedule_id
-          $serial_number = appointments::where('schedule_id', $request['scheduleID'])
+          $serial_number = appointments::where('schedule_id', $request['scheduleDate'])
                                       ->max('serial_number');
 
           // Assign Serial Number
@@ -199,19 +202,19 @@ class doctorAppointmentController extends Controller
           }
 
           // Get actual saved serial number
-          $serial_number_new = appointments::where('schedule_id', $request['scheduleID'])
+          $serial_number_new = appointments::where('schedule_id', $request['scheduleDate'])
                                             ->where('patient_id', $request['patientID'])
                                             ->max('serial_number');
           // On Successfull Save
           return redirect()
-                  ->route('myAppointments')
+                  ->route('myAppointments', ['tmp'=>"data saved"])
                   ->with('status', 'success')
                   ->with('message','Appointment made Successfully! Your Serial Number is:  '. $serial_number_new);
 
         }else{
           // On Failed Cancel
           return redirect()
-                  ->route('myAppointments')
+                  ->route('myAppointments', ['tmp'=>"data present"])
                   ->with('message','Appointment to this Doctor on this same Schedule already exist! Please click on "My Appointments" menu on left panel to view your appointments.')
                   ->with('status', 'danger');
         }
@@ -261,11 +264,12 @@ class doctorAppointmentController extends Controller
 
       //query appointments table
       $appointments = appointments::where('patient_id', $patient_id)
+                                  ->orderBy('schedule_id', 'DSC') //order by not working
                                   ->get()
                                   ->toArray();
 
       if(count($appointments) == 0){
-        $myAppointmentsArray = null;
+        $myAppointmentsArray = NULL;
         return view('patient.myAppointments', ['myAppointmentsArray'=>$myAppointmentsArray]);
       }
       // Iterate over appointments table query result and assamble a myAppointments array
@@ -286,13 +290,13 @@ class doctorAppointmentController extends Controller
                                       ->first();
 
           // Query schedule table
-          $schedules = schedule::select('schedule_date', 'start_time', 'end_time', 'chamber_id')
+          $scheduleQuery = schedule::select('schedule_date', 'start_time', 'end_time', 'chamber_id')
                                ->where('schedule_id', $appointment['schedule_id'])
                                ->whereDate('schedule_date', '>=', Carbon::now('Asia/Dhaka')->toDateString()) // get schedules of >= date today
                                ->first();
           // Query Chamber Table
           $chamber = chamber::select('chamber_name', 'consult_fee', 'telephone_number1', 'mobile_number1', 'address', 'thana', 'city', 'district')
-                            ->where('chamber_id', $schedules['chamber_id'])
+                            ->where('chamber_id', $scheduleQuery['chamber_id'])
                             ->first();
 
           // Assamble $myAppointment array
@@ -303,9 +307,9 @@ class doctorAppointmentController extends Controller
           $myAppointment['last_name']      = $doctor['last_name'];
           $myAppointment['imageUrl']       = $personal_info['imageUrl'];
           $myAppointment['position']       = $work_history['position'];
-          $myAppointment['start_time']     = $schedules['start_time'];
-          $myAppointment['end_time']       = $schedules['end_time'];
-          $myAppointment['schedule_date']  = $schedules['schedule_date'];
+          $myAppointment['start_time']     = $scheduleQuery['start_time'];
+          $myAppointment['end_time']       = $scheduleQuery['end_time'];
+          $myAppointment['schedule_date']  = $scheduleQuery['schedule_date'];
           $myAppointment['chamber_name']   = $chamber['chamber_name'];
           $myAppointment['address']        = $chamber['address'];
           $myAppointment['consult_fee']    = $chamber['consult_fee'];

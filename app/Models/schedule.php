@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class schedule extends Model
 {
    /**
-    * 
+    *
      * The database table used by the model.
      *
      * @var string
@@ -20,7 +20,7 @@ class schedule extends Model
      * @var array
      */
     protected $guarded = ['schedule_id', 'user_id', 'chamber_id'];
-    
+
     /**
      * The attributes that are Primary Key.
      *
@@ -42,14 +42,31 @@ class schedule extends Model
      */
     protected $fillable = ['schedule_date','start_time','end_time'];
 
-    
+
+
     /**
-     *Relationship functions to chamber and schedule models
+     *Relationship functions to other models
      *
      *
      */
+    public function appointments_doctor(){
+        return $this->hasMany('App\Models\appointments', 'doctor_id');
+    }
 
-    
+    public function appointments_patient(){
+        return $this->hasMany('App\Models\appointments', 'patient_id');
+    }
+
+    public function User(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+    public function chamber(){
+        return $this->belongsTo('App\Models\chamber');
+    }
+
+
+//function to set composit key
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){
@@ -60,9 +77,5 @@ class schedule extends Model
             return parent::setKeysForSaveQuery($query);
         }
     }
-//
-//        public function chambers(){
-//           return $this->belongsTo('App\Models\chamber', 'chamber_id');
-//    }
-    
+
 }

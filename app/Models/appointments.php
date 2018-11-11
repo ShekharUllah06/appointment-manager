@@ -38,7 +38,27 @@ class appointments extends Model
      *
      * @var array
      */
-    protected $fillable = ['doctor_id','patient_id', 'schedule_id', 'serial_number'];
+    protected $fillable = ['doctor_id','patient_id', 'schedule_id', 'serial_number', 'status'];
 
     protected $dates = ['deleted_at'];
+
+
+    /**
+     *Relationship functions to chamber and schedule models
+     *
+     *
+     */
+    public function schedules(){
+           return $this->belongsTo('App\Models\schedule');
+    }
+
+    public function User_doctor(){
+          return $this->belongsTo('App\Models\User', 'doctor_id');
+    }
+
+    public function User_patient(){
+          return $this->belongsTo('App\Models\User', 'patient_id');
+    }
+
+
 }

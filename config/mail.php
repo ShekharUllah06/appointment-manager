@@ -13,7 +13,7 @@ return [
     |            "ses", "sparkpost", "log"
     |
     */
-    'driver' => env('MAIL_DRIVER', 'sendmail'),
+    'driver' => env('MAIL_DRIVER', 'mail'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -35,7 +35,7 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', ),
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -48,7 +48,7 @@ return [
     */
     'from' => [
         'address' => '',
-        'name' => 'Auto Response',
+        'name' => '',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
     | transport layer security protocol should provide great security.
     |
     */
-    'encryption' => env('MAIL_ENCRYPTION', 'starttls'),
+    'encryption' => env('MAIL_ENCRYPTION', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username

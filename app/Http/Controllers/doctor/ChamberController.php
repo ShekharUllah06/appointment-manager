@@ -53,12 +53,12 @@ class ChamberController extends Controller
      * @return array
      */
     public function editChamberForm($cId)
-{       $auth_user_id = Auth::user()->id;
-        $chamber_id = $cId;
-        $chamberFormType = "edit";
-        $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
+    {           $auth_user_id = Auth::user()->id;
+                $chamber_id = $cId;
+                $chamberFormType = "edit";
+                $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
 
-        return view('doctor.pages.settings.chamber-form', ['chamber'=>$chamber,'chamberFormType', $chamberFormType]);
+                return view('doctor.pages.settings.chamber-form', ['chamber'=>$chamber,'chamberFormType', $chamberFormType]);
     }
 
 
@@ -108,17 +108,18 @@ class ChamberController extends Controller
 
           //getting input chamberId from the form
             $chamberId = $request->input('chamberId');
-            $chamber = chamber::where('user_id', $auth_user_id)
-                                ->where('chamber_id', $chamberId)
-                                ->first();
+            $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamberId)->first();
+
         }else{
+
             //create new record
             $chamber = new chamber;
 
-            $chamber->user_id = $auth_user_id;
-            $chamber->chamber_id = $request->input('chamberId');
+                $chamber->user_id = $auth_user_id;
+                $chamber->chamber_id = $request->input('chamberId');
 
         }
+
 
             //assign form datas to model fields
             $chamber->chamber_name      = $request->input('chamber_name');
@@ -143,10 +144,10 @@ class ChamberController extends Controller
             }catch(\Illuminate\Database\QueryException $ex){
 
                 return redirect()
-                        ->back()
-                        ->with('message','Warning!! Please check that the chamber Id that you have provided is unique, "Chambr ID" and "Chamber Name" fields are reqired.  And all other data(optional) are of desired type. Then try again!')
-                        ->with('status', 'danger')
-                        ->withInput();
+                ->back()
+                ->with('message','Warning!! Please check that the chamber Id that you have provided is unique, "Chambr ID" and "Chamber Name" fields are reqired.  And all other data(optional) are of desired type. Then try again!')
+                ->with('status', 'danger')
+                ->withInput();
             }
 
             return redirect()
@@ -162,18 +163,18 @@ class ChamberController extends Controller
      *
      * @return redirect
      */
-    public function removeChamber($cId){
-        $auth_user_id = Auth::user()->id;
-        $chamber_id = $cId;
+    public function removeChamber($cId)
+    {           $auth_user_id = Auth::user()->id;
+                $chamber_id = $cId;
 
-        $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
+                $chamber = chamber::where('user_id', $auth_user_id)->where('chamber_id', $chamber_id)->first();
 
-        $chamber->delete();
+                $chamber->delete();
 
-        return redirect()
-                ->route('doctorChamber')
-                ->with('message','Chamber Information Removed Seccessfully!')
-                ->with('status', 'success');
+                    return redirect()
+                    ->route('doctorChamber')
+                    ->with('message','Chamber Information Removed Seccessfully!')
+                    ->with('status', 'success');
     }
 
 }

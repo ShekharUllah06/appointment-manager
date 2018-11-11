@@ -49,22 +49,32 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
             Route::group(['namespace' => 'doctor'], function(){
 
                 //Schedule Page Route
-                Route::get('schedule', ['as' => 'doctorSchedule', 'uses' => 'ScheduleController@viewScheduleList']);
+                Route::get('schedules', ['as' => 'doctorSchedule', 'uses' => 'ScheduleController@viewScheduleList']);
 
                 //Schedule New Route
-                Route::get('schedule/new', ['as' => 'doctorScheduleNew', 'uses' => 'ScheduleController@newScheduleForm']);
+                Route::get('schedules/new', ['as' => 'doctorScheduleNew', 'uses' => 'ScheduleController@newScheduleForm']);
 
                //Schedule Edit Route
-                Route::get('schedule/edit/{scheduleId}', ['as' => 'doctorScheduleEdit', 'uses' => 'ScheduleController@editScheduleForm']);
+                Route::get('schedules/edit/{scheduleId}', ['as' => 'doctorScheduleEdit', 'uses' => 'ScheduleController@editScheduleForm']);
 
                 //Schedule Save Route
-                Route::post('schedule/save', ['as' => 'doctorScheduleSave', 'uses' => 'ScheduleController@saveSchedule']);
+                Route::post('schedules/save', ['as' => 'doctorScheduleSave', 'uses' => 'ScheduleController@saveSchedule']);
 
                 //Schedule Remove Route
-                Route::get('schedule/remove/{scheduleId}', ['as' => 'doctorScheduleRemove', 'uses' => 'ScheduleController@removeSchedule']);
+                Route::get('schedules/remove/{scheduleId}', ['as' => 'doctorScheduleRemove', 'uses' => 'ScheduleController@removeSchedule']);
 
             });
 
+
+            //doctor appointments Page Route
+            Route::group(['namespace' => 'doctor'], function(){
+
+                //Appointments Page Route with/without schedule_id
+                Route::get('appointments', ['as' => 'doctorAppointments', 'uses' => 'AppointmentsController@viewAppointments']);
+
+                //Appointments Confirm Route
+                Route::get('appointments/ajaxConfirm/{action}/{appointmentsId}/{userID}', ['as' => 'doctorAppointmentsConfirm', 'uses' => 'AppointmentsController@confirmAppointments']);
+            });
 
             //
             //
@@ -173,6 +183,9 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
             Route::group(['namespace' => 'patient'], function(){
 
                 //Patient Search/Browse Route
+                Route::get('notifications', ['as' => 'patientNotifications', 'uses' => 'PatientNotificationsController@viewNotifications']);
+
+                //Patient Search/Browse Route
                 Route::get('search', ['as' => 'searchDoctor', 'uses' => 'SearchDoctorController@viewSearchPage']);
 
                 //Account Settings Page Route
@@ -197,16 +210,28 @@ Route::get('/doctor_profile/{doctorID}/{calanderMonth?}', ['as' => 'doctorProfil
                 Route::post('appointment', ['as' => 'doctorAppointment', 'uses' => 'doctorAppointmentController@registeredAppointment']);
 
                 //Registered Patient Appointment Schedule ajax query Route
-                Route::get('appointment/getAjaxSchedule/{scheduleID}', ['as' => 'doctorAjaxSchedule', 'uses' => 'doctorAppointmentController@getAjaxSchedule']);
+                Route::get('appointment/getAjaxSchedule/{userID}/{scheduleID}', ['as' => 'doctorAjaxSchedule', 'uses' => 'doctorAppointmentController@getAjaxSchedule']);
 
                 //Registered Patient Appointment Save Route
                 Route::post('appointment/save', ['as' => 'doctorAppointmentSave', 'uses' => 'doctorAppointmentController@registeredAppointmentSave']);
 
                 //Registered Patient Appointment Cancel Route
-                Route::get('appointment/cancel/{appointmentID}', ['as' => 'doctorAppointmentSave', 'uses' => 'doctorAppointmentController@registeredAppointmentCancel']);
+                Route::get('appointment/cancel/{appointmentID}', ['as' => 'doctorAppointmentCancel', 'uses' => 'doctorAppointmentController@registeredAppointmentCancel']);
 
                 //Registered Patient My Appointments Route
                 Route::get('myappointments/{pageNumber?}', ['as' => 'myAppointments', 'uses' => 'doctorAppointmentController@myAppointments']);
+
+                //personal-info Page Route
+                Route::group(['prefix' => 'settings/personal-info'], function(){
+                        //view route
+                            Route::get('/', ['as' => 'patientPersonalInfo', 'uses' => 'PersonalInfoController@viewPersonalInfo']);
+
+                        //personal-info information Save Route
+                            Route::post('/save', ['as' => 'PatientPersonalInfoSave', 'uses' => 'PersonalInfoController@savePersonalInfo']);
+
+                        //personal-info avatar/image Save Route
+                            // Route::post('/save_avatar', ['as' => 'doctorPersonalInfoSave', 'uses' => 'PersonalInfoController@saveAvatar']);
+                });
             });
         });
 
