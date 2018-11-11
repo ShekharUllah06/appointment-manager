@@ -28,7 +28,7 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 ### On Patient Portion
 - Simple, Easy and Free registration,
 - Setup Personal Info,
-- Search/Brows/View Doctors Profile,
+- Search/Browse/View Doctors Profile,
 - View Schedules in calender view,
 - Book an Appointment on schedule dates,
 
@@ -43,5 +43,4 @@ Appointment-Manager is now in it's development phase for it's Future Release. It
 -  [Intervention Image](http://image.intervention.io) library.
 
 ## Contributions
-
 Until now this project is Co-Developed by [Shekhar Abdullah](https://github.com/ShekharUllah06/) and [Zaki Hashem Chowdhury](https://github.com/zaki-hashem-chow/).
