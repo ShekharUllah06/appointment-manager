@@ -20,7 +20,7 @@
 
     <!--Starting the Form--->
 
-    <form action="{{url('doctor/schedule/save')}}" method="post" class="well form-horizontal" id="scheduleForm" role="form">
+    <form action="{{url('doctor/schedules/save')}}" method="post" class="well form-horizontal" id="scheduleForm" role="form">
         <legend>Schedule Information Form</legend>
 
         <fieldset>

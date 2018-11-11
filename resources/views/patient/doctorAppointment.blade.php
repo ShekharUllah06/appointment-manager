@@ -13,21 +13,21 @@
   <div class="row">
       <!--Profile Image-->
       <div class="col-md-3">
-          <img height="180px" style="height: 170px; width: 170px; border-radius: 20%;" src="{{ url('public/assets/img/'.$doctor['imageUrl']) }}" alt="Profile Picture" />
+          <img height="180px" style="height: 170px; width: 170px; border-radius: 20%;" src="{{ url('public/assets/img/'.$schedules['imageUrl']) }}" alt="Profile Picture" />
       </div>
       <!--Short Description-->
       <div class="col-md-8 shortDescription">
           <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
               <h4>
                   <b>
-                      {{ ucfirst($doctor['fullName']) }}
+                      {{ ucfirst($schedules['fullName']) }}
                   </b>
               </h4>
           </div>
           <div class="row"  style="margin-bottom: 5px;">
               <span>
-                  <?php if(isset($doctor['position'])){
-                                print("<b>Position: </b>".$doctor['position']);
+                  <?php if(isset($schedules['position'])){
+                                print("<b>Position: </b>".$schedules['position']);
                           }else{
                                 print("<b>Position: </b>"."Unknown Job Position");
                           }
@@ -36,9 +36,9 @@
           </div>
           <div class="row" style="margine-top: 5px; margin-bottom: 5px;">
               <span>
-                  <?php if(isset($doctor['organization'])){
+                  <?php if(isset($schedules['organization'])){
                                 print("<b>Organization: </b>");
-                                print($doctor['organization']);
+                                print($schedules['organization']);
                           }else{
                                 print("<b>Organization: </b>");
                                 print("Unknown Organization");
@@ -47,19 +47,19 @@
               </span>
           </div>
           <div class="row" style="margine-top: 5px; margin-bottom: 5px;">
-              @if(count($doctor['degree_name']) < 1)
+              @if(count($schedules['degree_name']) < 1)
                   <!--Education Information not yet submitted.-->
               @else
                   <span>
-                      <b>Degree:</b> {{ $doctor['degree_name'][0] }}
+                      <b>Degree:</b> {{ $schedules['degree_name'][0] }}
                   </span>
-                  @if(count($doctor['degree_name']) > 1)
+                  @if(count($schedules['degree_name']) > 1)
                       <div class="collapse" id="deg{{ $i }}">
                           <?php $j = 1;
-                                for($j; $j<count($doctor['degree_name']); $j++){
+                                for($j; $j<count($schedules['degree_name']); $j++){
                           ?>
                               <span style="margin-left: 3px;">
-                                  {{ $doctor['degree_name'][$j] }}<br />
+                                  {{ $schedules['degree_name'][$j] }}<br />
                               </span>
                           <?php } ?>
                       </div>
@@ -70,19 +70,19 @@
               @endif
           </div>
           <div class="row" style="margin-top: 5px; margin-bottom: 5px;">
-              @if(count($doctor['specialty']) < 1)
+              @if(count($schedules['specialty']) < 1)
                   Specialties Information not yet submitted.
               @else
                   <span>
-                      <b>Specialties: </b> {{ $doctor['specialty'][0] }}
+                      <b>Specialties: </b> {{ $schedules['specialty'][0] }}
                   </span>
-                  @if(count($doctor['specialty']) > 1)
+                  @if(count($schedules['specialty']) > 1)
                       <div class="collapse" id="sec{{ $i }}">
                           <?php $k = 0;
-                                for($k; $k<count($doctor['specialty']); $k++){
+                                for($k; $k<count($schedules['specialty']); $k++){
                           ?>
                               <span style="margin-left: 3px;">
-                                  {{ $doctor['specialty'][$k] }}<br />
+                                  {{ $schedules['specialty'][$k] }}<br />
                               </span>
                           <?php } ?>
                       </div>
@@ -103,22 +103,21 @@
       <fieldset>
         <div class="row form-group">
           <div  class="col-md-3">
-            <label for="scheduleDate">Available Schedule Dates:</label>
+            <label for="scheduleDate">Available Schedules:</label>
           </div>
-          <div class="col-md-4">
-            <input type="hidden" id="doctorID" name="doctorID" value="{{ $doctor['id'] }}" />
+          <div class="col-md-5">
+            <input type="hidden" id="doctorID" name="doctorID" value="{{ $schedules['id'] }}" />
             <input type="hidden" id="patientID" name="patientID" value="{{ Auth::user()->id }}" />
-            <input type="hidden" id="scheduleID" name="scheduleID" value="" />
 
-            <select id="scheduleDate" name="scheduleDate" class="col-md-3 form-control">
-              @foreach($doctor['schedule'] as $schedule)
+            <select id="scheduleDate" name="scheduleDate" class="col-md-4 form-control">
+              @foreach($schedules['schedule'] as $schedule)
                 <option value="{{$schedule['schedule_id']}}">
-                  {{ date('l', strtotime($schedule['schedule_date']))." ".date('d-m-Y', strtotime($schedule['schedule_date'])) }}
-                </option>
+                  {{ date('l', strtotime($schedule['schedule_date']))." ".date('d-m-Y', strtotime($schedule['schedule_date']))." @ ". $schedule['chamber_name']}}
+                </option>//include chamber id
               @endforeach
             </select>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-3">
             <p style="font-size:small; color: blue;">* You have to select a schedule from dropdown menu left/above before clicking Submit Button.
             </p>
           </div>
@@ -128,7 +127,7 @@
           <div  class="col-md-3">
             <label for="date">Date:</label>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <input type="text" class="form-control" id="date" name="" value="" disabled />
           </div>
         </div>
@@ -136,7 +135,7 @@
           <div class="col-md-3">
             <label for="timeFrom">Time Starting from:</label>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <input type="text" class="form-control" id="timeFrom" name="" value="" disabled />
           </div>
         </div>
@@ -144,7 +143,7 @@
           <div class="col-md-3">
             <label for="timeTo">To:</label>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-5">
             <input type="text" class="form-control" id="timeTo" name="" value="" disabled />
           </div>
         </div>
@@ -152,8 +151,8 @@
           <div class="col-md-3">
             <label for="timeTo">Chamber Details:</label>
           </div>
-          <div class="col-md-4">
-            <textarea type="text" class="form-control" id="chamberName" name="" rows="4" disabled>{{ ucfirst($doctor['chamber_name']) }}, {{ ucfirst($doctor['chamber_address']) }}, {{ ucfirst($doctor['chamber_thana']) }}, {{ ucfirst($doctor['chamber_city']) }}, {{ ucfirst($doctor['chamber_post_code']) }}, {{ ucfirst($doctor['chamber_district']) }}
+          <div class="col-md-5">
+            <textarea type="text" class="form-control" id="chamberDetails" name="" rows="4" disabled>
             </textarea>
           </div>
         </div>
@@ -185,33 +184,33 @@
     <?php $i++; ?>
 </div>
 
-
-
 @endsection
 
 @section('jscriptPatient')
 <script>
   // function getAjaxSchedule(scheduleID){
-        $(document).ready(function(scheduleID){
+        $(document).ready(function(userID, scheduleID){
           $("#scheduleDate").click(function(){
             let myUrl = "/patient/appointment/getAjaxSchedule/";
-            scheduleID = $("#scheduleDate").val();
+            let scheduleID = $(this).val();
+            let doctorID = $("#doctorID").val();
 
             $.ajax({
-              url: myUrl + scheduleID,
+              url: myUrl + doctorID +"/"+ scheduleID,
               type: "GET",
               contentType: "application/json",
               dataType: "json",
               success: function(data){
-                $("#date").val(data['schedule_date']);
-                $("#timeFrom").val(data['start_time']);
-                $("#timeTo").val(data['end_time']);
-                $("#scheduleID").val(data['schedule_id']);
-                if(data['serialNo']){
-                  $("#serialNo").val(data['serialNo']+1); // query and get last serial number.
-                }else{
-                  $("#serialNo").val('1'); // query and get last serial number.
-                }
+                  $("#date").val(data['schedule_date']);
+                  $("#timeFrom").val(data['start_time']);
+                  $("#timeTo").val(data['end_time']);
+                  $("#chamberDetails").val(data['chamber_details']);
+
+                  if(data['serialNo']){
+                    $("#serialNo").val(data['serialNo']+1); // query and get last serial number.
+                  }else{
+                    $("#serialNo").val('1'); // query and get last serial number.
+                  }
               },
               error: function(data){
                 console.log("AJAX error in request: " + JSON.stringify(data, null, 2));

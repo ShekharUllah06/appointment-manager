@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class specialty extends Model
 {
    /**
-    * 
+    *
      * The database table used by the model.
      *
      * @var string
@@ -20,8 +20,8 @@ class specialty extends Model
      * @var array
      */
     protected $guarded = ['user_id'];
-    
-  
+
+
     protected $primarykey = array('specialty', 'user_id');
 
     /**
@@ -32,7 +32,22 @@ class specialty extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     protected $fillable = ['specialty'];
-        
+
+
+
+
+    /**
+     *Relationship functions to chamber and schedule models
+     *
+     *
+     */
+    public function User(){
+        return $this->belongsTo('App\Models\User');
+    }
+
+
+
+//function to set composit key
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){
@@ -43,6 +58,6 @@ class specialty extends Model
             return parent::setKeysForSaveQuery($query);
         }
     }
-    
-    
+
+
 }

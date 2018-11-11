@@ -11,7 +11,7 @@
 
     <title>@yield('title')</title>
 
-	<meta name="description" content="@yield('description')">
+	  <meta name="description" content="@yield('description')">
 
     <!-- Bootstrap Core CSS -->
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -35,7 +35,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <script>
         window.Laravel = <?php echo json_encode([
@@ -47,10 +47,6 @@
 </head>
 
 <body>
-  <!-- jQuery -->
-  <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
-
-
     <div id="wrapper">
 
         <!-- Navigation --->
@@ -71,7 +67,7 @@
 					@if (Auth::guest())
 					<a href="#"><i class="fa fa-user"></i> Unknown User</a>
 					@else
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"> </i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
+    					<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"> </i> {{ ucfirst(Auth::user()->first_name) }} {{ ucfirst(Auth::user()->last_name) }} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
                             <a href="{!! url('/doctor/account') !!}"><i class="fa fa-fw fa-wrench"></i> My Account</a>
@@ -93,18 +89,22 @@
 
                 </li>
             </ul>
+
+            @auth
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li id="dashboardMenuItem">
                         <a href="{{ url('/doctor') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
-
+                    <!--Booked Appointments List's Menu Item-->
+                    <li id="scheduleMenuItem">
+                        <a href="{{ url('/doctor/appointments') }}"><i class="fa fa-fw fa-list"></i> Appointments</a>
+                    </li>
                     <!--Schedule Menu Item-->
                     <li id="scheduleMenuItem">
-                        <a href="{{ url('/doctor/schedule') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
+                        <a href="{{ url('/doctor/schedules') }}"><i class="fa fa-fw fa-table"></i> Schedule</a>
                     </li>
-
                     <!--Settings Menu Item-->
                    <li id = "settingCollapseMenuItemLI" class="collapsed" data-toggle="collapse" data-target="#submenu-collapse" aria-expanded='false'>
 
@@ -141,12 +141,14 @@
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
+            @endauth
         </nav>
 
         <div id="page-wrapper">
-                        <!--// All the Contents goes here-->
-			@yield('content')
-
+          <!--// All the Contents goes here-->
+          @auth
+			       @yield('content')
+          @endauth
         </div>
         <!-- /#page-wrapper -->
 
@@ -155,14 +157,7 @@
         <!-- in page scripts -->
         @yield('jscript')
 
-
-
-
-    <!--<script src="https://ajax.googleapis(.)com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-
-    <!-- Plugin JavaScript -->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>-->
-
+    <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
@@ -190,16 +185,19 @@
                 $('#dashboardMenuItem').addClass('activeMenuItem');
             }
 
-//        Sub-menu hold collapse
+  //        Sub-menu hold collapse
             if(window.location.href.indexOf("/doctor/settings/") != -1){
-                document.getElementById("settingCollapseMenuItemLI").classList.remove("collapsed");
-                document.getElementById("settingCollapseMenuItemLI").classList.add("active");
-                document.getElementById("settingCollapseMenuItemLI").setAttribute('aria-expanded', 'true');
+              let settingMenuItem = document.getElementById("settingCollapseMenuItemLI");
+              let submenuCollapse = document.getElementById("submenu-collapse");
 
-                document.getElementById("submenu-collapse").classList.remove("sub-menu");
-                document.getElementById("submenu-collapse").classList.add("in");
-                document.getElementById("submenu-collapse").setAttribute("aria-expanded", "true");
-                document.getElementById("submenu-collapse").setAttribute("style", "");
+                settingMenuItem.classList.remove("collapsed");
+                settingMenuItem.classList.add("active");
+                settingMenuItem.setAttribute('aria-expanded', 'true');
+
+                submenuCollapse.classList.remove("sub-menu");
+                submenuCollapse.classList.add("in");
+                submenuCollapse.setAttribute("aria-expanded", "true");
+                submenuCollapse.setAttribute("style", "");
             }
     </script>
 </body>

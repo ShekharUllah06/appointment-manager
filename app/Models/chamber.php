@@ -19,12 +19,12 @@ class chamber extends Model
      * @var array
      */
     protected $guarded = ['chamber_id', 'user_id'];
-    
+
     /**
      * The attributes that are Primary Key.
      *
      * @var array
-     */    
+     */
     protected $primarykey = array('chamber_id', 'user_id');
 
     /**
@@ -43,14 +43,22 @@ class chamber extends Model
         'mobile_number1','telephone_number2','telephone_number3','mobile_number2',
         'mobile_number3','city','post_code','district','thana'];
 
-    
-    /**
-     *Relationship functions to chamber and schedule models
-     *
-     *
-     */
 
-    
+        /**
+         *Relationship functions to other models
+         *
+         *
+         */
+        public function schedule(){
+              return $this->hasMany('App\Models\schedule');
+        }
+
+        public function User(){
+              return $this->belongsTo('App\Models\User');
+        }
+
+
+//function to set composit key
     protected function setKeysForSaveQuery(\Illuminate\Database\Eloquent\Builder $query) {
         if(is_array($this->primarykey)){
             foreach($this->primarykey as $pk){
@@ -63,6 +71,6 @@ class chamber extends Model
     }
 //     public function schedules(){
 //           return $this->hasMany('App\Models\schedule', 'schedule_id');
-//    }   
-//    
+//    }
+//
 }

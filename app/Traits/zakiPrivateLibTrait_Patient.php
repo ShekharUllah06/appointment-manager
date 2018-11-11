@@ -8,6 +8,8 @@
 namespace App\Traits;
 
 use App\Models\education;
+use App\Models\User;
+use App\Models\schedule;
 
 
 trait zakiPrivateLibTrait_Patient{
@@ -28,6 +30,8 @@ trait zakiPrivateLibTrait_Patient{
                                 ->leftjoin('specialty', 'users.id', '=', 'specialty.user_id')
                                 ->get()
                                 ->toArray();
+
+        // $doctorFilterQuery = schedule::find(2);
 
         return $doctorFilterQuery;
     }

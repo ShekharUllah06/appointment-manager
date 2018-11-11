@@ -13,7 +13,7 @@ return [
     |            "ses", "sparkpost", "log"
     |
     */
-    'driver' => env('MAIL_DRIVER', 'sendmail'),
+    'driver' => env('MAIL_DRIVER', 'mail'),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -24,7 +24,7 @@ return [
     | the Mailgun mail service which will provide reliable deliveries.
     |
     */
-    'host' => env('MAIL_HOST', 'mail.mydoctorbd.com'),
+    'host' => env('MAIL_HOST', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -35,7 +35,7 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', ),
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -47,8 +47,8 @@ return [
     |
     */
     'from' => [
-        'address' => 'account_activation@mydoctorbd.com',
-        'name' => 'Auto Response',
+        'address' => '',
+        'name' => '',
     ],
     /*
     |--------------------------------------------------------------------------
@@ -60,7 +60,7 @@ return [
     | transport layer security protocol should provide great security.
     |
     */
-    'encryption' => env('MAIL_ENCRYPTION', 'starttls'),
+    'encryption' => env('MAIL_ENCRYPTION', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
@@ -71,7 +71,7 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-    'username' => env('MAIL_USERNAME', 'account_activation@mydoctorbd.com'),
+    'username' => env('MAIL_USERNAME', ''),
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Password
@@ -82,7 +82,7 @@ return [
     | connection so that the application will be able to send messages.
     |
     */
-    'password' => env('MAIL_PASSWORD', 'jQMpi~lI[x},'),
+    'password' => env('MAIL_PASSWORD', ''),
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path

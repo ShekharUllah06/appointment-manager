@@ -3,20 +3,20 @@
 @section('title', 'Specialties Page')
 @section('description', 'This is the Specialties Page')
 
-@section('content')  
+@section('content')
 <div class="container-fluid">
-        <div class="row">                
+        <div class="row">
             <ol class="breadcrumb">
                 <li class="active">
                     <i class="fa fa-dashboard"></i> Specialties Page
                 </li>
             </ol>
                 @include('notifications.status_message')
-                @include('notifications.errors_message')           
+                @include('notifications.errors_message')
         </div>
 
-    <div class="row" style="border:0px"> 
-        
+    <div class="row" style="border:0px">
+
 <!--Starting the Specialty Add Form--->
         <form action="{{url('doctor/settings/specialties/save')}}" method="post" class="form-horizontal " role="form">
             <fieldset>
@@ -47,7 +47,7 @@
 
     <!--Specialty List Section-->
     <div class="row" style="border:0px">
-            
+
             <div class="col-md-10 well">
                 <label for="specialty">Specialties: </label>
                 <div class="inputGroupContainer" id="specialty">
@@ -58,26 +58,22 @@
                         <li class="list-group-item">
                                 <label>
                                     &nbsp;&nbsp;
-                                    <?php if(isset($specialty->specialty)){  //check if education data set or blank
+                                    @php if(isset($specialty->specialty)){  //check if education data set or blank
                                             echo ($specialty->specialty);}
                                             elseif(Request::old('specialty')){ // or if data exist from privious request
-                                            echo Request::old('specialty');} ?>
+                                            echo Request::old('specialty');}
+                                    @endphp
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
-                            
+
                                 <!--Specialty item remove button-->
                                 <a href="{{ url('doctor/settings/specialties/remove', ['specialtyName' => $specialty->specialty])}}"><button type="button" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span></button></a>
                             </li>
                         @endforeach
                         </ul>
-
                     </div>
                 </div>
-                     
-
             </div>
-
         </div>
-    
 </div>
 @endsection

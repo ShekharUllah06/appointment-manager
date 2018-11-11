@@ -17,7 +17,7 @@ class ScheduleController extends Controller
      /**
      * This function queries db for data and returns schedule records to schedule-view page.
      *
-     * @return array.c
+     * @return array schedule
      */
     public function viewScheduleList()
     {
@@ -57,7 +57,7 @@ class ScheduleController extends Controller
     /**
      * This function just returns schedule-form view
      *
-     * @return chamber record array
+     * @return view
      */
     public function newScheduleForm()
     {
@@ -79,16 +79,10 @@ class ScheduleController extends Controller
     {           $auth_user_id = Auth::user()->id;
                 $schedule_id = $scheduleId;
                 $scheduleFormType = "edit";
-                $schedule = schedule::where('user_id', $auth_user_id)
-                                    ->where('schedule_id', $schedule_id)
-                                    ->first();
+                $schedule = schedule::where('user_id', $auth_user_id)->where('schedule_id', $schedule_id)->first();
+                $chambers = chamber::select('chamber_id','chamber_name')->where('user_id', $auth_user_id)->get(); //
 
-                $chambers = chamber::select('chamber_id','chamber_name')
-                                    ->where('user_id', $auth_user_id)
-                                    ->get(); //
-
-                return view('doctor.pages.schedule-form', ['schedule'=>$schedule, 'chambers'=>$chambers])
-                      ->with('scheduleFormType', $scheduleFormType);
+                return view('doctor.pages.schedule-form', ['schedule'=>$schedule, 'chambers'=>$chambers])->with('scheduleFormType', $scheduleFormType);
     }
 
 
@@ -129,9 +123,7 @@ class ScheduleController extends Controller
 
           //getting input scheduleId from the form
             $scheduleId = $request->input('scheduleId');
-            $schedule = schedule::where('user_id', $auth_user_id)
-                                ->where('schedule_id', $scheduleId)
-                                ->first();
+            $schedule = schedule::where('user_id', $auth_user_id)->where('schedule_id', $scheduleId)->first();
 
         }else{
 

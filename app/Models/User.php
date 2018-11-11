@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Models;
 
 use Illuminate\Auth\Authenticatable;
@@ -42,22 +42,42 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     protected $fillable = ['username','first_name','last_name','userType','email','password'];
 
-    
+
+
     /**
-     *Relationship functions to chamber and schedule models
+     *Relationship functions to other models
      *
      *
      */
-
-    
-    public function schedules(){
-           return $this->hasMany('App\Models\schedule', 'user_id');
+    public function appointments(){
+          return $this->hasMany('App\Models\appointments');
     }
 
-        
-        
- 
-    
+    public function chamber(){
+          return $this->hasMany('App\Models\chamber');
+    }
+
+    public function education(){
+          return $this->hasMany('App\Models\education');
+    }
+
+    public function personal_info(){
+          return $this->hasOne('App\Models\personal_info');
+    }
+
+    public function schedule(){
+          return $this->hasMany('App\Models\schedule');
+    }
+
+    public function specialty(){
+          return $this->hasMany('App\Models\specialty');
+    }
+
+    public function work_history(){
+          return $this->hasMany('App\Models\work_history');
+    }
+
+
     /**
      * Overriding the exiting sendPasswordResetNotification so that I can customize it
      *
